@@ -1,0 +1,13 @@
+.section-layout2 .outer-circle2 {
+  top: 9%;
+}
+.section-layout2 .outer-circle3 {
+  top: 30%;
+}
+.section-layout2 .outer-circle4 {
+  top: 50.5%;
+}
+.section-layout2 .text-container::before {
+  height: 512px;
+  margin-right: 9.5px;
+}

@@ -1,0 +1,23 @@
+.swiper-container {
+  flex-direction: column;
+}
+.thumbnails-swiper {
+  display: none; /* Hide thumbnails on mobile */
+}
+.main-swiper {
+  width: 100%; /* Make the main swiper full width */
+}
+
+.first-writer .container,
+.article-content .container {
+  flex-direction: column-reverse;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.article-content .container {
+  flex-direction: column;
+}
+.article-content .article-text {
+  width: 90%;
+}

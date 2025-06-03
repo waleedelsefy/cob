@@ -1,0 +1,41 @@
+.factorys-title {
+  margin-bottom: 30px;
+}
+.factorys-title h6 {
+  font-size: 22px;
+  font-weight: 700;
+}
+.factorys-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+}
+@media (min-width: 768px) {
+  .factorys-cards .factorys-card {
+    max-width: 450px;
+  }
+}
+
+.factorys-cards .factorys-card .bottom-factorys-swiper {
+  padding: 5px 15px;
+  border: 1px solid #0000001a;
+  border-top: none;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.factorys-cards .factorys-card .bottom-factorys-swiper ul {
+  margin-top: 10px;
+}
+
+.factorys-cards .factorys-card .big-ul {
+  height: auto !important;
+}
+.factorys-cards
+  .factorys-card
+  .big-ul
+  li:nth-child(1):not(.bottom-factorys-swiper ul li:first-child) {
+  height: 200px;
+}
+.factorys-cards .swiper-in .swiper-pagination {
+  left: 43% !important;
+}

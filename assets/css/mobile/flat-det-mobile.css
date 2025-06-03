@@ -1,0 +1,33 @@
+.main-flat .container {
+  flex-direction: column-reverse;
+  gap: 15px;
+}
+.landing-flat .container {
+  flex-direction: column;
+  gap: 15px;
+}
+.flat-details,
+.main-flat .flat-slider,
+.right-landing-flat,
+.left-landing-flat {
+  width: 100%;
+}
+.btn {
+  top: 365px;
+  left: 77%;
+  padding: 0px 5px;
+  content: "";
+}
+.btn span {
+  display: none;
+}
+.popup {
+  width: 90%;
+  z-index: 999999999;
+}
+.pop-swiper2 {
+  height: 280px;
+}
+.pop-swiper {
+  height: 120px;
+}

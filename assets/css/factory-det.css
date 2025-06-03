@@ -1,0 +1,145 @@
+.factorys-det {
+  background-color: #f4f4f4 !important;
+  background-image: none !important;
+}
+.factorys-det .top-factorys {
+  color: #000 !important;
+}
+.factory-pop-swiper2,
+.factory-pop-swiper {
+  width: 100%;
+}
+.factory-pop-swiper2 .swiper-slide {
+  overflow: hidden;
+  border-radius: 15px;
+}
+.factory-pop-swiper2 .swiper-slide,
+.factory-pop-swiper .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.factory-pop-swiper2 .swiper-slide img,
+.factory-pop-swiper .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.factory-pop-swiper2 {
+  height: 350px;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.factory-pop-swiper {
+  height: 150px;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.factory-pop-swiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.factory-pop-swiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.factory-pop-swiper2 .swiper-button-prev,
+.factory-pop-swiper2 .swiper-button-next {
+  width: 35px;
+  height: 35px;
+  background-color: #000;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+}
+.factory-pop-swiper2 .swiper-button-prev svg,
+.factory-pop-swiper2 .swiper-button-next svg {
+  width: 20px;
+}
+.factory-swiper2,
+.factory-swiper {
+  width: 100%;
+  height: 100%;
+}
+.factory-swiper2 .swiper-slide {
+  overflow: hidden;
+  border-radius: 15px;
+}
+.factory-swiper2 .swiper-slide,
+.factory-swiper .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.factory-swiper2 .swiper-slide img,
+.factory-swiper .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.factory-swiper2 {
+  height: 70%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.factory-swiper {
+  height: 30%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.factory-swiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.factory-swiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+.all-det .factory-price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #00000033;
+  border-radius: 15px;
+}
+.all-det .factory-price p {
+  color: var(--mainColor);
+}
+.all-det .factory-price p span {
+  color: #000;
+}
+.factory-details table {
+  overflow: auto;
+}

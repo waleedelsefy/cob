@@ -1,0 +1,24 @@
+{
+  "name": "capital-of-business/theme",
+  "description": "A modern real estate and corporate WordPress theme",
+  "type": "wordpress-theme",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Waleed Elsefy",
+      "email": "waleedelsefy@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "wpackio/enqueue": "^2.2.1",
+    "firebase/php-jwt": "^6.11"
+  },
+  "autoload": {
+    "psr-4": {
+      "COBTheme\\": "inc/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

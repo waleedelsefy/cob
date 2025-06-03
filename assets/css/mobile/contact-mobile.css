@@ -1,0 +1,15 @@
+.company-details {
+  flex-direction: column;
+  gap: 15px;
+}
+.contact-page .container {
+  flex-direction: column-reverse;
+  gap: 15px;
+}
+.map-container,
+.form-contain {
+  width: 100%;
+}
+.right-comp ul {
+  justify-content: space-between;
+}

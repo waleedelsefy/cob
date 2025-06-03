@@ -1,0 +1,20 @@
+.landing-articels .container {
+  flex-direction: column;
+  gap: 15px;
+}
+.landing-articels .landing-sec,
+.side-section {
+  width: 100%;
+}
+.landing-articels .landing-sec .articel-text {
+  width: 350px;
+  top: 7%;
+  right: 180px;
+  transform: translateX(50%);
+}
+.side-container .item span {
+  font-size: 14px;
+}
+.side-container .item img {
+  width: 150px;
+}

@@ -1,0 +1,29 @@
+
+# WordPress core files (never commit core)
+wp-admin/
+wp-includes/
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Node / Build tools
+node_modules/
+npm-debug.log
+dist/
+build/
+
+# Composer
+/vendor/
+composer.lock
+
+# Environment
+.env
+.env.*

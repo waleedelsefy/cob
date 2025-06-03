@@ -1,0 +1,227 @@
+.search-form input {
+  border-radius: 0px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.search-bar .search-bar-content {
+  gap: 0px;
+}
+.img-holder {
+  height: 350px;
+  padding-top: 30px;
+}
+.landing-swiper .swiper-pagination {
+  display: none;
+}
+.head {
+  font-size: 22px;
+}
+
+.search-container {
+  display: flex !important;
+}
+.search-bar-content {
+  display: none !important;
+}
+.search-container .search-icon {
+  position: absolute;
+  left: 75px;
+}
+
+#hiddenContent {
+  display: none !important;
+}
+
+.mySwiper .swiper-button-next {
+  right: 88%;
+}
+.mySwiper .swiper-button-prev {
+  right: 77%;
+}
+.mySwiper::after {
+  width: 100px;
+  right: 35%;
+}
+
+@media (max-width: 480px) {
+  .mySwiper::after {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .mySwiper::after {
+    display: none;
+  }
+}
+
+.swiper1 .swiper-button-next {
+  right: 88%;
+}
+.swiper1 .swiper-button-prev {
+  right: 77%;
+}
+.swiper1::after {
+  width: 100px;
+  right: 35%;
+}
+.compounds .top-card-comp {
+  right: 14px;
+}
+.compounds-card {
+  width: 90%;
+}
+.fixed-icons {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .swiper1::after {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .swiper1::after {
+    display: none;
+  }
+}
+
+.swiper2 .swiper-button-next {
+  right: 88%;
+}
+.swiper2 .swiper-button-prev {
+  right: 77%;
+}
+.swiper2::after {
+  width: 100px;
+  right: 35%;
+}
+.projects .top-card-comp {
+  right: 28px;
+}
+.projects-card {
+  width: 90%;
+}
+@media (max-width: 480px) {
+  .swiper2::after {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .swiper2::after {
+    display: none;
+  }
+}
+
+.swiper3 .swiper-button-next {
+  right: 88%;
+}
+.swiper3 .swiper-button-prev {
+  right: 77%;
+}
+.swiper3::after {
+  width: 100px;
+  right: 35%;
+}
+.properties .top-card-comp {
+  right: 28px;
+}
+.properties-card {
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .Swiper3::after {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .Swiper3::after {
+    display: none;
+  }
+}
+
+.contact-content .image-container {
+  display: none;
+}
+.contact-content .form-container {
+  width: 100%;
+}
+.contact-content {
+  height: auto;
+  border-radius: 15px;
+}
+
+.swiper4 .swiper-button-next {
+  right: 88%;
+}
+.swiper4 .swiper-button-prev {
+  right: 77%;
+}
+.swiper4::after {
+  width: 100px;
+  right: 35%;
+}
+
+@media (max-width: 480px) {
+  .Swiper4::after {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .Swiper4::after {
+    display: none;
+  }
+}
+
+.swiper5 .swiper-button-next {
+  right: 88%;
+}
+.swiper5 .swiper-button-prev {
+  right: 77%;
+}
+.swiper5::after {
+  width: 80px;
+  right: 35%;
+}
+
+@media (max-width: 480px) {
+  .Swiper5::after {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .Swiper5::after {
+    display: none;
+  }
+}
+
+.swiper6 .swiper-button-next {
+  right: 88%;
+}
+.swiper6 .swiper-button-prev {
+  right: 77%;
+}
+.swiper6::after {
+  width: 100px;
+  right: 45%;
+}
+.swiper-in .swiper-pagination {
+  left: 28%;
+}
+.swiper3 .swiper-in .swiper-pagination {
+  left: 40%;
+}
+.articles .top-articles h5 {
+  font-size: 16px;
+}
+
+@media (max-width: 480px) {
+  .Swiper6::after {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .Swiper6::after {
+    display: none;
+  }
+}
