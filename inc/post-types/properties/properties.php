@@ -14,11 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * (Optional – if needed for other custom rules.)
  */
-function cob_add_rewrite_tags() {
-	add_rewrite_tag( '%compound%', '([^/]+)' );
-	add_rewrite_tag( '%city%', '([^/]+)' );
-}
-add_action( 'init', 'cob_add_rewrite_tags', 20 );
+
 
 /**
  * Register Compound Taxonomy.
@@ -90,22 +86,6 @@ function cob_register_properties_cpt() {
 	register_post_type( 'properties', $args );
 }
 add_action( 'init', 'cob_register_properties_cpt' );
-
-/**
- * Add Custom Rewrite Rule for Properties.
- *
- * This rule matches URLs of the form:
- * /{city}/{compound}/{post-ID}
- * and rewrites them to the appropriate query for the "properties" post type.
- */
-function cob_custom_properties_rewrite_rule() {
-	add_rewrite_rule(
-		'^([^/]+)/([^/]+)/([0-9]+)/?$',
-		'index.php?post_type=properties&p=$matches[3]',
-		'top'
-	);
-}
-add_action( 'init', 'cob_custom_properties_rewrite_rule' );
 
 /**
  * Register Factory Custom Post Type.

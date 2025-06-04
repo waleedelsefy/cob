@@ -15,19 +15,10 @@ add_action( 'after_setup_theme', function() {
 } );
 
 $autoload_paths = [
-    'inc/post-types/*.php',
-    'inc/ajax/*.php',
-    'inc/metaboxes/*.php',
-    'inc/search/*.php',
-    'inc/theme-setup/*.php',
-    'inc/contact-forms/*.php',
-    'inc/city/*.php',
-    'inc/developer/*.php',
-    'inc/jobs/*.php',
-    'inc/properties/*.php',
-    'inc/real-estate-expert/*.php',
-    'inc/transients/*.php',
-    'inc/importer/cob-importer.php'
+        'inc/*.php',
+        'inc/*/*.php',
+        'inc/*/*/*.php',
+
 ];
 
 foreach ( $autoload_paths as $path ) {
