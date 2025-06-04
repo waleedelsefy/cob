@@ -121,6 +121,10 @@
   gap: 5px;
   width: 22.5%;
 }
+/* .button-container .button svg {
+  width: 25px;
+  height: 25px;
+} */
 .button-container .call {
   background-color: var(--mainColor);
 }

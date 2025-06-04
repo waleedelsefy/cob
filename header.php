@@ -46,7 +46,15 @@ $url = $translated_id ? get_permalink( $translated_id ) : get_permalink( $curren
 </head>
 
 <body <?php body_class(); ?>>
-
+<!-- Preloader Start -->
+<div id="preloader">
+  <div class="loader">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</div>
+<!-- Preloader End -->
 <header>
     <div class="container">
         <div class="navbar" style="z-index: 1; flex-direction: row;">
