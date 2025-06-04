@@ -418,10 +418,10 @@ a:hover {
   margin-top: 5px;
 }
 .areas .card button {
-  padding: 3px;
+  padding: 5px;
   background-color: #000;
   color: #fff;
-  border-radius: 23px;
+  border-radius: 20px;
   margin-top: 10px;
   font-size: 14px;
   font-weight: 700;
@@ -525,7 +525,7 @@ a:hover {
   align-items: center;
   right: 0;
   left: inherit;
-  width: 150px;
+  width: fit-content;
 }
 
 .mySwiper .swiper-pagination-bullet {
@@ -866,7 +866,7 @@ a:hover {
 }
 .projects .bottom-card-proj button svg {
   width: 20px;
-  margin-left: 5px;
+  margin-inline-end: 5px;
 }
 .swiper2 {
   width: 100%;
@@ -1671,8 +1671,8 @@ a:hover {
   content: "";
   position: absolute;
   bottom: 6%;
-  right: 18%;
-  width: 160px;
+  right: 30%;
+  width: 130px;
   height: 1px;
   background-color: var(--mainColor);
 }

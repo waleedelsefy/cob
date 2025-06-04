@@ -126,5 +126,18 @@ get_template_part('template-parts/fixed-icons');
 </footer>
 
 <?php wp_footer(); ?>
+<script>
+    window.addEventListener("load", function () {
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
+    preloader.style.transition = "opacity 0.5s ease";
+    preloader.style.opacity = "0";
+    console.log("Page loaded. Hiding preloader...");
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 500);
+  }
+});
+</script>
 </body>
 </html>

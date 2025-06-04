@@ -94,7 +94,7 @@ body {
 }
 .btn {
   left: inherit !important;
-  right: 48.5%;
+  right: 50.5%;
 }
 @media (max-width: 768px) {
   .btn {
@@ -241,7 +241,7 @@ body {
   left: inherit !important;
 }
 .services::after {
-  left: 18%;
+  left: 30%;
   right: inherit !important;
 }
 #mobile {
