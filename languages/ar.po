@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Capital of Business\n"
-"POT-Creation-Date: 2025-06-04 07:27+0300\n"
-"PO-Revision-Date: 2025-06-04 18:43+0300\n"
+"POT-Creation-Date: 2025-06-04 20:32+0300\n"
+"PO-Revision-Date: 2025-06-04 20:44+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -36,7 +36,7 @@ msgstr "أحدث المشروعات"
 
 #: footer.php:67 inc/post-types/properties/properties.php:188
 #: inc/post-types/properties/properties.php:199
-#: template-parts/home/developers.php:15
+#: template-parts/home/developers.php:32
 msgid "Developers"
 msgstr "المطورين"
 
@@ -77,15 +77,15 @@ msgstr "العربية"
 msgid "English"
 msgstr "الانجليزية"
 
-#: header.php:55
+#: header.php:63
 msgid "Toggle navigation"
 msgstr "تبديل التنقل"
 
-#: header.php:73 inc/theme-setup/menus.php:20
+#: header.php:81 inc/theme-setup/menus.php:20
 msgid "Primary Menu"
 msgstr "القائمة الأساسية"
 
-#: header.php:97
+#: header.php:105
 msgid "Call us"
 msgstr "اتصل بنا"
 
@@ -305,6 +305,383 @@ msgstr "ارسال"
 #: inc/contact-forms/contact_form_submission.php:154
 msgid "An unexpected error occurred."
 msgstr "حدث خطأ غير متوقع."
+
+#: inc/importer/cob-missing-images-tool.php:33
+msgid "Manage Missing Images"
+msgstr "إدارة الصور المفقودة"
+
+#: inc/importer/cob-missing-images-tool.php:34
+msgid "Missing Images"
+msgstr "الصور المفقودة"
+
+#: inc/importer/cob-missing-images-tool.php:47
+msgid "You do not have sufficient permissions to access this page."
+msgstr "ليس لديك الأذونات الكافية للوصول إلى هذه الصفحة."
+
+#: inc/importer/cob-missing-images-tool.php:52
+msgid ""
+"This tool helps you find and manage Compounds, Developers, and Cities that are "
+"missing their designated images."
+msgstr ""
+"تساعدك هذه الأداة في العثور على المجمعات والمطورين والمدن التي تفتقد الصور "
+"المخصصة لها وإدارتها."
+
+#: inc/importer/cob-missing-images-tool.php:68
+msgid "Compounds Missing Cover Image"
+msgstr "الكمبوندات صورتها مفقودة"
+
+#: inc/importer/cob-missing-images-tool.php:69
+msgid "All compounds have a cover image assigned."
+msgstr "تم تخصيص صورة غلاف لجميع الكمبوندات."
+
+#: inc/importer/cob-missing-images-tool.php:76
+msgid "Developers Missing Logo"
+msgstr "شعار المطورين المفقود"
+
+#: inc/importer/cob-missing-images-tool.php:77
+msgid "All developers have a logo assigned."
+msgstr "تم تعيين شعار لجميع المطورين."
+
+#: inc/importer/cob-missing-images-tool.php:85
+msgid "Cities Missing Image"
+msgstr "المدن الصورة المفقودة"
+
+#: inc/importer/cob-missing-images-tool.php:86
+msgid "All cities have an image assigned (or this feature is not configured)."
+msgstr "تم تعيين صورة لجميع المدن (أو لم يتم تكوين هذه الميزة)."
+
+#: inc/importer/cob-missing-images-tool.php:107
+#, php-format
+msgid "Error: Taxonomy \"%s\" does not exist."
+msgstr "خطأ: التصنيف \"%s\" غير موجود."
+
+#: inc/importer/cob-missing-images-tool.php:136
+#, php-format
+msgid "Error fetching terms for %s: %s"
+msgstr "خطأ في جلب المصطلحات لـ %s: %s"
+
+#: inc/importer/cob-missing-images-tool.php:148
+#: template-parts/content-page.php:33
+msgid "Edit"
+msgstr "تحرير"
+
+#: inc/importer/cob-missing-images-tool.php:153
+#, php-format
+msgid "%d item found."
+msgid_plural "%d items found."
+msgstr[0] "لم يتم العثور على مدن."
+msgstr[1] "لم يتم العثور على مدن."
+msgstr[2] "لم يتم العثور على مدن."
+msgstr[3] "لم يتم العثور على مدن."
+msgstr[4] "لم يتم العثور على مدن."
+msgstr[5] "لم يتم العثور على مدن."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:66
+msgid "Developer Importer (AJAX)"
+msgstr "مستورد المطورين"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:67
+msgid "Import Developers (AJAX)"
+msgstr "استيراد المطورين"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:92
+msgid ""
+"Are you sure you want to start a new developer import? Any previous progress "
+"or temporary file will be cleared."
+msgstr ""
+"هل أنت متأكد من رغبتك في بدء عملية استيراد مطور جديد؟ سيتم مسح أي ملف تقدم "
+"سابق أو مؤقت."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:93
+msgid ""
+"This will resume the developer import from where it left off. Are you sure?"
+msgstr "سيؤدي هذا إلى استئناف استيراد المطور من حيث توقف. هل أنت متأكد؟"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:94
+msgid ""
+"Are you sure you want to cancel the developer import and clear progress/"
+"temporary file?"
+msgstr "هل أنت متأكد أنك تريد إلغاء استيراد المطور ومسح ملف التقدم/المؤقت؟"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:95
+msgid "Please select a CSV file to upload."
+msgstr "الرجاء تحديد ملف CSV لتحميله."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:96
+msgid "Preparing developer import..."
+msgstr "تحضير استيراد المطور..."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:97
+msgid "🎉 Developer import completed successfully! 🎉"
+msgstr "🎉 تم استيراد المطورين بنجاح! 🎉"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:98
+msgid "An unknown error occurred during preparation."
+msgstr "حدث خطأ غير معروف أثناء التحضير."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:99
+msgid "An unknown error occurred during processing."
+msgstr "حدث خطأ غير معروف أثناء المعالجة."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:100
+msgid "❌ Server connection error"
+msgstr "❌ خطأ في اتصال الخادم"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:101
+msgid "Resuming previous developer import..."
+msgstr "استئناف استيراد المطورين السابق..."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:102
+msgid "Processed"
+msgstr "تمت معالجته"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:103
+msgid "of"
+msgstr "ل"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:104
+msgid "Failed/Skipped"
+msgstr "فشل/تخطي"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:105
+msgid "for language:"
+msgstr "للغة:"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:106
+msgid "Developer import cancelled successfully."
+msgstr "تم إلغاء استيراد المطور بنجاح."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:107
+msgid "Error during cancellation."
+msgstr "خطأ أثناء الإلغاء."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:108
+msgid "Connection error while trying to cancel."
+msgstr "خطأ في الاتصال أثناء محاولة الإلغاء."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:129
+msgid ""
+"Import and update developers from a CSV file. This tool will download logos "
+"and handle existing developers."
+msgstr ""
+"استيراد وتحديث بيانات المطورين من ملف CSV. ستُنزّل هذه الأداة الشعارات وتتعامل "
+"مع بيانات المطورين الحاليين."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:131
+msgid "Important for avoiding timeouts:"
+msgstr "هام لتجنب انتهاء الوقت:"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:131
+#, php-format
+msgid ""
+"The batch size is currently set to %d. If you experience timeouts, ensure this "
+"is 1. This processes one developer per request, which is crucial when "
+"downloading images."
+msgstr ""
+"حجم الدفعة مُعيَّن حاليًا على %d. في حال واجهتَ حالات انقطاع في المهلة، يُرجى التأكد "
+"من أن القيمة 1. تتم معالجة مُطوِّر واحد لكل طلب، وهو أمر بالغ الأهمية عند تنزيل "
+"الصور."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:136
+#, php-format
+msgid ""
+"A previous developer import for file (%s) was not completed (%s%%). You can "
+"resume or cancel it to start a new one."
+msgstr ""
+"لم يكتمل استيراد الملف (%s) السابق للمطور (%s%%). يمكنك استئنافه أو إلغاؤه "
+"لبدء استيراد جديد."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:143
+msgid "Select CSV File"
+msgstr "حدد ملف CSV"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:147
+msgid "Import Language"
+msgstr "لغة الاستيراد"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:156
+msgid "Start New Developer Import"
+msgstr "بدء استيراد مطورين جديد"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:157
+msgid "Resume Developer Import"
+msgstr "استئناف استيراد المطورين"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:158
+msgid "Cancel and Reset"
+msgstr "إلغاء وإعادة تعيين"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:162
+msgid "Import Progress"
+msgstr "تقدم الاستيراد"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:165
+msgid "Log:"
+msgstr "السجل: "
+
+#: inc/importer/cob_taxonomy_Import_developer.php:180
+msgid "Insufficient permissions."
+msgstr "أذونات غير كافية."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:206
+msgid "No file uploaded or upload error. Code: "
+msgstr "لم يتم تحميل أي ملف أو حدث خطأ في التحميل. الرمز:"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:215
+msgid "Error handling uploaded file: "
+msgstr "خطأ في التعامل مع الملف الذي تم تحميله:"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:215
+msgid "Unknown error"
+msgstr "خطأ غير معروف"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:218
+#, php-format
+msgid "File uploaded successfully: %s to %s"
+msgstr "تم تحميل الملف بنجاح: %s إلى %s"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:227
+msgid "CSV Headers: "
+msgstr "عناوين CSV:"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:230
+msgid "Failed to read CSV header."
+msgstr "فشل في قراءة رأس CSV."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:238
+msgid "Failed to open file to count rows."
+msgstr "فشل في فتح الملف لحساب الصفوف."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:251
+#, php-format
+msgid ""
+"Error: Required CSV column '%s' (for %s) not found in CSV header. Cannot "
+"proceed."
+msgstr ""
+"خطأ: لم يتم العثور على عمود CSV المطلوب '%s' (لـ %s) في رأس CSV. لا يمكن "
+"المتابعة."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:257
+#, php-format
+msgid ""
+"Warning: Expected CSV column '%s' (for %s) not found in header. This data may "
+"not be imported or errors might occur."
+msgstr ""
+"تحذير: لم يتم العثور على عمود CSV المتوقع '%s' (لـ %s) في العنوان. قد لا يتم "
+"استيراد هذه البيانات، وقد تحدث أخطاء."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:276
+#, php-format
+msgid "File ready for processing. Total data rows (excluding header): %d"
+msgstr "الملف جاهز للمعالجة. إجمالي صفوف البيانات (باستثناء العنوان): %d"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:277
+msgid "Preparation successful."
+msgstr "تم التحضير بنجاح."
+
+#: inc/importer/cob_taxonomy_Import_developer.php:283
+msgid ""
+"No valid import process found or temporary file is missing. Please start over."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:292
+msgid "Import already completed."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:310
+#, php-format
+msgid ""
+"(Row %d) Warning: Reached end of file unexpectedly while skipping processed "
+"rows."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:319
+msgid "Reached end of file."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:327
+#, php-format
+msgid ""
+"(Row %d) Error: Column count (%d) does not match header count (%d). Skipping "
+"row."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:334
+#, php-format
+msgid "(Row %d) Error: Failed to combine headers with data. Skipping row."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:352
+msgid "Failed to reopen temporary file for processing."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:363
+msgid "Import completed. Temporary file deleted."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:375
+msgid "Developer import process cancelled and status cleared."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:381
+#, php-format
+msgid "Retrieved previous status for file: %s"
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:384
+msgid "No resumable developer import process found."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:389
+msgid "Unknown importer action."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:409
+#, php-format
+msgid "Error: Source ID ('%s') is empty. Skipping row."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:448
+#, php-format
+msgid "Notice: Developer '%s' (ID: %d) exists, but update failed: %s"
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:450
+#, php-format
+msgid "Updated existing developer '%s' (ID: %d)."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:454
+#, php-format
+msgid "Developer '%s' (ID: %d) exists and data is current. Checking logo."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:460
+#, fuzzy, php-format
+#| msgid "Error loading developer"
+msgid "Error importing developer '%s': %s"
+msgstr "حدث خطأ أثناء تحميل المطور"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:465
+#, php-format
+msgid "Imported new developer '%s' (Slug: %s) as ID: %d."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:498
+#, php-format
+msgid "Downloaded/Updated and linked logo for '%s' (Attachment ID: %d)."
+msgstr ""
+
+#: inc/importer/cob_taxonomy_Import_developer.php:504
+#, fuzzy, php-format
+#| msgid "Failed to delete term ID %d. Error: %s"
+msgid "Failed to download logo for '%s' from %s. Error: %s"
+msgstr "فشل حذف معرف المصطلح %d. الخطأ: %s"
+
+#: inc/importer/cob_taxonomy_Import_developer.php:507
+#, php-format
+msgid "Invalid logo URL provided for '%s': %s"
+msgstr ""
 
 #: inc/metaboxes/job-metaboxes.php:6 template-parts/hiring/jobs-posts.php:30
 msgid "Job Qualifications"
@@ -690,7 +1067,7 @@ msgstr "اسم الكمبوند الجديد"
 
 #: inc/post-types/properties/properties.php:62
 #: template-parts/areas/pagination-section.php:96
-#: template-parts/home/areas.php:73 template-parts/home/compounds.php:97
+#: template-parts/home/areas.php:73 template-parts/home/compounds.php:130
 #: template-parts/taxonomy-city/featured.php:78
 #: template-parts/taxonomy-city/sup-taxonomy.php:56
 msgid "Properties"
@@ -1169,8 +1546,6 @@ msgstr "صورة المدينة"
 
 #: inc/taxonomy/city/cob_add_city_image_field.php:24
 #: inc/taxonomy/city/cob_add_city_image_field.php:99
-#: inc/taxonomy/developer/cob_add_developer_image_field.php:21
-#: inc/taxonomy/developer/cob_add_developer_image_field.php:72
 msgid "Upload Image"
 msgstr "ارفع صورة"
 
@@ -1188,21 +1563,16 @@ msgstr "أدخل عنوان URL لصورة المدينة أو استخدم زر
 
 #: inc/taxonomy/city/cob_add_city_image_field.php:40
 #: inc/taxonomy/city/cob_add_city_image_field.php:114
-#: inc/taxonomy/developer/cob_add_developer_image_field.php:35
-#: inc/taxonomy/developer/cob_add_developer_image_field.php:85
 msgid "Select or Upload Image"
 msgstr "حدد أو قم بتحميل الصورة"
 
 #: inc/taxonomy/city/cob_add_city_image_field.php:42
 #: inc/taxonomy/city/cob_add_city_image_field.php:116
 #: inc/taxonomy/compound/cob_add_compound_image_field.php:102
-#: inc/taxonomy/developer/cob_add_developer_image_field.php:37
-#: inc/taxonomy/developer/cob_add_developer_image_field.php:87
 msgid "Use this image"
 msgstr "استخدم هذه الصورة"
 
 #: inc/taxonomy/city/cob_add_city_image_field.php:149
-#: inc/taxonomy/developer/cob_add_developer_image_field.php:107
 msgid "Image"
 msgstr "صورة"
 
@@ -1412,19 +1782,60 @@ msgstr ""
 "يرجى مسح الروابط الدائمة الخاصة بك عن طريق الذهاب إلى الإعدادات > الروابط "
 "الدائمة والنقر فوق \"حفظ التغييرات\"."
 
-#: inc/taxonomy/developer/cob_add_developer_image_field.php:18
-msgid "Developer Image"
-msgstr "صورة المطور"
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:26
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:52
+#, fuzzy
+#| msgid "Developer"
+msgid "Developer Logo"
+msgstr "مطور"
 
-#: inc/taxonomy/developer/cob_add_developer_image_field.php:22
-#: inc/taxonomy/developer/cob_add_developer_image_field.php:74
-msgid "Enter the URL of the developer image or use the \"Upload Image\" button."
-msgstr "أدخل عنوان URL لصورة المطور أو استخدم زر \"تحميل الصورة\"."
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:29
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:60
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:132
+#, fuzzy
+#| msgid "No articles selected."
+msgid "No logo selected"
+msgstr "أحدث الأخبار."
 
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:32
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:63
+#, fuzzy
+#| msgid "Upload/Select Image"
+msgid "Upload/Select Logo"
+msgstr "ارفع صورة / اختر صورة"
+
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:33
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:64
+#, fuzzy
+#| msgid "Remove"
+msgid "Remove Logo"
+msgstr "حذف"
+
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:34
 #: inc/taxonomy/developer/cob_add_developer_image_field.php:65
-#: template-parts/taxonomy-developer/head.php:29
-msgid "developer Image"
-msgstr "صورة المطور"
+#, fuzzy
+#| msgid "Select the main cover image for this compound."
+msgid "Select the logo for this developer."
+msgstr "قم باختيار صورة الغلاف الرئيسية لهذا المركب."
+
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:102
+#, fuzzy
+#| msgid "Footer Developers Menu"
+msgid "Choose Developer Logo"
+msgstr "قائمة المطورين في الفوتر"
+
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:104
+#, fuzzy
+#| msgid "Use this image"
+msgid "Use this logo"
+msgstr "استخدم هذه الصورة"
+
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:176
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:182
+#, fuzzy
+#| msgid "Site Logo"
+msgid "Logo"
+msgstr "شعار الموقع"
 
 #: inc/theme-setup/Widget/cob_widgets_init.php:18
 msgid "Main Sidebar"
@@ -1756,11 +2167,8 @@ msgstr "شعار COB"
 msgid "Pages:"
 msgstr "الصفحات:"
 
-#: template-parts/content-page.php:33
-msgid "Edit"
-msgstr "تحرير"
-
-#: template-parts/developers/landing.php:49 template-parts/home/developers.php:57
+#: template-parts/developers/landing.php:49
+#: template-parts/home/developers.php:132
 msgid "There are currently no Developers."
 msgstr "لا يوجد حاليا أي المطورين."
 
@@ -1913,9 +2321,9 @@ msgid "Search by area"
 msgstr "البحث حسب المنطقة "
 
 #: template-parts/home/areas.php:9 template-parts/home/articles.php:13
-#: template-parts/home/developers.php:20 template-parts/home/factories.php:42
-#: template-parts/home/projects.php:36 template-parts/home/services.php:50
-#: template-parts/single/articles-news.php:19
+#: template-parts/home/compounds.php:108 template-parts/home/developers.php:68
+#: template-parts/home/factories.php:42 template-parts/home/projects.php:36
+#: template-parts/home/services.php:50 template-parts/single/articles-news.php:19
 msgid "View all"
 msgstr "عرض الكل"
 
@@ -1935,15 +2343,21 @@ msgstr "استكشف مجموعة مختارة من أحدث المشاريع ا
 msgid "There are no new articles currently."
 msgstr "لا توجد مقالات جديدة حاليا."
 
-#: template-parts/home/compounds.php:77
+#: template-parts/home/compounds.php:75
 #: template-parts/taxonomy-city/featured.php:60
 msgid "Most Searched Compounds"
 msgstr "الكمبوندات الأكثر بحثا"
 
-#: template-parts/home/compounds.php:136
+#: template-parts/home/compounds.php:168
 #: template-parts/taxonomy-city/featured.php:92
 msgid "No compounds available at the moment."
 msgstr "لا توجد مركبات متاحة في الوقت الراهن."
+
+#: template-parts/home/developers.php:85
+#, fuzzy
+#| msgid "Update Developer"
+msgid "Unnamed Developer"
+msgstr "تحديث المطور"
 
 #: template-parts/home/factories.php:37
 msgid "Latest Factories"
@@ -2403,6 +2817,10 @@ msgstr "مشاروعات مميزة"
 msgid "No projects available."
 msgstr "لا توجد مشاريع متاحة."
 
+#: template-parts/taxonomy-developer/head.php:29
+msgid "developer Image"
+msgstr "صورة المطور"
+
 #: template-parts/top-articles.php:48
 msgid "No articles selected."
 msgstr "أحدث الأخبار."
@@ -2445,6 +2863,10 @@ msgstr "الكمبوند"
 #. Template Name of the plugin/theme
 msgid "single post"
 msgstr "المقالة"
+
+#~ msgid ""
+#~ "Enter the URL of the developer image or use the \"Upload Image\" button."
+#~ msgstr "أدخل عنوان URL لصورة المطور أو استخدم زر \"تحميل الصورة\"."
 
 #~ msgid ""
 #~ "Enter the URL of the compound image or use the \"Upload Image\" button."
