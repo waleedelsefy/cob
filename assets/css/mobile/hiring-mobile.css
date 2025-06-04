@@ -1,0 +1,30 @@
+.hiring-swiper .swiper-button-next {
+  right: 88%;
+}
+.hiring-swiper .swiper-button-prev {
+  right: 80%;
+}
+
+.hiring-landing {
+  padding-bottom: 20px;
+}
+.hiring-landing .container {
+  flex-direction: column;
+}
+.right-hiring,
+.left-hiring,
+.hiring-video .head-video,
+.hiring-video .video-content .video-div,
+video {
+  width: 100%;
+}
+.hiring-swiper .swiper-button-prev {
+  right: 52%;
+}
+.hiring-swiper .swiper-button-next {
+  right: 62%;
+}
+.bottom-job {
+  flex-direction: column;
+  gap: 15px;
+}

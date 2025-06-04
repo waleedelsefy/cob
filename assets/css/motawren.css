@@ -1,0 +1,18 @@
+.motaoron-card {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ec3c4380;
+  border-radius: 15px;
+  padding: 20px;
+}
+.motaoron-card .motaoron-img img {
+  display: block;
+  width: 100%;
+  object-fit: fill;
+  max-width: 100%;
+  height: 100%;
+}

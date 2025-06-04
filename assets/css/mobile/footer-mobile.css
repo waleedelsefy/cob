@@ -1,0 +1,53 @@
+.footer .main-footer {
+  flex-direction: column-reverse;
+}
+.footer-links {
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
+}
+.footer-section h4 {
+  flex-direction: row;
+}
+.footer-section h4 svg {
+  display: block;
+}
+.footer-bottom .top-bottom-footer {
+  flex-direction: column;
+  padding-bottom: 15px;
+  border: none;
+}
+.footer-bottom .end-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.footer-bottom .end-footer .end-left,
+.footer-bottom .end-footer .end-right {
+  padding: 10px;
+}
+.footer-bottom .end-footer .end-right {
+  width: 106.5%;
+  align-self: center;
+  background: #fff;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  font-weight: 700;
+}
+.footer-bottom .end-footer .end-right p {
+  margin: 0;
+}
+.newsletter {
+  margin: 15px 0;
+}
+
+.footer-section ul:not(.dropdown) {
+  display: block !important; /* Ensure the list is always visible */
+}
+
+.footer-section h4 {
+  cursor: default; /* Remove pointer cursor on desktop */
+}

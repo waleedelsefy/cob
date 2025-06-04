@@ -1,0 +1,35 @@
+.owners-swiper .swiper-button-next {
+  right: 88%;
+}
+.owners-swiper .swiper-button-prev {
+  right: 80%;
+}
+.owners-swiper::after {
+  width: 100px;
+  right: 50%;
+}
+
+.landing-we {
+  height: 450px;
+  padding: 10px 0;
+}
+.landing-we .container {
+  flex-direction: column-reverse;
+  gap: 30px;
+}
+.right-we,
+.left-we {
+  width: 100%;
+  height: 200px;
+}
+
+.black-div {
+  width: 90%;
+  height: 200px;
+}
+.red-div {
+  height: 200px;
+  width: 80%;
+  height: 200px;
+  margin: 0 auto;
+}

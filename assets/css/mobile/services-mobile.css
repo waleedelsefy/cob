@@ -1,0 +1,37 @@
+.breadcrumb {
+  margin-top: 25px;
+  padding: 0;
+}
+.head-services .main-section {
+  flex-direction: column-reverse;
+  gap: 25px;
+}
+.main-section .text-container {
+  width: 100%;
+}
+.main-section .images-container {
+  width: 80%;
+  align-self: flex-end;
+}
+.main-section .images-container .inner-img {
+  right: -100px;
+  width: 250px;
+}
+
+.button-container .button {
+  flex: 0 0 45%;
+}
+.button-container .zoom {
+  width: fit-content;
+}
+
+.swiper7 .swiper-button-next {
+  right: 88%;
+}
+.swiper7 .swiper-button-prev {
+  right: 80%;
+}
+.swiper7::after {
+  width: 100px;
+  right: 50%;
+}

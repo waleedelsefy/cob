@@ -1,0 +1,158 @@
+.pagination-city {
+  padding-top: 25px;
+}
+.pagination-city .top-compounds {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-compounds .results-count {
+  margin: 5px 0;
+  font-weight: 400;
+}
+.properties-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+}
+.properties-cards .properties-card {
+  overflow: hidden;
+  border: 1px solid #00000033;
+  border-radius: 15px;
+  height: 440px;
+  /* max-width: 365px; */
+}
+@media (min-width: 768px) {
+  .properties-cards .properties-card {
+    max-width: 450px;
+  }
+}
+.head-city {
+  padding-top: 30px;
+  border-top: 1px solid #00000033;
+  /* margin-top: 20px; */
+}
+.head-city .breadcrumb {
+  text-align: right;
+  font-size: 16px;
+  background-color: transparent;
+}
+.head-city .breadcrumb span a {
+  color: #000;
+}
+.head-city .main-section {
+  display: flex;
+  padding-bottom: 30px;
+  gap: 20%;
+}
+@media (max-width: 767px) {
+  .head-city .main-section {
+    flex-direction: column-reverse;
+    gap: 25px;
+  }
+}
+.city-layout-section::after {
+  content: "";
+  height: 5px;
+  width: 100%;
+  background-color: var(--mainColor);
+  position: absolute;
+}
+.city-layout,
+.city-layout-section {
+  background-color: #f4f4f4;
+}
+.city-layout .text-container::before {
+  content: "";
+  width: 0;
+  height: 0;
+}
+.city-layout .text-container {
+  padding-right: 0;
+}
+.city-layout .text-container .content-list li {
+  margin-bottom: 0;
+}
+.city-layout .text-container .content-list li p {
+  font-size: 16px;
+}
+.city-layout .text-container .content-list li button {
+  padding: 5px 20px;
+  color: var(--mainColor);
+  border: 1px solid var(--mainColor);
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.city-layout .images-container .inner-img {
+  left: -60px;
+  right: inherit;
+}
+@media (max-width: 767px) {
+  .city-layout .images-container .inner-img {
+    left: -5px;
+    right: inherit;
+  }
+  .city-layout-section {
+    padding-top: 25px;
+  }
+  .city-layout .images-container {
+    justify-content: flex-start;
+  }
+
+  .city-layout .text-container .content-list li button {
+    margin-bottom: 25px;
+  }
+}
+.roads-section {
+  padding-right: 20px;
+  margin-bottom: 40px;
+}
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+
+  color: #000;
+}
+
+.section-description {
+  font-size: 1rem;
+  color: #000;
+  margin-bottom: 20px;
+  width: 45%;
+}
+
+.roads-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.road-card {
+  flex: 0 1 calc(16.6% - 10px); /* Adjust card width for 6 items in a row */
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--mainColor);
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+}
+@media (max-width: 767px) {
+  .roads-container {
+    gap: 30px;
+  }
+  .section-description {
+    width: 100%;
+  }
+}
+.pagination-city .swiper-in .swiper-pagination {
+  left: calc(50% - 44px);
+}

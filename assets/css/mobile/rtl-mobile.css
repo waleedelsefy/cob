@@ -1,0 +1,69 @@
+.btn {
+  left: inherit !important;
+  right: 13%;
+}
+
+@media (max-width: 640px) {
+  .btn {
+    left: inherit !important;
+    right: 13%;
+  }
+}
+@media (max-width: 480px) {
+  .btn {
+    left: inherit !important;
+    right: 13%;
+  }
+}
+@media (max-width: 360px) {
+  .btn {
+    left: inherit !important;
+    right: 13%;
+  }
+}
+
+.mySwiper .swiper-button-prev,
+.swiper1 .swiper-button-prev,
+.swiper2 .swiper-button-prev,
+.swiper3 .swiper-button-prev,
+.swiper4 .swiper-button-prev,
+.swiper5 .swiper-button-prev,
+.swiper6 .swiper-button-prev {
+  left: 83% !important;
+  right: inherit !important;
+}
+.mySwiper .swiper-button-next,
+.swiper1 .swiper-button-next,
+.swiper2 .swiper-button-next,
+.swiper3 .swiper-button-next,
+.swiper4 .swiper-button-next,
+.swiper5 .swiper-button-next,
+.swiper6 .swiper-button-next {
+  left: 75% !important;
+  right: inherit !important;
+}
+
+@media (max-width: 480px) {
+  .mySwiper .swiper-button-next,
+  .swiper1 .swiper-button-next,
+  .swiper2 .swiper-button-next,
+  .swiper3 .swiper-button-next,
+  .swiper4 .swiper-button-next,
+  .swiper5 .swiper-button-next,
+  .swiper6 .swiper-button-next {
+    left: 72% !important;
+    right: inherit !important;
+  }
+}
+@media (max-width: 360px) {
+  .mySwiper .swiper-button-next,
+  .swiper1 .swiper-button-next,
+  .swiper2 .swiper-button-next,
+  .swiper3 .swiper-button-next,
+  .swiper4 .swiper-button-next,
+  .swiper5 .swiper-button-next,
+  .swiper6 .swiper-button-next {
+    left: 72% !important;
+    right: inherit !important;
+  }
+}

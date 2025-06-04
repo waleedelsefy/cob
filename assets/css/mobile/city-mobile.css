@@ -1,0 +1,25 @@
+.head-city .main-section {
+  flex-direction: column-reverse;
+  gap: 25px;
+}
+
+.city-layout .images-container .inner-img {
+  left: -5px;
+  right: inherit;
+}
+.city-layout-section {
+  padding-top: 25px;
+}
+.city-layout .images-container {
+  justify-content: flex-start;
+}
+
+.city-layout .text-container .content-list li button {
+  margin-bottom: 25px;
+}
+.roads-container {
+  gap: 30px;
+}
+.section-description {
+  width: 100%;
+}
