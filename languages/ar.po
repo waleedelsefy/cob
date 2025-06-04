@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Capital of Business v2\n"
-"POT-Creation-Date: 2025-05-02 04:28+0300\n"
-"PO-Revision-Date: 2025-05-02 04:34+0300\n"
+"Project-Id-Version: Capital of Business\n"
+"POT-Creation-Date: 2025-06-04 07:27+0300\n"
+"PO-Revision-Date: 2025-06-04 07:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -30,12 +30,13 @@ msgstr "روابط سريعة"
 msgid "Top Areas"
 msgstr "افضل المناطق"
 
-#: footer.php:55 template-parts/home/projects.php:14
+#: footer.php:55 template-parts/home/projects.php:20
 msgid "Latest Projects"
 msgstr "أحدث المشروعات"
 
-#: footer.php:67 inc/post-types/properties.php:208
-#: inc/post-types/properties.php:219 template-parts/home/developers.php:15
+#: footer.php:67 inc/post-types/properties/properties.php:188
+#: inc/post-types/properties/properties.php:199
+#: template-parts/home/developers.php:15
 msgid "Developers"
 msgstr "المطورين"
 
@@ -55,6 +56,7 @@ msgstr "اشترك"
 msgid "All rights reserved ©"
 msgstr "جميع الحقوق محفوظة  ©"
 
+#. Theme Name of the plugin/theme
 #: footer.php:117
 msgid "Capital of Business"
 msgstr "Capital of Business"
@@ -67,46 +69,9 @@ msgstr "سياسة الخصوصية"
 msgid "terms of use"
 msgstr "شروط الاستخدام"
 
-#: functions.php:102 inc/ajax/load_compound_properties.php:77
-#: inc/ajax/load_developer_properties.php:77
-#: template-parts/taxonomy-city/top-trend.php:58
-#: template-parts/taxonomy-compound/featured.php:132
-#: template-parts/taxonomy-compound/top-trend.php:58
-#: template-parts/taxonomy-developer/top-trend.php:132
-msgid "There are no posts currently available"
-msgstr "لا توجد مشاركات متاحة حاليا"
-
-#: functions.php:113 inc/ajax/cob-latest-projects-ajax.php:54 search.php:24
-#: template-parts/areas/pagination-section.php:150
-#: template-parts/factors/pagination-section.php:36
-#: template-parts/hiring/jobs-posts.php:151
-#: template-parts/projects/projects.php:72
-#: template-parts/taxonomy-city/top-trend.php:71
-#: template-parts/taxonomy-compound/featured.php:144
-#: template-parts/taxonomy-compound/featured.php:197
-#: template-parts/taxonomy-compound/top-trend.php:74
-#: template-parts/taxonomy-developer/top-trend.php:144
-#: template-parts/taxonomy-developer/top-trend.php:197
-msgid "Previous"
-msgstr "السابق"
-
-#: functions.php:114 inc/ajax/cob-latest-projects-ajax.php:55 search.php:25
-#: template-parts/areas/pagination-section.php:151
-#: template-parts/factors/pagination-section.php:37
-#: template-parts/hiring/jobs-posts.php:152
-#: template-parts/projects/projects.php:73
-#: template-parts/taxonomy-city/top-trend.php:72
-#: template-parts/taxonomy-compound/featured.php:164
-#: template-parts/taxonomy-compound/featured.php:240
-#: template-parts/taxonomy-compound/top-trend.php:75
-#: template-parts/taxonomy-developer/top-trend.php:164
-#: template-parts/taxonomy-developer/top-trend.php:240
-msgid "Next"
-msgstr "التالي"
-
 #: header.php:25
 msgid "Arabic"
-msgstr ""
+msgstr "العربية"
 
 #: header.php:28
 msgid "English"
@@ -130,92 +95,120 @@ msgstr "اتصل بنا"
 msgid "No projects found."
 msgstr "لم يتم العثور على مشاريع."
 
-#: inc/ajax/similar-units.php:55
-#: template-parts/properties-post/similar-units.php:51
-#, fuzzy
-#| msgid "There are no posts currently available"
-msgid "There are no posts currently available."
+#: inc/ajax/cob-latest-projects-ajax.php:54
+#: inc/ajax/cob_ajax_load_properties.php:45 search.php:24
+#: template-parts/areas/pagination-section.php:150
+#: template-parts/factors/pagination-section.php:36
+#: template-parts/hiring/jobs-posts.php:151
+#: template-parts/projects/projects.php:72
+#: template-parts/taxonomy-city/top-trend.php:71
+#: template-parts/taxonomy-compound/featured.php:144
+#: template-parts/taxonomy-compound/featured.php:197
+#: template-parts/taxonomy-compound/top-trend.php:74
+#: template-parts/taxonomy-developer/top-trend.php:144
+#: template-parts/taxonomy-developer/top-trend.php:197
+msgid "Previous"
+msgstr "السابق"
+
+#: inc/ajax/cob-latest-projects-ajax.php:55
+#: inc/ajax/cob_ajax_load_properties.php:46 search.php:25
+#: template-parts/areas/pagination-section.php:151
+#: template-parts/factors/pagination-section.php:37
+#: template-parts/hiring/jobs-posts.php:152
+#: template-parts/projects/projects.php:73
+#: template-parts/taxonomy-city/top-trend.php:72
+#: template-parts/taxonomy-compound/featured.php:164
+#: template-parts/taxonomy-compound/featured.php:240
+#: template-parts/taxonomy-compound/top-trend.php:75
+#: template-parts/taxonomy-developer/top-trend.php:164
+#: template-parts/taxonomy-developer/top-trend.php:240
+msgid "Next"
+msgstr "التالي"
+
+#: inc/ajax/cob_ajax_load_properties.php:34
+#: inc/ajax/load_compound_properties.php:77
+#: inc/ajax/load_developer_properties.php:77
+#: template-parts/taxonomy-city/top-trend.php:58
+#: template-parts/taxonomy-compound/featured.php:132
+#: template-parts/taxonomy-compound/top-trend.php:58
+#: template-parts/taxonomy-developer/top-trend.php:132
+msgid "There are no posts currently available"
 msgstr "لا توجد مشاركات متاحة حاليا"
 
-#: inc/city/cob_add_city_image_field.php:20
-#: inc/city/cob_add_city_image_field.php:91
-#: template-parts/taxonomy-city/head.php:26
-msgid "City Image"
-msgstr "صورة المدينة"
+#: inc/ajax/cob_handle_zoom_meeting.php:40
+#: inc/ajax/cob_handle_zoom_meeting.php:80
+msgid "Invalid input"
+msgstr "إدخال غير صالح"
 
-#: inc/city/cob_add_city_image_field.php:24
-#: inc/city/cob_add_city_image_field.php:99
-#: inc/city/cob_add_compound_image_field.php:24
-#: inc/city/cob_add_compound_image_field.php:99
-#: inc/developer/cob_add_developer_image_field.php:21
-#: inc/developer/cob_add_developer_image_field.php:72
-msgid "Upload Image"
-msgstr "ارفع صورة"
+#: inc/ajax/cob_handle_zoom_meeting.php:51
+#: inc/ajax/cob_handle_zoom_meeting.php:88
+msgid "Zoom API error"
+msgstr "خطأ في Zoom API"
 
-#: inc/city/cob_add_city_image_field.php:25
-#: inc/city/cob_add_city_image_field.php:100
-#: inc/city/cob_add_compound_image_field.php:25
-#: inc/city/cob_add_compound_image_field.php:100
-msgid "Remove Image"
-msgstr "حذف الصورة"
+#: inc/ajax/cob_handle_zoom_meeting.php:117
+msgid "Your Zoom Meeting Details"
+msgstr "تفاصيل اجتماع Zoom الخاص بك"
 
-#: inc/city/cob_add_city_image_field.php:26
-#: inc/city/cob_add_city_image_field.php:102
-msgid "Enter the URL of the city image or use the \"Upload Image\" button."
-msgstr "أدخل عنوان URL لصورة المدينة أو استخدم زر \"تحميل الصورة\"."
+#: inc/ajax/cob_handle_zoom_meeting.php:123
+msgid "Join URL:"
+msgstr "رابط الانضمام:"
 
-#: inc/city/cob_add_city_image_field.php:40
-#: inc/city/cob_add_city_image_field.php:114
-#: inc/city/cob_add_compound_image_field.php:40
-#: inc/city/cob_add_compound_image_field.php:114
-#: inc/developer/cob_add_developer_image_field.php:35
-#: inc/developer/cob_add_developer_image_field.php:85
-msgid "Select or Upload Image"
-msgstr "حدد أو قم بتحميل الصورة"
+#: inc/ajax/cob_handle_zoom_meeting.php:124
+msgid "Password:"
+msgstr "كلمة المرور:"
 
-#: inc/city/cob_add_city_image_field.php:42
-#: inc/city/cob_add_city_image_field.php:116
-#: inc/city/cob_add_compound_image_field.php:42
-#: inc/city/cob_add_compound_image_field.php:116
-#: inc/developer/cob_add_developer_image_field.php:37
-#: inc/developer/cob_add_developer_image_field.php:87
-msgid "Use this image"
-msgstr "استخدم هذه الصورة"
+#: inc/ajax/cob_handle_zoom_meeting.php:160
+msgid "Failed to obtain token"
+msgstr "فشل في الحصول على الرمز"
 
-#: inc/city/cob_add_city_image_field.php:149
-#: inc/city/cob_add_compound_image_field.php:149
-#: inc/developer/cob_add_developer_image_field.php:107
-msgid "Image"
-msgstr "صورة"
+#: inc/ajax/cob_handle_zoom_meeting.php:169
+#: inc/ajax/cob_handle_zoom_meeting.php:170
+#: inc/ajax/cob_handle_zoom_meeting.php:197
+msgid "Zoom Meetings"
+msgstr "اجتماعات زووم"
 
-#: inc/city/cob_add_compound_image_field.php:20
-#: inc/city/cob_add_compound_image_field.php:91
-msgid "Compound Image"
-msgstr "صورة الكمبوند"
+#: inc/ajax/cob_handle_zoom_meeting.php:190
+msgid "Meeting canceled."
+msgstr "تم إلغاء الاجتماع."
 
-#: inc/city/cob_add_compound_image_field.php:26
-#: inc/city/cob_add_compound_image_field.php:102
-msgid "Enter the URL of the compound image or use the \"Upload Image\" button."
-msgstr "أدخل عنوان URL لصورة الكمبوند أو استخدم زر \"تحميل الصورة\"."
+#: inc/ajax/cob_handle_zoom_meeting.php:199
+#: inc/contact-forms/contact_entries_menu.php:38
+#: inc/post-types/jobs/job_applicants_menu_page.php:38
+msgid "ID"
+msgstr "ID"
 
-#: inc/city/cob_add_compounds_columns.php:4 inc/post-types/properties.php:209
-#: inc/properties/cob_add_compounds_developer_city.php:179
-#: inc/properties/cob_add_compounds_developer_city.php:246
-msgid "Developer"
-msgstr "مطور"
+#: inc/ajax/cob_handle_zoom_meeting.php:200
+msgid "Topic"
+msgstr "عنوان"
 
-#: inc/city/cob_add_compounds_columns.php:5 inc/post-types/properties.php:189
-#: inc/properties/cob_add_compounds_developer_city.php:191
-#: inc/properties/cob_add_compounds_developer_city.php:257
-msgid "City"
-msgstr "مدينة"
+#: inc/ajax/cob_handle_zoom_meeting.php:201
+msgid "Start Time"
+msgstr "وقت البدء"
 
-#: inc/city/cob_add_compounds_columns.php:19
-#: inc/city/cob_add_compounds_columns.php:22
-#: inc/city/cob_add_compounds_columns.php:34
-#: inc/city/cob_add_compounds_columns.php:37
-msgid "Not Assigned"
-msgstr "غير مربوط"
+#: inc/ajax/cob_handle_zoom_meeting.php:202
+msgid "Participant"
+msgstr "مشارك"
+
+#: inc/ajax/cob_handle_zoom_meeting.php:203
+msgid "Actions"
+msgstr "الإجراءات"
+
+#: inc/ajax/cob_handle_zoom_meeting.php:230
+msgid "Join"
+msgstr "الانضمام"
+
+#: inc/ajax/cob_handle_zoom_meeting.php:232
+msgid "Are you sure you want to cancel this meeting?"
+msgstr "هل أنت متأكد أنك تريد إلغاء هذا الاجتماع؟"
+
+#: inc/ajax/cob_handle_zoom_meeting.php:233
+msgid "Cancel"
+msgstr "الغاء"
+
+#: inc/ajax/similar-units.php:55
+#: template-parts/properties-post/similar-units.php:51
+msgid "There are no posts currently available."
+msgstr "لا توجد مشاركات متاحة حاليًا."
 
 #: inc/contact-forms/contact_entries_menu.php:17
 #: inc/contact-forms/contact_entries_menu.php:18
@@ -223,23 +216,20 @@ msgstr "غير مربوط"
 msgid "Contact Entries"
 msgstr "مدخلات الاتصال"
 
-#: inc/contact-forms/contact_entries_menu.php:38
-#: inc/jobs/job_applicants_menu_page.php:38
-msgid "ID"
-msgstr "ID"
-
 #: inc/contact-forms/contact_entries_menu.php:39
+#: template-parts/button-container.php:216 template-parts/fixed-icons.php:59
 msgid "Name"
 msgstr "الاسم"
 
 #: inc/contact-forms/contact_entries_menu.php:40
-#: inc/jobs/job_applicants_menu_page.php:41
+#: inc/post-types/jobs/job_applicants_menu_page.php:41
 msgid "Phone"
 msgstr "الهاتف"
 
 #: inc/contact-forms/contact_entries_menu.php:41
-#: inc/jobs/job_applicants_menu_page.php:42
+#: inc/post-types/jobs/job_applicants_menu_page.php:42
 #: inc/theme-setup/cob_register_company_settings.php:33
+#: template-parts/button-container.php:231 template-parts/fixed-icons.php:74
 msgid "Email"
 msgstr "البريد إلكتروني"
 
@@ -276,24 +266,20 @@ msgid "Your message has been sent successfully!"
 msgstr "لقد تم إرسال رسالتك بنجاح!"
 
 #: inc/contact-forms/contact_form_submission.php:112
-#: inc/jobs/job_applicants_menu_page.php:40
-#: template-parts/button-container.php:48 template-parts/button-container.php:49
-#: template-parts/button-container.php:119
-#: template-parts/button-container.php:120
+#: inc/post-types/jobs/job_applicants_menu_page.php:40
+#: template-parts/button-container.php:75 template-parts/button-container.php:77
+#: template-parts/button-container.php:160
+#: template-parts/button-container.php:162
 #: template-parts/factories-post/left-landing-flat.php:7
 #: template-parts/factories-post/left-landing-flat.php:8
 #: template-parts/factories-post/left-landing-flat.php:78
 #: template-parts/factories-post/left-landing-flat.php:79
-#: template-parts/fixed-icons.php:86 template-parts/fixed-icons.php:87
-#: template-parts/fixed-icons.php:157 template-parts/fixed-icons.php:158
-#: template-parts/lands-post/left-landing-flat.php:7
-#: template-parts/lands-post/left-landing-flat.php:8
-#: template-parts/lands-post/left-landing-flat.php:78
-#: template-parts/lands-post/left-landing-flat.php:79
-#: template-parts/properties-post/left-landing-flat.php:7
-#: template-parts/properties-post/left-landing-flat.php:8
-#: template-parts/properties-post/left-landing-flat.php:78
-#: template-parts/properties-post/left-landing-flat.php:79
+#: template-parts/fixed-icons.php:125 template-parts/fixed-icons.php:127
+#: template-parts/fixed-icons.php:205 template-parts/fixed-icons.php:207
+#: template-parts/lands-post/left-landing-flat.php:16
+#: template-parts/lands-post/left-landing-flat.php:56
+#: template-parts/properties-post/left-landing-flat.php:16
+#: template-parts/properties-post/left-landing-flat.php:56
 msgid "Full Name"
 msgstr "الاسم الكامل"
 
@@ -311,159 +297,14 @@ msgid "Example: Enter your message here"
 msgstr "مثال: أدخل رسالتك هنا"
 
 #: inc/contact-forms/contact_form_submission.php:124
-#: template-parts/contact-section.php:17 template-parts/hiring/jobs-posts.php:137
+#: template-parts/button-container.php:242 template-parts/contact-section.php:17
+#: template-parts/fixed-icons.php:85 template-parts/hiring/jobs-posts.php:137
 msgid "Send"
 msgstr "ارسال"
 
 #: inc/contact-forms/contact_form_submission.php:154
 msgid "An unexpected error occurred."
 msgstr "حدث خطأ غير متوقع."
-
-#: inc/developer/cob_add_developer_image_field.php:18
-msgid "Developer Image"
-msgstr "صورة المطور"
-
-#: inc/developer/cob_add_developer_image_field.php:22
-#: inc/developer/cob_add_developer_image_field.php:74
-msgid "Enter the URL of the developer image or use the \"Upload Image\" button."
-msgstr "أدخل عنوان URL لصورة المطور أو استخدم زر \"تحميل الصورة\"."
-
-#: inc/developer/cob_add_developer_image_field.php:65
-#: template-parts/taxonomy-developer/head.php:29
-msgid "developer Image"
-msgstr "صورة المطور"
-
-#: inc/jobs/job_applicants_menu_page.php:5
-#: inc/jobs/job_applicants_menu_page.php:6
-#: inc/jobs/job_applicants_menu_page.php:34
-msgid "Job Applicants"
-msgstr "المتقدمين للوظيفة"
-
-#: inc/jobs/job_applicants_menu_page.php:29
-msgid "Status updated successfully."
-msgstr "تم تحديث الحالة بنجاح."
-
-#: inc/jobs/job_applicants_menu_page.php:39
-msgid "Job ID"
-msgstr "الرقم المرجعي للوظيفة"
-
-#: inc/jobs/job_applicants_menu_page.php:43
-msgid "Resume"
-msgstr "سيرة ذاتية"
-
-#: inc/jobs/job_applicants_menu_page.php:44
-msgid "Additional Details"
-msgstr "تفاصيل إضافية"
-
-#: inc/jobs/job_applicants_menu_page.php:45
-msgid "Submission Date"
-msgstr "تاريخ التقديم"
-
-#: inc/jobs/job_applicants_menu_page.php:46
-msgid "Status"
-msgstr "الحالة"
-
-#: inc/jobs/job_applicants_menu_page.php:47
-msgid "Action"
-msgstr "الاجراء"
-
-#: inc/jobs/job_applicants_menu_page.php:61
-msgid "Download"
-msgstr "تحميل"
-
-#: inc/jobs/job_applicants_menu_page.php:63
-msgid "N/A"
-msgstr "لا يوجد"
-
-#: inc/jobs/job_applicants_menu_page.php:74
-msgid "Pending"
-msgstr "قيد الانتظار"
-
-#: inc/jobs/job_applicants_menu_page.php:75
-msgid "Approved"
-msgstr "موافقة"
-
-#: inc/jobs/job_applicants_menu_page.php:76
-msgid "Rejected"
-msgstr "مرفوض"
-
-#: inc/jobs/job_applicants_menu_page.php:78
-msgid "Update"
-msgstr "تحديث"
-
-#: inc/jobs/job_applicants_menu_page.php:85
-msgid "No applicants found."
-msgstr "لم يتم العثور على المتقدمين."
-
-#: inc/jobs/job_tags_taxonomy.php:4
-msgctxt "taxonomy general name"
-msgid "Job Tags"
-msgstr "العلامات الوظيفية"
-
-#: inc/jobs/job_tags_taxonomy.php:5
-msgctxt "taxonomy singular name"
-msgid "Job Tag"
-msgstr "علامة الوظيفة"
-
-#: inc/jobs/job_tags_taxonomy.php:6
-msgid "Search Job Tags"
-msgstr "البحث عن العلامات الوظيفية"
-
-#: inc/jobs/job_tags_taxonomy.php:7
-msgid "Popular Job Tags"
-msgstr "العلامات الوظيفية المشهورة"
-
-#: inc/jobs/job_tags_taxonomy.php:8
-msgid "All Job Tags"
-msgstr "جميع العلامات الوظيفية"
-
-#: inc/jobs/job_tags_taxonomy.php:11
-msgid "Edit Job Tag"
-msgstr "تحرير علامة الوظيفة"
-
-#: inc/jobs/job_tags_taxonomy.php:12
-msgid "Update Job Tag"
-msgstr "تحديث علامة الوظيفة"
-
-#: inc/jobs/job_tags_taxonomy.php:13
-msgid "Add New Job Tag"
-msgstr "إضافة علامة وظيفة جديدة"
-
-#: inc/jobs/job_tags_taxonomy.php:14
-msgid "New Job Tag Name"
-msgstr "اسم علامة الوظيفة الجديدة"
-
-#: inc/jobs/job_tags_taxonomy.php:15
-msgid "Separate job tags with commas"
-msgstr "علامات مهمة منفصلة بفواصل"
-
-#: inc/jobs/job_tags_taxonomy.php:16
-msgid "Add or remove job tags"
-msgstr "إضافة أو إزالة علامات الوظيفة"
-
-#: inc/jobs/job_tags_taxonomy.php:17
-msgid "Choose from the most used job tags"
-msgstr "اختر من بين علامات الوظائف الأكثر استخدامًا"
-
-#: inc/jobs/job_tags_taxonomy.php:18
-msgid "No job tags found."
-msgstr "لم يتم العثور على علامات الوظيفة."
-
-#: inc/jobs/job_tags_taxonomy.php:19
-msgid "Job Tags"
-msgstr "العلامات الوظيفية"
-
-#: inc/jobs/submit_job_application.php:5
-msgid "Verification failed, please try again."
-msgstr "فشل التحقق، يرجى المحاولة مرة أخرى."
-
-#: inc/jobs/submit_job_application.php:42
-msgid "!Thank you for applying for the job"
-msgstr "!شكرًا لك على التقدم للوظيفة"
-
-#: inc/jobs/submit_job_application.php:44
-msgid "An error occurred while saving your request, please try again."
-msgstr "حدث خطأ أثناء حفظ طلبك، يرجى المحاولة مرة أخرى."
 
 #: inc/metaboxes/job-metaboxes.php:6 template-parts/hiring/jobs-posts.php:30
 msgid "Job Qualifications"
@@ -492,7 +333,8 @@ msgstr "حدد الكمبوند:"
 msgid "-- None --"
 msgstr "-- لا أحد --"
 
-#: inc/metaboxes/property-metaboxes.php:87 inc/post-types/properties.php:29
+#: inc/metaboxes/property-metaboxes.php:87
+#: inc/post-types/properties/properties.php:25
 msgid "Compound"
 msgstr "الكمبوند"
 
@@ -505,399 +347,593 @@ msgstr "لا أحد"
 msgid "-- No Change --"
 msgstr "-- لا تغيير --"
 
-#: inc/post-types/jobs.php:5
+#: inc/post-types/jobs/job_applicants_menu_page.php:5
+#: inc/post-types/jobs/job_applicants_menu_page.php:6
+#: inc/post-types/jobs/job_applicants_menu_page.php:34
+msgid "Job Applicants"
+msgstr "المتقدمين للوظيفة"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:29
+msgid "Status updated successfully."
+msgstr "تم تحديث الحالة بنجاح."
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:39
+msgid "Job ID"
+msgstr "الرقم المرجعي للوظيفة"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:43
+msgid "Resume"
+msgstr "سيرة ذاتية"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:44
+msgid "Additional Details"
+msgstr "تفاصيل إضافية"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:45
+msgid "Submission Date"
+msgstr "تاريخ التقديم"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:46
+msgid "Status"
+msgstr "الحالة"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:47
+msgid "Action"
+msgstr "الاجراء"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:61
+msgid "Download"
+msgstr "تحميل"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:63
+msgid "N/A"
+msgstr "لا يوجد"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:74
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:75
+msgid "Approved"
+msgstr "موافقة"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:76
+msgid "Rejected"
+msgstr "مرفوض"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:78
+msgid "Update"
+msgstr "تحديث"
+
+#: inc/post-types/jobs/job_applicants_menu_page.php:85
+msgid "No applicants found."
+msgstr "لم يتم العثور على المتقدمين."
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:4
+msgctxt "taxonomy general name"
+msgid "Job Tags"
+msgstr "العلامات الوظيفية"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:5
+msgctxt "taxonomy singular name"
+msgid "Job Tag"
+msgstr "علامة الوظيفة"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:6
+msgid "Search Job Tags"
+msgstr "البحث عن العلامات الوظيفية"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:7
+msgid "Popular Job Tags"
+msgstr "العلامات الوظيفية المشهورة"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:8
+msgid "All Job Tags"
+msgstr "جميع العلامات الوظيفية"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:11
+msgid "Edit Job Tag"
+msgstr "تحرير علامة الوظيفة"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:12
+msgid "Update Job Tag"
+msgstr "تحديث علامة الوظيفة"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:13
+msgid "Add New Job Tag"
+msgstr "إضافة علامة وظيفة جديدة"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:14
+msgid "New Job Tag Name"
+msgstr "اسم علامة الوظيفة الجديدة"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:15
+msgid "Separate job tags with commas"
+msgstr "علامات مهمة منفصلة بفواصل"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:16
+msgid "Add or remove job tags"
+msgstr "إضافة أو إزالة علامات الوظيفة"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:17
+msgid "Choose from the most used job tags"
+msgstr "اختر من بين علامات الوظائف الأكثر استخدامًا"
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:18
+msgid "No job tags found."
+msgstr "لم يتم العثور على علامات الوظيفة."
+
+#: inc/post-types/jobs/job_tags_taxonomy.php:19
+msgid "Job Tags"
+msgstr "العلامات الوظيفية"
+
+#: inc/post-types/jobs/jobs.php:5
 msgctxt "Post Type General Name"
 msgid "Jobs"
 msgstr "وظائف"
 
-#: inc/post-types/jobs.php:6
+#: inc/post-types/jobs/jobs.php:6
 msgctxt "Post Type Singular Name"
 msgid "Job"
 msgstr "وظيفة"
 
-#: inc/post-types/jobs.php:7
+#: inc/post-types/jobs/jobs.php:7
 msgid "Jobs"
 msgstr "وظائف"
 
-#: inc/post-types/jobs.php:8 inc/post-types/jobs.php:34
+#: inc/post-types/jobs/jobs.php:8 inc/post-types/jobs/jobs.php:34
 msgid "Job"
 msgstr "وظيفة"
 
-#: inc/post-types/jobs.php:9
+#: inc/post-types/jobs/jobs.php:9
 msgid "Job Archives"
 msgstr "أرشيف الوظائف"
 
-#: inc/post-types/jobs.php:10
+#: inc/post-types/jobs/jobs.php:10
 msgid "Job Attributes"
 msgstr "تفاصيل الوظيفة"
 
-#: inc/post-types/jobs.php:11
+#: inc/post-types/jobs/jobs.php:11
 msgid "Parent Job:"
 msgstr "الوظيفة الأساسية :"
 
-#: inc/post-types/jobs.php:12
+#: inc/post-types/jobs/jobs.php:12
 msgid "All Jobs"
 msgstr "جميع الوظائف"
 
-#: inc/post-types/jobs.php:13
+#: inc/post-types/jobs/jobs.php:13
 msgid "Add New Job"
 msgstr "إضافة وظيفة جديدة"
 
-#: inc/post-types/jobs.php:14
+#: inc/post-types/jobs/jobs.php:14
 msgid "Add New"
 msgstr "اضف جديد"
 
-#: inc/post-types/jobs.php:15
+#: inc/post-types/jobs/jobs.php:15
 msgid "New Job"
 msgstr "وظيفة جديدة"
 
-#: inc/post-types/jobs.php:16
+#: inc/post-types/jobs/jobs.php:16
 msgid "Edit Job"
 msgstr "تحرير الوظيفة"
 
-#: inc/post-types/jobs.php:17
+#: inc/post-types/jobs/jobs.php:17
 msgid "Update Job"
 msgstr "تحديث الوظيفة"
 
-#: inc/post-types/jobs.php:18
+#: inc/post-types/jobs/jobs.php:18
 msgid "View Job"
 msgstr "عرض الوظيفة"
 
-#: inc/post-types/jobs.php:19
+#: inc/post-types/jobs/jobs.php:19
 msgid "View Jobs"
 msgstr "عرض الوظائف"
 
-#: inc/post-types/jobs.php:20
+#: inc/post-types/jobs/jobs.php:20
 msgid "Search Job"
 msgstr "بحث عن وظيفة"
 
-#: inc/post-types/jobs.php:21
+#: inc/post-types/jobs/jobs.php:21
 msgid "Not found"
 msgstr "لم يتم العثور عليه"
 
-#: inc/post-types/jobs.php:22
+#: inc/post-types/jobs/jobs.php:22
 msgid "Not found in Trash"
 msgstr "لم يتم العثور عليه في سلة المهملات"
 
-#: inc/post-types/jobs.php:23
+#: inc/post-types/jobs/jobs.php:23
 msgid "Featured Image"
 msgstr "صورة مميزة"
 
-#: inc/post-types/jobs.php:24
+#: inc/post-types/jobs/jobs.php:24
 msgid "Set featured image"
 msgstr "تعيين الصورة المميزة"
 
-#: inc/post-types/jobs.php:25
+#: inc/post-types/jobs/jobs.php:25
 msgid "Remove featured image"
 msgstr "إزالة الصورة المميزة"
 
-#: inc/post-types/jobs.php:26
+#: inc/post-types/jobs/jobs.php:26
 msgid "Use as featured image"
 msgstr "استخدم كصورة مميزة"
 
-#: inc/post-types/jobs.php:27
+#: inc/post-types/jobs/jobs.php:27
 msgid "Insert into job"
 msgstr "أدخل في الوظيفة"
 
-#: inc/post-types/jobs.php:28
+#: inc/post-types/jobs/jobs.php:28
 msgid "Uploaded to this job"
 msgstr "تم الرفع إلى هذه الوظيفة"
 
-#: inc/post-types/jobs.php:29
+#: inc/post-types/jobs/jobs.php:29
 msgid "Jobs list"
 msgstr "قائمة الوظائف"
 
-#: inc/post-types/jobs.php:30
+#: inc/post-types/jobs/jobs.php:30
 msgid "Jobs list navigation"
 msgstr "التنقل في قائمة الوظائف"
 
-#: inc/post-types/jobs.php:31
+#: inc/post-types/jobs/jobs.php:31
 msgid "Filter jobs list"
 msgstr "تصفية قائمة الوظائف"
 
-#: inc/post-types/jobs.php:35
+#: inc/post-types/jobs/jobs.php:35
 msgid "Job listings for the site"
 msgstr "قوائم الوظائف للموقع"
 
-#: inc/post-types/properties.php:28 inc/post-types/properties.php:38
+#: inc/post-types/jobs/submit_job_application.php:5
+msgid "Verification failed, please try again."
+msgstr "فشل التحقق، يرجى المحاولة مرة أخرى."
+
+#: inc/post-types/jobs/submit_job_application.php:42
+msgid "!Thank you for applying for the job"
+msgstr "!شكرًا لك على التقدم للوظيفة"
+
+#: inc/post-types/jobs/submit_job_application.php:44
+msgid "An error occurred while saving your request, please try again."
+msgstr "حدث خطأ أثناء حفظ طلبك، يرجى المحاولة مرة أخرى."
+
+#: inc/post-types/properties/cob_add_compounds_developer_city.php:48
+#: inc/post-types/properties/cob_add_compounds_developer_city.php:91
+msgid "Select Developer"
+msgstr "حدد المطور"
+
+#: inc/post-types/properties/cob_add_compounds_developer_city.php:58
+#: inc/post-types/properties/cob_add_compounds_developer_city.php:105
+msgid "Select City"
+msgstr "اختر المدينة"
+
+#: inc/post-types/properties/cob_add_compounds_developer_city.php:136
+msgid "Custom Fields"
+msgstr "الحقول المخصصة"
+
+#: inc/post-types/properties/cob_add_compounds_developer_city.php:179
+#: inc/post-types/properties/cob_add_compounds_developer_city.php:246
+#: inc/post-types/properties/properties.php:189
+#: inc/taxonomy/compound/cob_add_compounds_columns.php:33
+#: inc/taxonomy/compound/cob_add_compounds_columns.php:41
+msgid "Developer"
+msgstr "مطور"
+
+#: inc/post-types/properties/cob_add_compounds_developer_city.php:191
+#: inc/post-types/properties/cob_add_compounds_developer_city.php:257
+#: inc/post-types/properties/properties.php:169
+#: inc/taxonomy/compound/cob_add_compounds_columns.php:34
+#: inc/taxonomy/compound/cob_add_compounds_columns.php:42
+msgid "City"
+msgstr "مدينة"
+
+#: inc/post-types/properties/cob_property_gallery.php:6
+msgid "Gallery Images"
+msgstr "معرض الصور"
+
+#: inc/post-types/properties/cob_property_gallery.php:32
+msgid "Add Images"
+msgstr "إضافة الصور"
+
+#: inc/post-types/properties/cob_property_gallery.php:75
+msgid "Select Images"
+msgstr "حدد الصور"
+
+#: inc/post-types/properties/cob_property_gallery.php:76
+msgid "Attach Images"
+msgstr "إرفاق الصور"
+
+#: inc/post-types/properties/dido_theme_property_developer_editor.php:8
+#: inc/post-types/properties/dido_theme_property_developer_editor.php:34
+msgid "Description"
+msgstr "الوصف"
+
+#: inc/post-types/properties/dido_theme_property_developer_editor.php:22
+#: inc/post-types/properties/dido_theme_property_developer_editor.php:47
+msgid "The description is not prominent by default, but some themes may show it."
+msgstr "الوصف ليس بارزًا بشكل افتراضي، ولكن قد تظهره بعض السمات."
+
+#: inc/post-types/properties/properties.php:24
+#: inc/post-types/properties/properties.php:34
 #: template-parts/areas/pagination-section.php:95
 #: template-parts/home/areas.php:72
 msgid "Compounds"
 msgstr "كمبوندات"
 
-#: inc/post-types/properties.php:30
+#: inc/post-types/properties/properties.php:26
 msgid "Search Compounds"
 msgstr "البحث في الكمبوندات"
 
-#: inc/post-types/properties.php:31
+#: inc/post-types/properties/properties.php:27
 msgid "All Compounds"
 msgstr "كل الكمبوندات"
 
-#: inc/post-types/properties.php:32
+#: inc/post-types/properties/properties.php:28
 msgid "Parent Compound"
 msgstr "الكمبوند الاب"
 
-#: inc/post-types/properties.php:33
+#: inc/post-types/properties/properties.php:29
 msgid "Parent Compound:"
 msgstr "الكمبوند الاب"
 
-#: inc/post-types/properties.php:34
+#: inc/post-types/properties/properties.php:30
 msgid "Edit Compound"
 msgstr "تحرير كمبوند"
 
-#: inc/post-types/properties.php:35
+#: inc/post-types/properties/properties.php:31
 msgid "Update Compound"
 msgstr "تحديث الكمبوند"
 
-#: inc/post-types/properties.php:36
+#: inc/post-types/properties/properties.php:32
 msgid "Add New Compound"
 msgstr "إضافة كبموند جديد"
 
-#: inc/post-types/properties.php:37
+#: inc/post-types/properties/properties.php:33
 msgid "New Compound Name"
 msgstr "اسم الكمبوند الجديد"
 
-#: inc/post-types/properties.php:66
+#: inc/post-types/properties/properties.php:62
 #: template-parts/areas/pagination-section.php:96
-#: template-parts/home/areas.php:73 template-parts/home/compounds.php:78
+#: template-parts/home/areas.php:73 template-parts/home/compounds.php:97
 #: template-parts/taxonomy-city/featured.php:78
 #: template-parts/taxonomy-city/sup-taxonomy.php:56
 msgid "Properties"
 msgstr "العقارات"
 
-#: inc/post-types/properties.php:67
+#: inc/post-types/properties/properties.php:63
 msgid "Property"
 msgstr "عقار"
 
-#: inc/post-types/properties.php:68 inc/post-types/properties.php:69
+#: inc/post-types/properties/properties.php:64
+#: inc/post-types/properties/properties.php:65
 msgid "Add New Property"
 msgstr "إضافة عقار جديد"
 
-#: inc/post-types/properties.php:70
+#: inc/post-types/properties/properties.php:66
 msgid "Edit Property"
 msgstr "تحرير العقار"
 
-#: inc/post-types/properties.php:71
+#: inc/post-types/properties/properties.php:67
 msgid "New Property"
 msgstr "عقار جديد"
 
-#: inc/post-types/properties.php:72
+#: inc/post-types/properties/properties.php:68
 msgid "View Property"
 msgstr "عرض العقار"
 
-#: inc/post-types/properties.php:73
+#: inc/post-types/properties/properties.php:69
 msgid "All Properties"
 msgstr "جميع العقارات"
 
-#: inc/post-types/properties.php:74
+#: inc/post-types/properties/properties.php:70
 msgid "Search Properties"
 msgstr "البحث عن العقارات"
 
-#: inc/post-types/properties.php:75
+#: inc/post-types/properties/properties.php:71
 msgid "No properties found."
 msgstr "لم يتم العثور على خصائص."
 
-#: inc/post-types/properties.php:115
+#: inc/post-types/properties/properties.php:95
 msgid "Factories"
 msgstr "المصانع"
 
-#: inc/post-types/properties.php:116
+#: inc/post-types/properties/properties.php:96
 msgid "Factory"
 msgstr "مصنع"
 
-#: inc/post-types/properties.php:117 inc/post-types/properties.php:118
+#: inc/post-types/properties/properties.php:97
+#: inc/post-types/properties/properties.php:98
 msgid "Add New Factory"
 msgstr "إضافة مصنع جديد"
 
-#: inc/post-types/properties.php:119
+#: inc/post-types/properties/properties.php:99
 msgid "Edit Factory"
 msgstr "تحرير المصنع"
 
-#: inc/post-types/properties.php:120
+#: inc/post-types/properties/properties.php:100
 msgid "New Factory"
 msgstr "مصنع جديد"
 
-#: inc/post-types/properties.php:121
+#: inc/post-types/properties/properties.php:101
 msgid "View Factory"
 msgstr "عرض المصنع"
 
-#: inc/post-types/properties.php:122
+#: inc/post-types/properties/properties.php:102
 msgid "All Factories"
 msgstr "كل المصانع"
 
-#: inc/post-types/properties.php:123
+#: inc/post-types/properties/properties.php:103
 msgid "Search Factories"
 msgstr "بحث عن مصنع"
 
-#: inc/post-types/properties.php:124
+#: inc/post-types/properties/properties.php:104
 msgid "No factories found."
 msgstr "المصنع غير موجود."
 
-#: inc/post-types/properties.php:146
+#: inc/post-types/properties/properties.php:126
 msgid "Lands"
 msgstr "الاراضي"
 
-#: inc/post-types/properties.php:147
+#: inc/post-types/properties/properties.php:127
 msgid "Land"
 msgstr "ارض"
 
-#: inc/post-types/properties.php:148 inc/post-types/properties.php:149
+#: inc/post-types/properties/properties.php:128
+#: inc/post-types/properties/properties.php:129
 msgid "Add New Land"
 msgstr "اضف ارض جديد"
 
-#: inc/post-types/properties.php:150
+#: inc/post-types/properties/properties.php:130
 msgid "Edit Land"
 msgstr "تحرير ارض"
 
-#: inc/post-types/properties.php:151
+#: inc/post-types/properties/properties.php:131
 msgid "New Land"
 msgstr "أرض جديدة"
 
-#: inc/post-types/properties.php:152
+#: inc/post-types/properties/properties.php:132
 msgid "View Land"
 msgstr "عرض الارض"
 
-#: inc/post-types/properties.php:153
+#: inc/post-types/properties/properties.php:133
 msgid "All Lands"
 msgstr "كل الأراضي "
 
-#: inc/post-types/properties.php:154
+#: inc/post-types/properties/properties.php:134
 msgid "Search Lands"
 msgstr "البحث في الأراضي "
 
-#: inc/post-types/properties.php:155
+#: inc/post-types/properties/properties.php:135
 msgid "No lands found."
 msgstr "لم يتم العثور علي أراضي."
 
-#: inc/post-types/properties.php:188 inc/post-types/properties.php:199
+#: inc/post-types/properties/properties.php:168
+#: inc/post-types/properties/properties.php:179
 msgid "Cities"
 msgstr "المدن"
 
-#: inc/post-types/properties.php:190
+#: inc/post-types/properties/properties.php:170
 msgid "Search Cities"
 msgstr "البحث في المدن"
 
-#: inc/post-types/properties.php:191
+#: inc/post-types/properties/properties.php:171
 msgid "All Cities"
 msgstr "كل المدن"
 
-#: inc/post-types/properties.php:192
+#: inc/post-types/properties/properties.php:172
 msgid "Parent City"
 msgstr "المدينة الأم"
 
-#: inc/post-types/properties.php:193
+#: inc/post-types/properties/properties.php:173
 msgid "Parent City:"
 msgstr "المدينة الأم:"
 
-#: inc/post-types/properties.php:194
+#: inc/post-types/properties/properties.php:174
 msgid "Edit City"
 msgstr "تحرير المدينة"
 
-#: inc/post-types/properties.php:195
+#: inc/post-types/properties/properties.php:175
 msgid "View City"
 msgstr "شاهد المدينة"
 
-#: inc/post-types/properties.php:196
+#: inc/post-types/properties/properties.php:176
 msgid "Update City"
 msgstr "تحديث المدينة"
 
-#: inc/post-types/properties.php:197
+#: inc/post-types/properties/properties.php:177
 msgid "Add New City"
 msgstr "اصافة مدينة جديدة"
 
-#: inc/post-types/properties.php:198
+#: inc/post-types/properties/properties.php:178
 msgid "New City Name"
 msgstr "اسم المدينة الجديد"
 
-#: inc/post-types/properties.php:200
+#: inc/post-types/properties/properties.php:180
 msgid "Separate cities with commas"
 msgstr "افصل بين المدن بفواصل"
 
-#: inc/post-types/properties.php:210
+#: inc/post-types/properties/properties.php:190
 msgid "Search Developers"
 msgstr "بحث المطورين"
 
-#: inc/post-types/properties.php:211
+#: inc/post-types/properties/properties.php:191
 msgid "All Developers"
 msgstr "كل المطورين"
 
-#: inc/post-types/properties.php:212
+#: inc/post-types/properties/properties.php:192
 msgid "Parent Developer"
 msgstr "المطور الاب"
 
-#: inc/post-types/properties.php:213
+#: inc/post-types/properties/properties.php:193
 msgid "Parent Developer:"
 msgstr "المطور الاب :"
 
-#: inc/post-types/properties.php:214
+#: inc/post-types/properties/properties.php:194
 msgid "Edit Developer"
 msgstr "تحرير المطور"
 
-#: inc/post-types/properties.php:215
+#: inc/post-types/properties/properties.php:195
 msgid "View Developer"
 msgstr "عرض المطور"
 
-#: inc/post-types/properties.php:216
+#: inc/post-types/properties/properties.php:196
 msgid "Update Developer"
 msgstr "تحديث المطور"
 
-#: inc/post-types/properties.php:217
+#: inc/post-types/properties/properties.php:197
 msgid "Add New Developer"
 msgstr "إضافة مطور جديد"
 
-#: inc/post-types/properties.php:218
+#: inc/post-types/properties/properties.php:198
 msgid "New Developer Name"
 msgstr "اسم المطور الجديد"
 
-#: inc/post-types/properties.php:220
+#: inc/post-types/properties/properties.php:200
 msgid "Separate Developers with commas"
 msgstr "فصل المطورين بفواصل"
 
-#: inc/post-types/properties.php:228 inc/post-types/properties.php:237
+#: inc/post-types/properties/properties.php:208
+#: inc/post-types/properties/properties.php:217
 msgid "Finishing Types"
 msgstr "أنواع التشطيب"
 
-#: inc/post-types/properties.php:229
+#: inc/post-types/properties/properties.php:209
 msgid "Finishing Type"
 msgstr "نوع التشطيب"
 
-#: inc/post-types/properties.php:230
+#: inc/post-types/properties/properties.php:210
 msgid "Search Finishing Types"
 msgstr "البحث عن أنواع التشطيب"
 
-#: inc/post-types/properties.php:231
+#: inc/post-types/properties/properties.php:211
 msgid "All Finishing Types"
 msgstr "جميع أنواع التشطيب"
 
-#: inc/post-types/properties.php:232
+#: inc/post-types/properties/properties.php:212
 msgid "Edit Finishing Type"
 msgstr "تحرير نوع التشطيب"
 
-#: inc/post-types/properties.php:233
+#: inc/post-types/properties/properties.php:213
 msgid "View Finishing Type"
 msgstr "عرض نوع التشطيب"
 
-#: inc/post-types/properties.php:234
+#: inc/post-types/properties/properties.php:214
 msgid "Update Finishing Type"
 msgstr "تحديث نوع التشطيب"
 
-#: inc/post-types/properties.php:235
+#: inc/post-types/properties/properties.php:215
 msgid "Add New Finishing Type"
 msgstr "إضافة نوع تشطيب جديد"
 
-#: inc/post-types/properties.php:236
+#: inc/post-types/properties/properties.php:216
 msgid "New Finishing Type Name"
 msgstr "اسم نوع التشطيب الجديد"
 
-#: inc/post-types/properties.php:238
+#: inc/post-types/properties/properties.php:218
 msgid "Separate Finishing Types with commas"
 msgstr "أنواع التشطيب المنفصلة باستخدام الفواصل"
 
-#: inc/post-types/properties.php:246
+#: inc/post-types/properties/properties.php:226
 msgid "Types"
 msgstr "الأنواع"
 
-#: inc/post-types/properties.php:247
+#: inc/post-types/properties/properties.php:227
 msgid "Type"
 msgstr "نوع"
 
@@ -985,46 +1021,6 @@ msgstr "البحث في السلايدر"
 msgid "No Sliders found."
 msgstr "لم يتم العثور علي سلايدر."
 
-#: inc/properties/cob_add_compounds_developer_city.php:48
-#: inc/properties/cob_add_compounds_developer_city.php:91
-msgid "Select Developer"
-msgstr "حدد المطور"
-
-#: inc/properties/cob_add_compounds_developer_city.php:58
-#: inc/properties/cob_add_compounds_developer_city.php:105
-msgid "Select City"
-msgstr "اختر المدينة"
-
-#: inc/properties/cob_add_compounds_developer_city.php:136
-msgid "Custom Fields"
-msgstr "الحقول المخصصة"
-
-#: inc/properties/cob_property_gallery.php:6
-msgid "gallery Images"
-msgstr "معرض الصور"
-
-#: inc/properties/cob_property_gallery.php:41
-msgid "Add Images"
-msgstr "إضافة الصور"
-
-#: inc/properties/cob_property_gallery.php:70
-msgid "Select Images"
-msgstr "حدد الصور"
-
-#: inc/properties/cob_property_gallery.php:71
-msgid "Attach Images"
-msgstr "إرفاق الصور"
-
-#: inc/properties/dido_theme_property_developer_editor.php:8
-#: inc/properties/dido_theme_property_developer_editor.php:34
-msgid "Description"
-msgstr "الوصف"
-
-#: inc/properties/dido_theme_property_developer_editor.php:22
-#: inc/properties/dido_theme_property_developer_editor.php:47
-msgid "The description is not prominent by default, but some themes may show it."
-msgstr "الوصف ليس بارزًا بشكل افتراضي، ولكن قد تظهره بعض السمات."
-
 #: inc/real-estate-expert/add_real_estate_expert_role.php:6
 msgid "Real Estate Expert"
 msgstr "خبير عقاري"
@@ -1034,11 +1030,10 @@ msgid "Real Estate Expert Information"
 msgstr "معلومات الخبراء العقاريين"
 
 #: inc/real-estate-expert/real_estate_expert_extra_profile_fields.php:9
-#: template-parts/button-container.php:122 template-parts/contact-section.php:14
+#: template-parts/button-container.php:167
+#: template-parts/button-container.php:224 template-parts/contact-section.php:14
 #: template-parts/factories-post/left-landing-flat.php:81
-#: template-parts/fixed-icons.php:160
-#: template-parts/lands-post/left-landing-flat.php:81
-#: template-parts/properties-post/left-landing-flat.php:81
+#: template-parts/fixed-icons.php:67 template-parts/fixed-icons.php:211
 msgid "Phone Number"
 msgstr "رقم التليفون"
 
@@ -1165,6 +1160,271 @@ msgstr "روابط وسائل التواصل الاجتماعي"
 #: inc/redux/settings/social.php:28
 msgid "Add social media links. Use the format: platform|URL"
 msgstr "إضافة روابط وسائل التواصل الاجتماعي. استخدم التنسيق: النظام الأساسي|URL"
+
+#: inc/taxonomy/city/cob_add_city_image_field.php:20
+#: inc/taxonomy/city/cob_add_city_image_field.php:91
+#: template-parts/taxonomy-city/head.php:26
+msgid "City Image"
+msgstr "صورة المدينة"
+
+#: inc/taxonomy/city/cob_add_city_image_field.php:24
+#: inc/taxonomy/city/cob_add_city_image_field.php:99
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:21
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:72
+msgid "Upload Image"
+msgstr "ارفع صورة"
+
+#: inc/taxonomy/city/cob_add_city_image_field.php:25
+#: inc/taxonomy/city/cob_add_city_image_field.php:100
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:32
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:61
+msgid "Remove Image"
+msgstr "حذف الصورة"
+
+#: inc/taxonomy/city/cob_add_city_image_field.php:26
+#: inc/taxonomy/city/cob_add_city_image_field.php:102
+msgid "Enter the URL of the city image or use the \"Upload Image\" button."
+msgstr "أدخل عنوان URL لصورة المدينة أو استخدم زر \"تحميل الصورة\"."
+
+#: inc/taxonomy/city/cob_add_city_image_field.php:40
+#: inc/taxonomy/city/cob_add_city_image_field.php:114
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:35
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:85
+msgid "Select or Upload Image"
+msgstr "حدد أو قم بتحميل الصورة"
+
+#: inc/taxonomy/city/cob_add_city_image_field.php:42
+#: inc/taxonomy/city/cob_add_city_image_field.php:116
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:102
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:37
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:87
+msgid "Use this image"
+msgstr "استخدم هذه الصورة"
+
+#: inc/taxonomy/city/cob_add_city_image_field.php:149
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:107
+msgid "Image"
+msgstr "صورة"
+
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:26
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:51
+msgid "Compound Cover Image"
+msgstr "صورة الكمبوند"
+
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:31
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:60
+msgid "Upload/Select Image"
+msgstr "ارفع صورة / اختر صورة"
+
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:33
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:62
+msgid "Select the main cover image for this compound."
+msgstr "قم باختيار صورة الغلاف الرئيسية لهذا المركب."
+
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:100
+msgid "Choose Compound Cover Image"
+msgstr "اختر صورة للكمبوند"
+
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:167
+#: inc/taxonomy/compound/cob_add_compound_image_field.php:172
+msgid "Cover Image"
+msgstr "صورة الغلاف"
+
+#: inc/taxonomy/compound/cob_add_compounds_columns.php:82
+msgid "Error loading developer"
+msgstr "حدث خطأ أثناء تحميل المطور"
+
+#: inc/taxonomy/compound/cob_add_compounds_columns.php:101
+msgid "Error loading city"
+msgstr "حدث خطأ أثناء تحميل المدينة"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:31
+msgid "Merge Duplicate Compounds"
+msgstr "دمج الكمبوندات المكررة"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:32
+msgid "Merge Compounds"
+msgstr "دمج الكمبوندات"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:48
+msgid "WARNING:"
+msgstr "تحذير:"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:48
+msgid ""
+"This tool will make permanent changes to your database by reassigning posts "
+"and deleting taxonomy terms. It is crucial to have a complete backup of your "
+"website (files and database) before proceeding. Test on a staging environment "
+"first if possible."
+msgstr ""
+"ستُجري هذه الأداة تغييرات دائمة على قاعدة بياناتك بإعادة تعيين المنشورات وحذف "
+"مصطلحات التصنيف. من الضروري الاحتفاظ بنسخة احتياطية كاملة لموقعك الإلكتروني "
+"(الملفات وقاعدة البيانات) قبل المتابعة. اختبرها على بيئة تجريبية أولًا إن أمكن."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:51
+#, php-format
+msgid ""
+"This tool will scan the \"%s\" taxonomy for terms that have the exact same "
+"name and attempt to merge them."
+msgstr ""
+"ستقوم هذه الأداة بمسح تصنيف \"%s\" بحثًا عن المصطلحات التي تحمل الاسم نفسه "
+"تمامًا ومحاولة دمجها."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:52
+#, php-format
+msgid ""
+"For each group of duplicate-named terms, one term will be chosen as the "
+"\"primary\" term (usually the oldest or one with a cover image). Posts will be "
+"reassigned to this primary term, and the cover image (meta key: %s) will be "
+"transferred if the primary term doesn_t have one. Other duplicate terms will "
+"then be deleted."
+msgstr ""
+"لكل مجموعة من المصطلحات ذات الأسماء المكررة، سيتم اختيار مصطلح واحد ليكون "
+"المصطلح \"الأساسي\" (عادةً الأقدم أو الذي يحمل صورة غلاف). ستُعاد تخصيص "
+"المنشورات لهذا المصطلح الأساسي، وسيتم نقل صورة الغلاف (مفتاح التعريف: %s) إذا "
+"لم يكن للمصطلح الأساسي صورة غلاف. بعد ذلك، سيتم حذف المصطلحات المكررة الأخرى."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:59
+msgid "I have backed up my database and understand the risks."
+msgstr "لقد قمت بعمل نسخة احتياطية لقاعدة البيانات الخاصة بي وأدرك المخاطر."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:62
+msgid "Find and Merge Duplicate Compounds"
+msgstr "البحث عن الكمبوندات المكررة ودمجها"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:80
+msgid "Nonce verification failed. Action aborted."
+msgstr "فشل التحقق من Nonce. تم إلغاء الإجراء."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:84
+msgid ""
+"You must confirm that you have backed up your database and understand the "
+"risks."
+msgstr ""
+"يجب عليك التأكد من أنك قمت بعمل نسخة احتياطية لقاعدة البيانات الخاصة بك وفهم "
+"المخاطر."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:88
+msgid "You do not have sufficient permissions to perform this action."
+msgstr "ليس لديك الأذونات الكافية لأداء هذا الإجراء."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:92
+msgid "Merge Process Log:"
+msgstr "سجل عملية الدمج:"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:111
+#, php-format
+msgid "Starting duplicate term check for taxonomy: %s"
+msgstr "بدء التحقق من المصطلح المكرر للتصنيف: %s"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:120
+msgid "No terms found or an error occurred while fetching terms."
+msgstr "لم يتم العثور على أي مصطلحات أو حدث خطأ أثناء جلب المصطلحات."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:134
+#, php-format
+msgid "Found %d terms with the name: \"%s\""
+msgstr "تم العثور على %d مصطلحًا باسم: \"%s\""
+
+#: inc/taxonomy/compound/duplicate_compounds.php:151
+#, php-format
+msgid "Selected term ID %d as primary because it has a cover image."
+msgstr "تم تحديد المصطلح ID %d باعتباره أساسيًا لأنه يحتوي على صورة غلاف."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:157
+#, php-format
+msgid "Designated Term ID %d (Slug: %s) as the primary term to keep."
+msgstr ""
+"تم تعيين معرف المصطلح %d (Slug: %s) باعتباره المصطلح الأساسي الذي يجب الاحتفاظ "
+"به."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:166
+#, php-format
+msgid "Processing duplicate Term ID %d (Slug: %s)..."
+msgstr "جاري معالجة معرف المصطلح المكرر %d (Slug: %s)..."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:189
+#, php-format
+msgid "Failed to add primary term %d to Post ID %d. Error: %s"
+msgstr "تعذّرت إضافة المصطلح الأساسي %d إلى مُعرّف المنشور %d. الخطأ: %s"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:197
+#, php-format
+msgid "Failed to set primary term %d for Post ID %d after reassigning. Error: %s"
+msgstr ""
+"فشل تعيين المصطلح الأساسي %d لمعرّف المنشور %d بعد إعادة التعيين. الخطأ: %s"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:199
+#, php-format
+msgid "Reassigned Post ID %d from term %d to primary term %d."
+msgstr "تم إعادة تعيين معرف المنشور %d من المصطلح %d إلى المصطلح الأساسي %d."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:205
+msgid "No posts found associated with this duplicate term."
+msgstr "لم يتم العثور على أي مشاركات مرتبطة بهذا المصطلح المكرر."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:214
+#, php-format
+msgid ""
+"Transferred cover image (Attachment ID: %s) from duplicate term %d to primary "
+"term %d."
+msgstr ""
+"تم نقل صورة الغلاف (معرف المرفق: %s) من المصطلح المكرر %d إلى المصطلح الأساسي "
+"%d."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:224
+msgid "Attempting to delete the merged (duplicate) terms..."
+msgstr "محاولة حذف الشروط المدمجة (المكررة)..."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:228
+#, php-format
+msgid "Failed to delete term ID %d. Error: %s"
+msgstr "فشل حذف معرف المصطلح %d. الخطأ: %s"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:230
+#, php-format
+msgid "Failed to delete term ID %d (term might not exist or is default)."
+msgstr "فشل حذف معرف المصطلح %d (قد لا يكون المصطلح موجودًا أو أنه افتراضي)."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:232
+#, php-format
+msgid "Successfully deleted term ID %d."
+msgstr "تم حذف معرف المصطلح %d بنجاح."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:242
+msgid "No duplicate terms (by name) found in this taxonomy."
+msgstr "لم يتم العثور على مصطلحات مكررة (حسب الاسم) في هذا التصنيف."
+
+#: inc/taxonomy/compound/duplicate_compounds.php:244
+#, php-format
+msgid ""
+"Merge process completed. Total duplicate terms (excluding primaries) processed "
+"for deletion: %d"
+msgstr ""
+"اكتملت عملية الدمج. إجمالي المصطلحات المكررة (باستثناء المصطلحات الأساسية) "
+"التي تمت معالجتها للحذف: %d"
+
+#: inc/taxonomy/compound/duplicate_compounds.php:246
+msgid ""
+"Please flush your permalinks by going to Settings > Permalinks and clicking "
+"\"Save Changes\"."
+msgstr ""
+"يرجى مسح الروابط الدائمة الخاصة بك عن طريق الذهاب إلى الإعدادات > الروابط "
+"الدائمة والنقر فوق \"حفظ التغييرات\"."
+
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:18
+msgid "Developer Image"
+msgstr "صورة المطور"
+
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:22
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:74
+msgid "Enter the URL of the developer image or use the \"Upload Image\" button."
+msgstr "أدخل عنوان URL لصورة المطور أو استخدم زر \"تحميل الصورة\"."
+
+#: inc/taxonomy/developer/cob_add_developer_image_field.php:65
+#: template-parts/taxonomy-developer/head.php:29
+msgid "developer Image"
+msgstr "صورة المطور"
 
 #: inc/theme-setup/Widget/cob_widgets_init.php:18
 msgid "Main Sidebar"
@@ -1305,54 +1565,54 @@ msgstr "محتوى هليوبوليس الجديدة"
 msgid "Content for North Coast"
 msgstr "المحتوى للساحل الشمالي"
 
-#: template-parts/button-container.php:11
+#: template-parts/button-container.php:14
 msgid "Call Us"
 msgstr "اتصل بنا"
 
-#: template-parts/button-container.php:22
+#: template-parts/button-container.php:29
 msgid "WhatsApp"
 msgstr "واتساب"
 
-#: template-parts/button-container.php:32
+#: template-parts/button-container.php:45
 msgid "Zoom"
 msgstr "زووم"
 
-#: template-parts/button-container.php:43
+#: template-parts/button-container.php:65
 #: template-parts/factories-post/left-landing-flat.php:3
-#: template-parts/fixed-icons.php:81
-#: template-parts/lands-post/left-landing-flat.php:3
-#: template-parts/properties-post/left-landing-flat.php:3
+#: template-parts/fixed-icons.php:116
+#: template-parts/lands-post/left-landing-flat.php:10
+#: template-parts/properties-post/left-landing-flat.php:10
 msgid "Schedule Appointment"
 msgstr "تحديد موعد"
 
-#: template-parts/button-container.php:44
+#: template-parts/button-container.php:68
 #: template-parts/factories-post/left-landing-flat.php:4
-#: template-parts/fixed-icons.php:82
-#: template-parts/lands-post/left-landing-flat.php:4
-#: template-parts/properties-post/left-landing-flat.php:4
+#: template-parts/fixed-icons.php:119
+#: template-parts/lands-post/left-landing-flat.php:11
+#: template-parts/properties-post/left-landing-flat.php:11
 msgid "Live Meeting"
 msgstr "لقاء مباشر"
 
-#: template-parts/button-container.php:51
+#: template-parts/button-container.php:81
 #: template-parts/factories-post/left-landing-flat.php:10
-#: template-parts/fixed-icons.php:89
-#: template-parts/lands-post/left-landing-flat.php:10
-#: template-parts/properties-post/left-landing-flat.php:10
+#: template-parts/fixed-icons.php:130
+#: template-parts/lands-post/left-landing-flat.php:20
+#: template-parts/properties-post/left-landing-flat.php:20
 msgid "Select Date"
 msgstr "حدد التاريخ"
 
-#: template-parts/button-container.php:56
+#: template-parts/button-container.php:87
 #: template-parts/factories-post/left-landing-flat.php:16
-#: template-parts/fixed-icons.php:94
-#: template-parts/lands-post/left-landing-flat.php:16
-#: template-parts/properties-post/left-landing-flat.php:16
+#: template-parts/fixed-icons.php:136
 msgid "Sunday"
 msgstr "الأحد"
 
-#: template-parts/button-container.php:58 template-parts/button-container.php:65
-#: template-parts/button-container.php:72 template-parts/button-container.php:79
-#: template-parts/button-container.php:86 template-parts/button-container.php:93
-#: template-parts/button-container.php:100
+#: template-parts/button-container.php:89 template-parts/button-container.php:96
+#: template-parts/button-container.php:103
+#: template-parts/button-container.php:110
+#: template-parts/button-container.php:117
+#: template-parts/button-container.php:124
+#: template-parts/button-container.php:131
 #: template-parts/factories-post/left-landing-flat.php:18
 #: template-parts/factories-post/left-landing-flat.php:25
 #: template-parts/factories-post/left-landing-flat.php:32
@@ -1360,126 +1620,120 @@ msgstr "الأحد"
 #: template-parts/factories-post/left-landing-flat.php:46
 #: template-parts/factories-post/left-landing-flat.php:53
 #: template-parts/factories-post/left-landing-flat.php:60
-#: template-parts/fixed-icons.php:96 template-parts/fixed-icons.php:103
-#: template-parts/fixed-icons.php:110 template-parts/fixed-icons.php:117
-#: template-parts/fixed-icons.php:124 template-parts/fixed-icons.php:131
-#: template-parts/fixed-icons.php:138
-#: template-parts/lands-post/left-landing-flat.php:18
-#: template-parts/lands-post/left-landing-flat.php:25
-#: template-parts/lands-post/left-landing-flat.php:32
-#: template-parts/lands-post/left-landing-flat.php:39
-#: template-parts/lands-post/left-landing-flat.php:46
-#: template-parts/lands-post/left-landing-flat.php:53
-#: template-parts/lands-post/left-landing-flat.php:60
-#: template-parts/properties-post/left-landing-flat.php:18
-#: template-parts/properties-post/left-landing-flat.php:25
-#: template-parts/properties-post/left-landing-flat.php:32
-#: template-parts/properties-post/left-landing-flat.php:39
-#: template-parts/properties-post/left-landing-flat.php:46
-#: template-parts/properties-post/left-landing-flat.php:53
-#: template-parts/properties-post/left-landing-flat.php:60
+#: template-parts/fixed-icons.php:138 template-parts/fixed-icons.php:145
+#: template-parts/fixed-icons.php:152 template-parts/fixed-icons.php:159
+#: template-parts/fixed-icons.php:166 template-parts/fixed-icons.php:173
+#: template-parts/fixed-icons.php:180
 msgid "October"
 msgstr "أكتوبر"
 
-#: template-parts/button-container.php:63
+#: template-parts/button-container.php:94
 #: template-parts/factories-post/left-landing-flat.php:23
-#: template-parts/fixed-icons.php:101
-#: template-parts/lands-post/left-landing-flat.php:23
-#: template-parts/properties-post/left-landing-flat.php:23
+#: template-parts/fixed-icons.php:143
 msgid "Monday"
 msgstr "الاثنين"
 
-#: template-parts/button-container.php:70
+#: template-parts/button-container.php:101
 #: template-parts/factories-post/left-landing-flat.php:30
-#: template-parts/fixed-icons.php:108
-#: template-parts/lands-post/left-landing-flat.php:30
-#: template-parts/properties-post/left-landing-flat.php:30
+#: template-parts/fixed-icons.php:150
 msgid "Tuesday"
 msgstr "الثلاثاء"
 
-#: template-parts/button-container.php:77
+#: template-parts/button-container.php:108
 #: template-parts/factories-post/left-landing-flat.php:37
-#: template-parts/fixed-icons.php:115
-#: template-parts/lands-post/left-landing-flat.php:37
-#: template-parts/properties-post/left-landing-flat.php:37
+#: template-parts/fixed-icons.php:157
 msgid "Wednesday"
 msgstr "الأربعاء"
 
-#: template-parts/button-container.php:84
+#: template-parts/button-container.php:115
 #: template-parts/factories-post/left-landing-flat.php:44
-#: template-parts/fixed-icons.php:122
-#: template-parts/lands-post/left-landing-flat.php:44
-#: template-parts/properties-post/left-landing-flat.php:44
+#: template-parts/fixed-icons.php:164
 msgid "Thursday"
 msgstr "الخميس"
 
-#: template-parts/button-container.php:91
+#: template-parts/button-container.php:122
 #: template-parts/factories-post/left-landing-flat.php:51
-#: template-parts/fixed-icons.php:129
-#: template-parts/lands-post/left-landing-flat.php:51
-#: template-parts/properties-post/left-landing-flat.php:51
+#: template-parts/fixed-icons.php:171
 msgid "Friday"
 msgstr "الجمعة"
 
-#: template-parts/button-container.php:98
+#: template-parts/button-container.php:129
 #: template-parts/factories-post/left-landing-flat.php:58
-#: template-parts/fixed-icons.php:136
-#: template-parts/lands-post/left-landing-flat.php:58
-#: template-parts/properties-post/left-landing-flat.php:58
+#: template-parts/fixed-icons.php:178
 msgid "Saturday"
 msgstr "السبت"
 
-#: template-parts/button-container.php:108
+#: template-parts/button-container.php:140
 #: template-parts/factories-post/left-landing-flat.php:67
-#: template-parts/fixed-icons.php:146
-#: template-parts/lands-post/left-landing-flat.php:67
-#: template-parts/properties-post/left-landing-flat.php:67
+#: template-parts/fixed-icons.php:188
+#: template-parts/lands-post/left-landing-flat.php:39
+#: template-parts/properties-post/left-landing-flat.php:39
 msgid "Select Time"
 msgstr "حدد الوقت"
 
-#: template-parts/button-container.php:115
+#: template-parts/button-container.php:143 template-parts/fixed-icons.php:191
+msgid "10:00 AM"
+msgstr ""
+
+#: template-parts/button-container.php:144 template-parts/fixed-icons.php:192
+msgid "12:00 PM"
+msgstr ""
+
+#: template-parts/button-container.php:145 template-parts/fixed-icons.php:193
+msgid "02:00 PM"
+msgstr ""
+
+#: template-parts/button-container.php:150
 #: template-parts/factories-post/left-landing-flat.php:74
-#: template-parts/fixed-icons.php:153
-#: template-parts/lands-post/left-landing-flat.php:74
-#: template-parts/properties-post/left-landing-flat.php:74
+#: template-parts/fixed-icons.php:197
+#: template-parts/lands-post/left-landing-flat.php:50
+#: template-parts/properties-post/left-landing-flat.php:50
 msgid "Confirm Booking"
 msgstr "تأكيد الحجز"
 
-#: template-parts/button-container.php:116
-#: template-parts/button-container.php:124
+#: template-parts/button-container.php:153
+#: template-parts/button-container.php:173
 #: template-parts/factories-post/left-landing-flat.php:75
 #: template-parts/factories-post/left-landing-flat.php:83
-#: template-parts/fixed-icons.php:154 template-parts/fixed-icons.php:162
-#: template-parts/lands-post/left-landing-flat.php:75
-#: template-parts/lands-post/left-landing-flat.php:83
-#: template-parts/properties-post/left-landing-flat.php:75
-#: template-parts/properties-post/left-landing-flat.php:83
+#: template-parts/fixed-icons.php:200 template-parts/fixed-icons.php:216
 msgid "Book your meeting now"
 msgstr "احجز اجتماعك الآن"
 
-#: template-parts/button-container.php:121
+#: template-parts/button-container.php:165
 #: template-parts/factories-post/left-landing-flat.php:80
-#: template-parts/fixed-icons.php:159
-#: template-parts/lands-post/left-landing-flat.php:80
-#: template-parts/properties-post/left-landing-flat.php:80
+#: template-parts/fixed-icons.php:209
+#: template-parts/lands-post/left-landing-flat.php:59
+#: template-parts/properties-post/left-landing-flat.php:59
 msgid "Enter Phone Number"
 msgstr "أدخل رقم الهاتف"
 
-#: template-parts/button-container.php:123
+#: template-parts/button-container.php:170
 #: template-parts/factories-post/left-landing-flat.php:82
-#: template-parts/fixed-icons.php:161
-#: template-parts/lands-post/left-landing-flat.php:82
-#: template-parts/properties-post/left-landing-flat.php:82
+#: template-parts/fixed-icons.php:213
+#: template-parts/lands-post/left-landing-flat.php:62
+#: template-parts/properties-post/left-landing-flat.php:62
 msgid "Create Meeting"
 msgstr "إنشاء اجتماع"
 
-#: template-parts/button-container.php:139
+#: template-parts/button-container.php:190
 msgid "Your Assistant"
 msgstr "رسالتك"
 
-#: template-parts/contact-section.php:10
+#: template-parts/button-container.php:206 template-parts/contact-section.php:10
+#: template-parts/fixed-icons.php:49
 msgid "Need Help?"
 msgstr "هل تحتاج إلى مساعدة؟"
+
+#: template-parts/button-container.php:209 template-parts/fixed-icons.php:52
+msgid ""
+"Fill in your details and a real estate expert will contact you as soon as "
+"possible."
+msgstr "املأ بياناتك و سوف يقوم خبير عقارى بالاتصال بك فى اقرب وقت"
+
+#: template-parts/button-container.php:238 template-parts/contact-section.php:16
+#: template-parts/fixed-icons.php:81
+msgid "Your Message"
+msgstr "رسالتك"
 
 #: template-parts/contact-section.php:11
 msgid ""
@@ -1489,10 +1743,6 @@ msgstr "املأ بياناتك و سوف يقوم خبير عقارى بالا�
 #: template-parts/contact-section.php:13
 msgid "Your Name"
 msgstr "أسمك"
-
-#: template-parts/contact-section.php:16
-msgid "Your Message"
-msgstr "رسالتك"
 
 #: template-parts/contact-section.php:24
 msgid "Office Image"
@@ -1530,47 +1780,39 @@ msgstr "موقع عقار الجديد ينشر أحدث المشاريع الع
 msgid "There are no factories currently available."
 msgstr "لا يوجد مصانع متاحة حاليا."
 
-#: template-parts/factories-post/flat-details.php:5
+#: template-parts/factories-post/flat-details.php:8
 #: template-parts/home/properties.php:61
 #: template-parts/lands-post/flat-details.php:5
 #: template-parts/properties-post/flat-details.php:7
 msgid "Not known"
 msgstr "غير معروف"
 
-#: template-parts/factories-post/flat-details.php:105
+#: template-parts/factories-post/flat-details.php:102
 #: template-parts/lands-post/flat-details.php:105
 msgid " Factory price "
 msgstr " سعر المصنع "
 
-#: template-parts/factories-post/flat-details.php:106
+#: template-parts/factories-post/flat-details.php:103
 #: template-parts/lands-post/flat-details.php:106
-#: template-parts/properties-post/flat-details.php:114
-#: template-parts/properties-post/flat-details.php:129
+#: template-parts/properties-post/flat-details.php:119
+#: template-parts/properties-post/flat-details.php:134
 msgid "L.E."
 msgstr "جنية ."
 
-#: template-parts/factories-post/flat-details.php:132
-#: template-parts/lands-post/flat-details.php:132
-#: template-parts/properties-post/flat-details.php:150
-msgid " Meter "
+#: template-parts/factories-post/flat-details.php:134
+msgid "Meter"
 msgstr " متر "
 
-#: template-parts/factories-post/flat-details.php:150
-#: template-parts/lands-post/flat-details.php:150
-#: template-parts/properties-post/flat-details.php:181
-msgid " Bathrooms "
-msgstr " الحمامات "
+#: template-parts/factories-post/flat-details.php:158
+msgid "Bathrooms"
+msgstr "الحمامات"
 
-#: template-parts/factories-post/flat-details.php:156
-#: template-parts/lands-post/flat-details.php:156
-#: template-parts/properties-post/flat-details.php:197
-msgid "Reference number "
+#: template-parts/factories-post/flat-details.php:168
+msgid "Reference number"
 msgstr "الرقم المرجعي "
 
-#: template-parts/factories-post/flat-details.php:165
-#: template-parts/lands-post/flat-details.php:165
-#: template-parts/properties-post/flat-details.php:207
-msgid "Delivery in "
+#: template-parts/factories-post/flat-details.php:176
+msgid "Delivery in"
 msgstr "موعد التسليم "
 
 #: template-parts/factories-post/right-landing-flat.php:3
@@ -1581,7 +1823,7 @@ msgstr " عن المصنع"
 msgid "Search..."
 msgstr "بحث ..."
 
-#: template-parts/header.php:42 template-parts/home/landing.php:107
+#: template-parts/header.php:42 template-parts/home/landing.php:127
 msgid "Search"
 msgstr "بحث"
 
@@ -1672,7 +1914,7 @@ msgstr "البحث حسب المنطقة "
 
 #: template-parts/home/areas.php:9 template-parts/home/articles.php:13
 #: template-parts/home/developers.php:20 template-parts/home/factories.php:42
-#: template-parts/home/projects.php:19 template-parts/home/services.php:50
+#: template-parts/home/projects.php:36 template-parts/home/services.php:50
 #: template-parts/single/articles-news.php:19
 msgid "View all"
 msgstr "عرض الكل"
@@ -1693,12 +1935,12 @@ msgstr "استكشف مجموعة مختارة من أحدث المشاريع ا
 msgid "There are no new articles currently."
 msgstr "لا توجد مقالات جديدة حاليا."
 
-#: template-parts/home/compounds.php:60
+#: template-parts/home/compounds.php:77
 #: template-parts/taxonomy-city/featured.php:60
 msgid "Most Searched Compounds"
 msgstr "الكمبوندات الأكثر بحثا"
 
-#: template-parts/home/compounds.php:92
+#: template-parts/home/compounds.php:136
 #: template-parts/taxonomy-city/featured.php:92
 msgid "No compounds available at the moment."
 msgstr "لا توجد مركبات متاحة في الوقت الراهن."
@@ -1714,82 +1956,57 @@ msgid ""
 msgstr ""
 "اكتشف أحدث المصانع والتقنيات المتقدمة التي تلبي احتياجات السوق الصناعية الحديثة"
 
-#: template-parts/home/landing.php:36
+#: template-parts/home/landing.php:41
 msgid "Default Slide"
 msgstr "الشريحة الافتراضية"
 
-#: template-parts/home/landing.php:54
+#: template-parts/home/landing.php:61
 msgid "Find your property"
 msgstr "ابحث عن وحدتك"
 
-#: template-parts/home/landing.php:68
+#: template-parts/home/landing.php:80 template-parts/home/landing.php:203
 msgid "Search by compound, location, real estate"
 msgstr "البحث عن طريق الكلمات الرئيسية والموقع او العقار"
 
-#: template-parts/home/landing.php:79 template-parts/home/landing.php:189
+#: template-parts/home/landing.php:94 template-parts/home/landing.php:219
 msgid "Select Property Type"
 msgstr "اختر نوع العقار"
 
-#: template-parts/home/landing.php:91 template-parts/home/landing.php:215
-#: template-parts/home/landing.php:218
+#: template-parts/home/landing.php:106 template-parts/home/landing.php:233
+#: template-parts/home/landing.php:266
 msgid "Bedrooms"
 msgstr "غرف نوم"
 
-#: template-parts/home/landing.php:98
+#: template-parts/home/landing.php:117 template-parts/home/landing.php:265
 msgid "Price"
 msgstr "السعر"
 
-#: template-parts/home/landing.php:115
+#: template-parts/home/landing.php:136
 msgid "Detailed search"
 msgstr "بحث مفصل"
 
-#: template-parts/home/landing.php:125 template-parts/home/landing.php:162
+#: template-parts/home/landing.php:150
 msgid "Search by keywords, location, real estate photos"
 msgstr "البحث عن طريق الكلمات الرئيسية والموقع والصور العقارية"
 
-#: template-parts/home/landing.php:160
-msgid "Search words"
-msgstr "كلمات البحث"
+#: template-parts/home/landing.php:270
+msgid "No results found"
+msgstr "لم يتم العثور على نتائج."
 
-#: template-parts/home/landing.php:180
-msgid "properties"
-msgstr "العقارت"
-
-#: template-parts/home/landing.php:235
-msgid "Price (EGP)"
-msgstr "السعر (جنيه مصري)"
-
-#: template-parts/home/landing.php:238
-msgid "From"
-msgstr "من"
-
-#: template-parts/home/landing.php:239
-msgid "To"
-msgstr "الي"
-
-#: template-parts/home/landing.php:246
-#, php-format
-msgid "Search (%s results)"
-msgstr "البحث (نتائج %s)"
-
-#: template-parts/home/landing.php:249
-msgid "Clear all"
-msgstr "مسح الكل"
-
-#: template-parts/home/projects.php:15
+#: template-parts/home/projects.php:21
 msgid "Explore a selection of our latest available real estate projects"
 msgstr "استكشف مجموعة مختارة من أحدث مشاريعنا العقارية المتاحة"
 
-#: template-parts/home/projects.php:69
-#: template-parts/taxonomy-developer/featured.php:81
-msgid "No projects available."
-msgstr "لا توجد مشاريع متاحة."
+#: template-parts/home/projects.php:128
+msgid "No projects available at the moment."
+msgstr "لا توجد عقارات  متاحة في الوقت الراهن."
 
 #: template-parts/home/properties.php:45
 msgid "Featured Properties"
 msgstr "عقارات مميزة"
 
 #: template-parts/home/properties.php:49
+#: template-parts/properties-post/flat-slider.php:94
 msgid "View All"
 msgstr "عرض الكل"
 
@@ -1813,25 +2030,145 @@ msgstr "لا توجد خدمات بهذه اللغة حاليًا."
 msgid "There are no lands currently available."
 msgstr "لا توجد أراضي متاحة حاليًا."
 
+#: template-parts/lands-post/flat-details.php:132
+#: template-parts/properties-post/flat-details.php:155
+msgid " Meter "
+msgstr " متر "
+
+#: template-parts/lands-post/flat-details.php:150
+#: template-parts/properties-post/flat-details.php:186
+msgid " Bathrooms "
+msgstr " الحمامات "
+
+#: template-parts/lands-post/flat-details.php:156
+#: template-parts/properties-post/flat-details.php:202
+msgid "Reference number "
+msgstr "الرقم المرجعي "
+
+#: template-parts/lands-post/flat-details.php:165
+#: template-parts/properties-post/flat-details.php:212
+msgid "Delivery in "
+msgstr "موعد التسليم "
+
+#: template-parts/lands-post/left-landing-flat.php:47
+#: template-parts/properties-post/left-landing-flat.php:47
+msgid "Participant Email"
+msgstr "البريد الإلكتروني للاتصال"
+
+#: template-parts/lands-post/left-landing-flat.php:119
+#: template-parts/properties-post/left-landing-flat.php:119
+msgid "Please wait..."
+msgstr "انتظر من فضلك..."
+
+#: template-parts/lands-post/left-landing-flat.php:153
+#: template-parts/lands-post/left-landing-flat.php:203
+#: template-parts/properties-post/left-landing-flat.php:153
+#: template-parts/properties-post/left-landing-flat.php:203
+msgid "Your Meeting Link"
+msgstr "رابط اجتماعك"
+
+#: template-parts/lands-post/left-landing-flat.php:156
+#: template-parts/lands-post/left-landing-flat.php:181
+#: template-parts/lands-post/left-landing-flat.php:186
+#: template-parts/lands-post/left-landing-flat.php:192
+#: template-parts/lands-post/left-landing-flat.php:206
+#: template-parts/properties-post/left-landing-flat.php:156
+#: template-parts/properties-post/left-landing-flat.php:181
+#: template-parts/properties-post/left-landing-flat.php:186
+#: template-parts/properties-post/left-landing-flat.php:192
+#: template-parts/properties-post/left-landing-flat.php:206
+msgid "Copy"
+msgstr "نسخ"
+
+#: template-parts/lands-post/left-landing-flat.php:158
+#: template-parts/properties-post/left-landing-flat.php:158
+msgid "Add to Google Calendar"
+msgstr "أضف إلى تقويم جوجل"
+
+#: template-parts/lands-post/left-landing-flat.php:180
+#: template-parts/lands-post/left-landing-flat.php:185
+#: template-parts/lands-post/left-landing-flat.php:191
+#: template-parts/properties-post/left-landing-flat.php:180
+#: template-parts/properties-post/left-landing-flat.php:185
+#: template-parts/properties-post/left-landing-flat.php:191
+msgid "Copied!"
+msgstr "منسوخ!"
+
+#: template-parts/lands-post/left-landing-flat.php:198
+#: template-parts/properties-post/left-landing-flat.php:198
+msgid "Could not shorten URL. Showing original."
+msgstr "تعذّر اختصار الرابط. يُعرض الأصل."
+
+#: template-parts/lands-post/left-landing-flat.php:213
+#: template-parts/properties-post/left-landing-flat.php:213
+msgid "An error occurred."
+msgstr "حدث خطأ."
+
+#: template-parts/lands-post/left-landing-flat.php:220
+#: template-parts/properties-post/left-landing-flat.php:220
+msgid "Please try again."
+msgstr "يرجى المحاولة مرة أخرى."
+
 #: template-parts/lands-post/right-landing-flat.php:3
 msgid " About the land"
 msgstr "عن الأرض"
 
-#: template-parts/properties-post/flat-details.php:108
+#: template-parts/properties-post/flat-details.php:113
 msgid " Prices start "
 msgstr " السعر يبدء "
 
-#: template-parts/properties-post/flat-details.php:113
+#: template-parts/properties-post/flat-details.php:118
 msgid " From "
 msgstr "من"
 
-#: template-parts/properties-post/flat-details.php:128
+#: template-parts/properties-post/flat-details.php:133
 msgid " To "
 msgstr "الي"
 
-#: template-parts/properties-post/flat-details.php:165
+#: template-parts/properties-post/flat-details.php:170
 msgid " Rooms "
 msgstr " غرف "
+
+#: template-parts/properties-post/flat-slider.php:48
+#, php-format
+msgid "Image of %s - 1"
+msgstr "صورة %s - 1"
+
+#: template-parts/properties-post/flat-slider.php:49
+#, php-format
+msgid "Image of %s - 2"
+msgstr "صورة %s - 2"
+
+#: template-parts/properties-post/flat-slider.php:50
+#, php-format
+msgid "Image of %s - 3"
+msgstr "صورة %s - 3"
+
+#: template-parts/properties-post/flat-slider.php:51
+#, php-format
+msgid "Image of %s - 4"
+msgstr "صورة %s - 4"
+
+#: template-parts/properties-post/flat-slider.php:52
+#, php-format
+msgid "Image of %s - 5"
+msgstr "صورة %s - 5"
+
+#: template-parts/properties-post/flat-slider.php:53
+#, php-format
+msgid "Image of %s - 6"
+msgstr "صورة %s - 6"
+
+#: template-parts/properties-post/flat-slider.php:54
+#, php-format
+msgid "Image of %s - 7"
+msgstr "صورة %s - 7"
+
+#: template-parts/properties-post/flat-slider.php:86
+#: template-parts/properties-post/flat-slider.php:135
+#, php-format
+msgid "Thumbnail for %s"
+msgstr "صورة مصغرة لـ %s"
 
 #: template-parts/properties-post/project-facilities.php:12
 msgid "Water Games"
@@ -2062,15 +2399,13 @@ msgstr "الصورة 1"
 msgid "Featured projects"
 msgstr "مشاروعات مميزة"
 
+#: template-parts/taxonomy-developer/featured.php:80
+msgid "No projects available."
+msgstr "لا توجد مشاريع متاحة."
+
 #: template-parts/top-articles.php:48
 msgid "No articles selected."
 msgstr "أحدث الأخبار."
-
-#. Theme Name of the plugin/theme
-#, fuzzy
-#| msgid "Capital of Business"
-msgid "Capital of Business v2"
-msgstr "Capital of Business"
 
 #. Theme URI of the plugin/theme
 msgid "https://www.cob.com.eg/"
@@ -2111,6 +2446,39 @@ msgstr "الكمبوند"
 msgid "single post"
 msgstr "المقالة"
 
+#~ msgid ""
+#~ "Enter the URL of the compound image or use the \"Upload Image\" button."
+#~ msgstr "أدخل عنوان URL لصورة الكمبوند أو استخدم زر \"تحميل الصورة\"."
+
+#~ msgid "Not Assigned"
+#~ msgstr "غير مربوط"
+
+#~ msgid "Search words"
+#~ msgstr "كلمات البحث"
+
+#~ msgid "properties"
+#~ msgstr "العقارت"
+
+#~ msgid "Price (EGP)"
+#~ msgstr "السعر (جنيه مصري)"
+
+#~ msgid "From"
+#~ msgstr "من"
+
+#~ msgid "To"
+#~ msgstr "الي"
+
+#~ msgid "Search (%s results)"
+#~ msgstr "البحث (نتائج %s)"
+
+#~ msgid "Clear all"
+#~ msgstr "مسح الكل"
+
+#, fuzzy
+#~| msgid "Capital of Business"
+#~ msgid "Capital of Business v2"
+#~ msgstr "Capital of Business"
+
 #~ msgid "Property Details & Payment Plans"
 #~ msgstr "تفاصيل العقار وخطط الدفع"
 
@@ -2125,9 +2493,6 @@ msgstr "المقالة"
 
 #~ msgid "Rooms"
 #~ msgstr "الغرف"
-
-#~ msgid "Bathrooms"
-#~ msgstr "الحمامات"
 
 #~ msgid "Reference Number"
 #~ msgstr "الرقم المرجعي"
@@ -2155,9 +2520,6 @@ msgstr "المقالة"
 
 #~ msgid "Featured"
 #~ msgstr "مميز"
-
-#~ msgid "Nonce verification failed"
-#~ msgstr "فشل التحقق مرة واحدة"
 
 #~ msgid "You are not allowed to edit this post"
 #~ msgstr "غير مسموح لك بتعديل هذه المشاركة"
