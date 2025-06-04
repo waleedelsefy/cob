@@ -67,7 +67,6 @@ if ( ! $projects_query->have_posts() ) {
                             <a href="<?php the_permalink(); ?>" class="compounds-card">
                                 <div class="top-card-comp">
                                     <h6><?php the_title(); ?></h6>
-                                    <span>120 وحدات</span>
                                 </div>
                                 <?php if ( has_post_thumbnail() ) : ?>
                                     <img class="main-img lazyload" data-src="<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ); ?>" alt="<?php the_title_attribute(); ?>">
