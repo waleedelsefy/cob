@@ -142,6 +142,7 @@ td {
 .main-flat .container {
   display: flex;
   gap: 2%;
+  position: relative;
 }
 .main-flat .flat-slider {
   width: 50%;
@@ -211,7 +212,7 @@ td {
   z-index: 1001;
   border-radius: 5px;
   width: 70%;
-  max-width: 600px;
+  max-width: 650px;
 }
 .btn {
   padding: 0 10px;
@@ -221,13 +222,15 @@ td {
   cursor: pointer;
   position: absolute;
   top: 365px;
-  left: 68.5%;
+  right: 60px;
   z-index: 111;
   border: 1px solid #fff;
   border-radius: 10px;
   display: flex;
   align-items: center;
   gap: 5px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 .overlay {
   display: none;

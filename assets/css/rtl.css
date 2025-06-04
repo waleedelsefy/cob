@@ -93,8 +93,8 @@ body {
   right: 15px;
 }
 .btn {
-  left: inherit !important;
-  right: 50.5%;
+  left: 50px !important;
+  right: inherit !important;
 }
 @media (max-width: 768px) {
   .btn {
@@ -246,4 +246,7 @@ body {
 }
 #mobile {
   direction: rtl !important;
+}
+.page-numbers svg {
+  rotate: 360deg !important;
 }

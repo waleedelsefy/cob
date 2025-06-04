@@ -132,14 +132,18 @@
   margin-top: 5px;
 }
 .grid .card button {
-  padding: 3px;
+  padding: 5px;
   background-color: #000;
   color: #fff;
-  border-radius: 23px;
+  border-radius: 20px;
   margin-top: 10px;
   font-size: 14px;
   font-weight: 700;
   width: 150px;
+}
+.page-numbers svg {
+  rotate: 180deg;
+  width: 7px;
 }
 .pagination {
   display: flex;
