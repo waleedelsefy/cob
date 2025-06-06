@@ -12,7 +12,8 @@
   "require": {
     "php": ">=7.4",
     "wpackio/enqueue": "^2.2.1",
-    "firebase/php-jwt": "^6.11"
+    "firebase/php-jwt": "^6.11",
+    "algolia/algoliasearch-client-php": "^4.20"
   },
   "autoload": {
     "psr-4": {

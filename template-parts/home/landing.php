@@ -28,18 +28,18 @@ $theme_dir = get_template_directory_uri();
                             <?php $slider_img = get_the_post_thumbnail_url( get_the_ID(), 'full' ); ?>
                             <div class="swiper-slide">
                                 <img
-                                    data-src="<?php echo esc_url( $slider_img ? $slider_img : $theme_dir . '/assets/imgs/landing.jpg' ); ?>"
-                                    alt="<?php the_title_attribute(); ?>"
-                                    class="lazyload"
+                                        data-src="<?php echo esc_url( $slider_img ? $slider_img : $theme_dir . '/assets/imgs/landing.jpg' ); ?>"
+                                        alt="<?php the_title_attribute(); ?>"
+                                        class="lazyload"
                                 >
                             </div>
                         <?php endwhile; wp_reset_postdata(); ?>
                     <?php else : ?>
                         <div class="swiper-slide">
                             <img
-                                data-src="<?php echo esc_url( $theme_dir . '/assets/imgs/landing.jpg' ); ?>"
-                                alt="<?php esc_attr_e( 'Default Slide', 'cob_theme' ); ?>"
-                                class="lazyload"
+                                    data-src="<?php echo esc_url( $theme_dir . '/assets/imgs/landing.jpg' ); ?>"
+                                    alt="<?php esc_attr_e( 'Default Slide', 'cob_theme' ); ?>"
+                                    class="lazyload"
                             >
                         </div>
                     <?php endif; ?>
@@ -74,11 +74,11 @@ $theme_dir = get_template_directory_uri();
                                       fill="#081945" />
                             </svg>
                             <input
-                                type="text"
-                                id="basicSearchInput"
-                                name="basic_search"
-                                placeholder="<?php esc_attr_e( 'Search by compound, location, real estate', 'cob_theme' ); ?>"
-                                value=""
+                                    type="text"
+                                    id="basicSearchInput"
+                                    name="basic_search"
+                                    placeholder="<?php esc_attr_e( 'Search by compound, location, real estate', 'cob_theme' ); ?>"
+                                    value=""
                             />
                         </div>
 
@@ -113,13 +113,12 @@ $theme_dir = get_template_directory_uri();
                                 </select>
                             </li>
                             <li>
-                                <select id="basicPrice" name="price">
+                                <select id="basicPrice" name="filter_price">
                                     <option value=""><?php esc_html_e( 'Price', 'cob_theme' ); ?></option>
-                                    <option value="1000000">1,000,000</option>
-                                    <option value="1500000">1,500,000</option>
-                                    <option value="2000000">2,000,000</option>
-                                    <option value="2500000">2,500,000</option>
-                                    <option value="3000000">3,000,000</option>
+                                    <option value="0-1000000">0 - 1,000,000</option>
+                                    <option value="1000000-2500000">1,000,000 - 2,500,000</option>
+                                    <option value="2500000-5000000">2,500,000 - 5,000,000</option>
+                                    <option value="5000000+">5,000,000+</option>
                                 </select>
                             </li>
                             <li>
@@ -144,11 +143,11 @@ $theme_dir = get_template_directory_uri();
                               fill="#081945" />
                     </svg>
                     <input
-                        type="text"
-                        id="detailedSearchInput"
-                        name="s"
-                        placeholder="<?php esc_attr_e( 'Search by keywords, location, real estate photos', 'cob_theme' ); ?>"
-                        value=""
+                            type="text"
+                            id="detailedSearchInput"
+                            name="s"
+                            placeholder="<?php esc_attr_e( 'Search by keywords, location, real estate photos', 'cob_theme' ); ?>"
+                            value=""
                     >
                     <button id="toggleButton" type="button">
                         <svg id="sliderIcon" width="16" height="16" viewBox="0 0 16 16" fill="none"
