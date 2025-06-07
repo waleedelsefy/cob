@@ -213,7 +213,6 @@ jQuery(document).ready(function($) {
         resumeButton.hide();
         addToLog('Attempting to resume previous import...');
 
-        // Directly get status and then process batch
         $.ajax({
             url: cobPropImporter.ajax_url,
             type: 'POST',
@@ -229,6 +228,11 @@ jQuery(document).ready(function($) {
                     addToLog(response.data.message || 'Could not find a resumable import.', true);
                     resetUI();
                 }
+            },
+            error: function(xhr) {
+                isImporting = false;
+                addToLog(cobPropImporter.i18n.connection_error + ': ' + xhr.statusText, true);
+                resetUI();
             }
         });
     });

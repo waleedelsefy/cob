@@ -2,54 +2,53 @@
 /**
  * AJAX WordPress Importer for 'properties' posts from a CSV file.
  *
- * Version 5: Added functionality to select files from the server in addition to uploading.
- * Includes translation linking, language-aware taxonomy assignment, and resume support.
+ * Version 6: Corrected translation function calls and fixed undefined variable notices.
+ * This version ensures all code runs within the correct WordPress hooks to prevent "too early" errors.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-// --- Configuration ---
-$cob_property_importer_config = [
-    'post_type' => 'properties',
-    'source_id_meta_key' => '_property_source_id',
-    'csv_delimiter' => ',',
-    'batch_size' => 1,
-    'ajax_timeout_seconds' => 300,
-    'status_option_name' => 'cob_property_importer_status',
-    'taxonomies_map' => [
-        'compound_name' => 'compound',
-        'compound_developer_name' => 'developer',
-        'compound_area_name' => 'city',
-        'property_type_name' => 'type',
-        'finishing' => 'finishing',
-    ],
-    'csv_column_map_en' => [
-        'id' => 'id',
-        'name' => 'meta_title_en',
-        'slug' => 'all_slugs_en',
-        'description' => 'meta_description_en',
-        'gallery_img_base' => 'Property_img',
-        'gallery_img_count' => 8,
-    ],
-    'csv_column_map_ar' => [
-        'id' => 'id',
-        'name' => 'name',
-        'slug' => 'all_slugs_ar',
-        'description' => 'description',
-        'gallery_img_base' => 'Property_img',
-        'gallery_img_count' => 8,
-    ],
-];
+/**
+ * Get the importer configuration array.
+ * This function prevents translation functions from running too early.
+ *
+ * @return array The configuration array.
+ */
+function cob_get_property_importer_config() {
+    return [
+        'post_type' => 'properties',
+        'source_id_meta_key' => '_property_source_id',
+        'csv_delimiter' => ',',
+        'batch_size' => 1,
+        'ajax_timeout_seconds' => 300,
+        'status_option_name' => 'cob_property_importer_status',
+        'taxonomies_map' => [
+            'compound_name'           => 'compound',
+            'compound_developer_name' => 'developer',
+            'compound_area_name'      => 'city',
+            'property_type_name'      => 'type',
+            'finishing'               => 'finishing',
+        ],
+        'csv_column_map_en' => [
+            'id' => 'id', 'name' => 'meta_title_en', 'slug' => 'all_slugs_en', 'description' => 'meta_description_en',
+            'gallery_img_base' => 'Property_img', 'gallery_img_count' => 8,
+        ],
+        'csv_column_map_ar' => [
+            'id' => 'id', 'name' => 'name', 'slug' => 'all_slugs_ar', 'description' => 'description',
+            'gallery_img_base' => 'Property_img', 'gallery_img_count' => 8,
+        ],
+    ];
+}
 
 // 1. Register Admin Page & Enqueue Assets
 add_action('admin_menu', 'cob_prop_importer_register_page');
 function cob_prop_importer_register_page() {
     $hook = add_submenu_page(
         'tools.php',
-        'استيراد العقارات (AJAX)',
-        'استيراد العقارات',
+        __('Property Importer (AJAX)', 'cob_theme'),
+        __('Import Properties', 'cob_theme'),
         'manage_options',
         'cob-property-importer',
         'cob_prop_importer_render_page'
@@ -58,27 +57,27 @@ function cob_prop_importer_register_page() {
 }
 
 function cob_prop_importer_enqueue_assets() {
-    global $cob_property_importer_config;
+    $config = cob_get_property_importer_config();
     $js_path = get_stylesheet_directory_uri() . '/inc/importer/cob-property-importer.js';
 
-    wp_enqueue_script('cob-prop-importer-js', $js_path, ['jquery'], '2.0.1', true);
+    wp_enqueue_script('cob-prop-importer-js', $js_path, ['jquery'], '3.0.0', true);
 
     wp_localize_script('cob-prop-importer-js', 'cobPropImporter', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('cob_prop_importer_nonce'),
         'i18n' => [
-            'confirm_new_import' => 'هل أنت متأكد أنك تريد بدء عملية استيراد جديدة؟',
-            'confirm_resume' => 'هل تريد استئناف عملية الاستيراد السابقة؟',
-            'confirm_cancel' => 'هل أنت متأكد من إلغاء العملية؟',
-            'error_selecting_file' => 'يرجى اختيار ملف CSV.',
-            'preparing_import' => 'يتم تحضير العملية...',
-            'import_complete' => '🎉 اكتملت عملية الاستيراد بنجاح! 🎉',
-            'connection_error' => '❌ فشل في الاتصال بالخادم',
-            'processed' => 'تمت معالجة',
-            'of' => 'من',
-            'imported' => 'تم الاستيراد',
-            'updated' => 'تم التحديث',
-            'failed' => 'فشل',
+            'confirm_new_import' => __('Are you sure you want to start a new import?', 'cob_theme'),
+            'confirm_resume' => __('Do you want to resume the previous import?', 'cob_theme'),
+            'confirm_cancel' => __('Are you sure you want to cancel the process?', 'cob_theme'),
+            'error_selecting_file' => __('Please select a CSV file.', 'cob_theme'),
+            'preparing_import' => __('Preparing import...', 'cob_theme'),
+            'import_complete' => __('🎉 Import completed successfully! 🎉', 'cob_theme'),
+            'connection_error' => __('❌ Server connection error', 'cob_theme'),
+            'processed' => __('Processed', 'cob_theme'),
+            'of' => __('of', 'cob_theme'),
+            'imported' => __('Imported', 'cob_theme'),
+            'updated' => __('Updated', 'cob_theme'),
+            'failed' => __('Failed', 'cob_theme'),
         ]
     ]);
     wp_add_inline_style('wp-admin', "
@@ -92,8 +91,8 @@ function cob_prop_importer_enqueue_assets() {
 
 // 2. Render Importer Page HTML
 function cob_prop_importer_render_page() {
-    global $cob_property_importer_config;
-    $import_status = get_option($cob_property_importer_config['status_option_name'], false);
+    $config = cob_get_property_importer_config();
+    $import_status = get_option($config['status_option_name'], false);
 
     $imports_dir = WP_CONTENT_DIR . '/csv-imports/';
     $server_files = [];
@@ -109,31 +108,36 @@ function cob_prop_importer_render_page() {
     }
     ?>
     <div class="wrap">
-        <h1>استيراد العقارات (معالجة بالـ AJAX)</h1>
+        <h1><?php _e('Property Importer (AJAX)', 'cob_theme'); ?></h1>
+        <p><?php _e('This tool imports and updates properties from a CSV file, with support for translation linking.', 'cob_theme'); ?></p>
+        <div class="notice notice-warning">
+            <p><strong><?php _e('Important:', 'cob_theme'); ?></strong> <?php printf(__('The batch size is set to %d to avoid timeouts.', 'cob_theme'), esc_html($config['batch_size'])); ?></p>
+        </div>
+
         <?php if ($import_status && isset($import_status['progress']) && $import_status['progress'] < 100) : ?>
-            <div id="resume-notice" class="notice notice-warning is-dismissible"><p>يوجد عملية استيراد سابقة لم تكتمل. يمكنك متابعتها أو إلغائها.</p></div>
+            <div id="resume-notice" class="notice notice-warning is-dismissible"><p><?php printf(__('A previous import for %s was not completed. You can resume or cancel it.', 'cob_theme'), '<code>' . esc_html($import_status['original_filename']) . '</code>'); ?></p></div>
         <?php endif; ?>
 
         <form id="cob-importer-form" method="post" enctype="multipart/form-data">
-            <h2>الخطوة 1: اختر مصدر الملف</h2>
+            <h2><?php _e('Step 1: Choose File Source', 'cob_theme'); ?></h2>
             <div class="importer-source-choice">
-                <p><label><input type="radio" name="import_source" value="upload" checked> **رفع ملف من جهازك**</label></p>
+                <p><label><input type="radio" name="import_source" value="upload" checked> <?php _e('Upload file from your computer', 'cob_theme'); ?></label></p>
                 <div id="source-upload-container">
                     <input type="file" id="property_csv" name="property_csv" accept=".csv,text/csv">
                 </div>
                 <hr>
-                <p><label><input type="radio" name="import_source" value="server"> **اختيار ملف من السيرفر**</label></p>
+                <p><label><input type="radio" name="import_source" value="server"> <?php _e('Select a file from the server', 'cob_theme'); ?></label></p>
                 <div id="source-server-container" style="display:none;">
                     <?php if (!empty($server_files)) : ?>
                         <select id="server_csv_file" name="server_csv_file" style="min-width: 300px;">
                             <?php foreach ($server_files as $file) : ?><option value="<?php echo esc_attr($file); ?>"><?php echo esc_html($file); ?></option><?php endforeach; ?>
                         </select>
-                        <p class="description">المسار: <code><?php echo esc_html($imports_dir); ?></code></p>
-                    <?php else : ?><p>لم يتم العثور على ملفات CSV. يرجى إنشاء المجلد <code>/wp-content/csv-imports/</code> ووضع الملفات به.</p><?php endif; ?>
+                        <p class="description"><?php printf(__('Path: %s', 'cob_theme'), '<code>' . esc_html($imports_dir) . '</code>'); ?></p>
+                    <?php else : ?><p><?php printf(__('No CSV files found. Please upload files to %s', 'cob_theme'), '<code>/wp-content/csv-imports/</code>'); ?></p><?php endif; ?>
                 </div>
             </div>
 
-            <h2>الخطوة 2: اختر لغة الاستيراد</h2>
+            <h2><?php _e('Step 2: Choose Import Language', 'cob_theme'); ?></h2>
             <div class="importer-language-choice">
                 <select id="import_language" name="import_language" style="min-width: 300px;">
                     <option value="en">English</option>
@@ -141,16 +145,16 @@ function cob_prop_importer_render_page() {
                 </select>
             </div>
 
-            <button type="submit" class="button button-primary">بدء استيراد جديد</button>
-            <button type="button" id="resume-import" class="button" style="<?php echo ($import_status && $import_status['progress'] < 100) ? '' : 'display:none;'; ?>">متابعة الاستيراد</button>
-            <button type="button" id="cancel-import" class="button button-secondary" style="<?php echo $import_status ? '' : 'display:none;'; ?>">إلغاء وإعادة تعيين</button>
+            <button type="submit" class="button button-primary"><?php _e('Start New Import', 'cob_theme'); ?></button>
+            <button type="button" id="resume-import" class="button" style="<?php echo ($import_status && $import_status['progress'] < 100) ? '' : 'display:none;'; ?>"><?php _e('Resume Import', 'cob_theme'); ?></button>
+            <button type="button" id="cancel-import" class="button button-secondary" style="<?php echo $import_status ? '' : 'display:none;'; ?>"><?php _e('Cancel & Reset', 'cob_theme'); ?></button>
         </form>
 
         <div id="importer-progress-container" style="display:none; margin-top: 20px;">
-            <h3>تقدم العملية</h3>
+            <h3><?php _e('Import Progress', 'cob_theme'); ?></h3>
             <div class="cob-progress-bar-container"><div id="importer-progress-bar" class="cob-progress-bar">0%</div></div>
             <p id="importer-stats"></p>
-            <h4>سجل العمليات:</h4><div id="importer-log"></div>
+            <h4><?php _e('Log:', 'cob_theme'); ?></h4><div id="importer-log"></div>
         </div>
     </div>
     <?php
@@ -159,12 +163,12 @@ function cob_prop_importer_render_page() {
 // 3. AJAX Handler
 add_action('wp_ajax_cob_run_property_importer', 'cob_ajax_run_property_importer_callback');
 function cob_ajax_run_property_importer_callback() {
-    global $cob_property_importer_config;
+    $config = cob_get_property_importer_config();
     check_ajax_referer('cob_prop_importer_nonce', 'nonce');
 
-    if (!current_user_can('manage_options')) { wp_send_json_error(['message' => 'صلاحية غير كافية.']); }
+    if (!current_user_can('manage_options')) { wp_send_json_error(['message' => __('Insufficient permissions.', 'cob_theme')]); }
 
-    @set_time_limit($cob_property_importer_config['ajax_timeout_seconds']);
+    @set_time_limit($config['ajax_timeout_seconds']);
     @ini_set('memory_limit', '512M');
     wp_raise_memory_limit('admin');
 
@@ -175,14 +179,15 @@ function cob_ajax_run_property_importer_callback() {
     }
 
     $action = isset($_POST['importer_action']) ? sanitize_text_field($_POST['importer_action']) : '';
+    $log_messages = []; // FIX: Initialize log messages array
 
     switch ($action) {
         case 'prepare':
-            $old_status = get_option($cob_property_importer_config['status_option_name']);
+            $old_status = get_option($config['status_option_name']);
             if ($old_status && !empty($old_status['file_path']) && file_exists($old_status['file_path'])) {
                 wp_delete_file($old_status['file_path']);
             }
-            delete_option($cob_property_importer_config['status_option_name']);
+            delete_option($config['status_option_name']);
 
             $source_type = isset($_POST['source_type']) ? sanitize_text_field($_POST['source_type']) : 'upload';
             $file_path = '';
@@ -190,11 +195,11 @@ function cob_ajax_run_property_importer_callback() {
 
             if ($source_type === 'upload') {
                 if (empty($_FILES['csv_file']) || $_FILES['csv_file']['error'] !== UPLOAD_ERR_OK) {
-                    wp_send_json_error(['message' => 'لم يتم رفع ملف أو حدث خطأ.']);
+                    wp_send_json_error(['message' => __('No file uploaded or an error occurred.', 'cob_theme')]);
                 }
                 $move_file = wp_handle_upload($_FILES['csv_file'], ['test_form' => false, 'mimes' => ['csv' => 'text/csv']]);
                 if (!$move_file || isset($move_file['error'])) {
-                    wp_send_json_error(['message' => 'خطأ في رفع الملف: ' . ($move_file['error'] ?? 'غير معروف')]);
+                    wp_send_json_error(['message' => __('Error handling uploaded file:', 'cob_theme') . ' ' . ($move_file['error'] ?? 'Unknown error')]);
                 }
                 $file_path = $move_file['file'];
                 $original_filename = sanitize_file_name($_FILES['csv_file']['name']);
@@ -203,7 +208,7 @@ function cob_ajax_run_property_importer_callback() {
                 $server_file_path = WP_CONTENT_DIR . '/csv-imports/' . $file_name;
 
                 if (empty($file_name) || !file_exists($server_file_path) || !is_readable($server_file_path)) {
-                    wp_send_json_error(['message' => 'فشل العثور على الملف في السيرفر أو لا يمكن قراءته.']);
+                    wp_send_json_error(['message' => __('File not found on server or is not readable.', 'cob_theme')]);
                 }
 
                 $upload_dir = wp_upload_dir();
@@ -211,7 +216,7 @@ function cob_ajax_run_property_importer_callback() {
                 $temp_file_full_path = $upload_dir['path'] . '/' . $temp_file_path;
 
                 if (!copy($server_file_path, $temp_file_full_path)) {
-                    wp_send_json_error(['message' => 'فشل في نسخ الملف من السيرفر إلى مجلد مؤقت.']);
+                    wp_send_json_error(['message' => __('Failed to copy file from server to temporary directory.', 'cob_theme')]);
                 }
                 $file_path = $temp_file_full_path;
                 $original_filename = $file_name;
@@ -220,36 +225,26 @@ function cob_ajax_run_property_importer_callback() {
             $total_rows = 0;
             $headers = [];
             if (($handle = @fopen($file_path, "r")) !== FALSE) {
-                $headers = array_map('trim', fgetcsv($handle, 0, $cob_property_importer_config['csv_delimiter']));
-                while (fgetcsv($handle, 0, $cob_property_importer_config['csv_delimiter']) !== FALSE) {
-                    $total_rows++;
-                }
+                $headers = array_map('trim', fgetcsv($handle, 0, $config['csv_delimiter']));
+                while (fgetcsv($handle, 0, $config['csv_delimiter']) !== FALSE) $total_rows++;
                 fclose($handle);
             } else {
-                if (file_exists($file_path)) {
-                    wp_delete_file($file_path);
-                }
-                wp_send_json_error(['message' => 'فشل في فتح الملف الذي تم رفعه.']);
+                if (file_exists($file_path)) wp_delete_file($file_path);
+                wp_send_json_error(['message' => __('Failed to open the uploaded file.', 'cob_theme')]);
             }
 
             $status = [
-                'file_path' => $file_path,
-                'original_filename' => $original_filename,
-                'total_rows' => $total_rows,
-                'processed' => 0,
-                'imported_count' => 0,
-                'updated_count' => 0,
-                'failed_count' => 0,
-                'progress' => 0,
-                'language' => isset($_POST['import_language']) ? sanitize_text_field($_POST['import_language']) : 'en',
+                'file_path' => $file_path, 'original_filename' => $original_filename, 'total_rows' => $total_rows,
+                'processed' => 0, 'imported_count' => 0, 'updated_count' => 0, 'failed_count' => 0,
+                'progress' => 0, 'language' => isset($_POST['import_language']) ? sanitize_text_field($_POST['import_language']) : 'en',
                 'headers' => $headers,
             ];
-            update_option($cob_property_importer_config['status_option_name'], $status, 'no');
-            wp_send_json_success(['status' => $status, 'log' => ["تم التحضير بنجاح. إجمالي الصفوف: {$total_rows}"]]);
+            update_option($config['status_option_name'], $status, 'no');
+            wp_send_json_success(['status' => $status, 'log' => [__('Preparation successful. Total rows:', 'cob_theme') . " {$total_rows}"]]);
             break;
 
         case 'run':
-            $status = get_option($cob_property_importer_config['status_option_name']);
+            $status = get_option($config['status_option_name']);
             if (!$status || empty($status['file_path']) || !file_exists($status['file_path'])) {
                 wp_send_json_error(['message' => 'لم يتم العثور على عملية استيراد صالحة.']);
             }
@@ -258,23 +253,21 @@ function cob_ajax_run_property_importer_callback() {
                 wp_send_json_success(['status' => $status, 'log' => ["الاستيراد مكتمل بالفعل."], 'done' => true]);
             }
 
-            $config_for_run = $cob_property_importer_config;
-            $config_for_run['target_language'] = $status['language'];
+            $config['target_language'] = $status['language'];
 
             if (($handle = fopen($status['file_path'], "r")) !== FALSE) {
                 fgetcsv($handle);
                 for ($i = 0; $i < $status['processed']; $i++) { if(fgetcsv($handle) === FALSE) break; }
 
-                $raw_row_data = fgetcsv($handle, 0, $config_for_run['csv_delimiter']);
+                $raw_row_data = fgetcsv($handle, 0, $config['csv_delimiter']);
                 if($raw_row_data !== FALSE) {
                     $status['processed']++;
-
                     if (count($status['headers']) !== count($raw_row_data)) {
-                        $log_messages[] = "({$status['processed']}) <span style='color:red;'>خطأ فادح: عدد الأعمدة لا يطابق الرأس. (وجد: " . count($raw_row_data) . ", متوقع: " . count($status['headers']) . "). يرجى مراجعة هذا الصف في ملف CSV.</span>";
+                        $log_messages[] = "({$status['processed']}) <span style='color:red;'>خطأ فادح: عدد الأعمدة لا يطابق الرأس. (وجد: " . count($raw_row_data) . ", متوقع: " . count($status['headers']) . ").</span>";
                         $status['failed_count']++;
                     } else {
                         $row_data = @array_combine($status['headers'], $raw_row_data);
-                        $import_result = cob_import_single_property($row_data, $config_for_run, $status['processed']);
+                        $import_result = cob_import_single_property($row_data, $config, $status['processed']);
 
                         if (isset($import_result['log'])) $log_messages = array_merge($log_messages, $import_result['log']);
                         if ($import_result['status'] === 'imported') $status['imported_count']++;
@@ -297,23 +290,24 @@ function cob_ajax_run_property_importer_callback() {
                 $log_messages[] = "اكتمل الاستيراد. تم حذف الملف المؤقت.";
             }
 
-            update_option($cob_property_importer_config['status_option_name'], $status, 'no');
+            update_option($config['status_option_name'], $status, 'no');
             wp_send_json_success(['status' => $status, 'log' => $log_messages, 'done' => $done]);
             break;
+
         case 'cancel':
-            $status = get_option($cob_property_importer_config['status_option_name']);
+            $status = get_option($config['status_option_name']);
             if ($status && !empty($status['file_path']) && file_exists($status['file_path'])) {
                 wp_delete_file($status['file_path']);
             }
-            delete_option($cob_property_importer_config['status_option_name']);
+            delete_option($config['status_option_name']);
             wp_send_json_success(['message' => 'تم إلغاء العملية ومسح الحالة بنجاح.']);
             break;
         case 'get_status':
-            $status = get_option($cob_property_importer_config['status_option_name']);
+            $status = get_option($config['status_option_name']);
             if ($status && isset($status['progress']) && $status['progress'] < 100 && !empty($status['original_filename'])) {
                 wp_send_json_success(['status' => $status]);
             } else {
-                delete_option($cob_property_importer_config['status_option_name']);
+                delete_option($config['status_option_name']);
                 wp_send_json_error(['message' => 'لا توجد عملية استيراد سابقة قابلة للاستئناف.']);
             }
             break;
@@ -335,7 +329,7 @@ function cob_import_single_property($csv_row, &$config, $row_num) {
 
     $source_id = trim($csv_row['id'] ?? '');
     if (empty($source_id)) {
-        $log[] = "({$row_num}) <span style='color:red;'>خطأ: عمود 'id' فارغ. لا يمكن الربط بدون معرّف فريد.</span>";
+        $log[] = "({$row_num}) <span style='color:red;'>خطأ: عمود 'id' فارغ.</span>";
         return ['status' => 'failed', 'log' => $log];
     }
 
@@ -355,13 +349,8 @@ function cob_import_single_property($csv_row, &$config, $row_num) {
 
     if (function_exists('pll_get_post_language')) {
         $existing_posts_query = new WP_Query([
-            'post_type' => $post_type,
-            'meta_key' => $source_id_meta_key,
-            'meta_value' => $source_id,
-            'post_status' => 'any',
-            'posts_per_page' => 1,
-            'lang' => $lang,
-            'fields' => 'ids'
+            'post_type' => $post_type, 'meta_key' => $source_id_meta_key, 'meta_value' => $source_id,
+            'post_status' => 'any', 'posts_per_page' => 1, 'lang' => $lang, 'fields' => 'ids'
         ]);
         if ($existing_posts_query->have_posts()) {
             $post_id = $existing_posts_query->posts[0];
@@ -388,9 +377,7 @@ function cob_import_single_property($csv_row, &$config, $row_num) {
 
     if ($post_id) {
         update_post_meta($post_id, $source_id_meta_key, $source_id);
-        if (function_exists('pll_set_post_language')) {
-            pll_set_post_language($post_id, $lang);
-        }
+        if (function_exists('pll_set_post_language')) { pll_set_post_language($post_id, $lang); }
 
         if (function_exists('pll_save_post_translations')) {
             $translations = [];
@@ -421,13 +408,10 @@ function cob_import_single_property($csv_row, &$config, $row_num) {
         for ($i = 0; $i < $map['gallery_img_count']; $i++) {
             $img_url = trim($csv_row[$map['gallery_img_base'].'['.$i.']'] ?? '');
             if($img_url && filter_var($img_url, FILTER_VALIDATE_URL)) {
-                $log[] = "({$row_num}) &nbsp;&nbsp;&hookrightarrow; جاري تحميل الصورة: " . basename($img_url);
                 $att_id = media_sideload_image($img_url, $post_id, $post_title, 'id');
                 if(!is_wp_error($att_id)) {
                     $gallery_ids[] = $att_id;
                     if(function_exists('pll_set_post_language')) pll_set_post_language($att_id, $lang);
-                } else {
-                    $log[] = "({$row_num}) &nbsp;&nbsp;&hookrightarrow; <span style='color:orange;'>فشل تحميل الصورة: " . esc_html($att_id->get_error_message()) . "</span>";
                 }
             }
         }
@@ -441,7 +425,7 @@ function cob_import_single_property($csv_row, &$config, $row_num) {
         }
     }
 
-    return ['status' => $result_status, 'log' => $log, 'post_id' => $post_id];
+    return ['status' => $result_status, 'log' => $log];
 }
 
 
