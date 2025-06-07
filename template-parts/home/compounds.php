@@ -35,7 +35,7 @@ if ( ! empty( $compounds ) && ! is_wp_error( $compounds ) ) {
     foreach ( $compounds as $compound ) {
         $args = [
             'post_type'      => 'properties', // Ensure this is your correct property post type slug.
-            'posts_per_page' => 1,
+            'posts_per_page' => 9,
             'orderby'        => 'modified',
             'order'          => 'DESC',
             'tax_query'      => [

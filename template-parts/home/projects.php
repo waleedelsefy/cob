@@ -1,6 +1,7 @@
 <?php
 /**
  * Template Name: Latest Projects
+ * This template has been modified to only display compounds that have a cover image.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,14 +23,10 @@ $compound_cover_image_meta_key = '_compound_cover_image_id';
             </div>
             <!-- Link to the project archive page -->
             <?php
-            // Assuming 'project' is a custom post type. If 'compound' is the main "project" entity,
-            // you might want to link to the 'compound' taxonomy archive or a specific page.
-            // For this example, I'm keeping the link to 'project' CPT archive as in your original code.
             $archive_link = get_post_type_archive_link( 'project' );
             if (!$archive_link) {
-                // Fallback or alternative link if 'project' CPT is not used or has no archive
-                // For example, link to a page that lists compounds or a general projects page
-                // $archive_link = get_permalink( get_page_by_path( 'all-projects' ) );
+                // Fallback link if 'project' CPT is not used or has no archive
+                $archive_link = get_permalink( get_page_by_path( 'projects' ) );
             }
             ?>
             <a href="<?php echo esc_url( $archive_link ); ?>" class="projects-button">
@@ -42,13 +39,15 @@ $compound_cover_image_meta_key = '_compound_cover_image_id';
 
         <?php
         // Retrieve up to 9 compound terms.
-        // Consider adding an 'orderby' and 'order' if you want specific sorting, e.g., by date added or name.
         $compounds_args = [
-            'taxonomy'   => 'compound', // Ensure this is the correct taxonomy slug
-            'hide_empty' => false,    // Set to true if you only want compounds with associated posts
-            'number'     => 9,        // Limit to 9 terms
-            // 'orderby'    => 'date',   // Example: order by date term was created (if supported and relevant)
-            // 'order'      => 'DESC',
+            'taxonomy'   => 'compound',
+            'hide_empty' => false,
+            'number'     => 9,
+            // To show the absolute latest projects, you would need a more complex query
+            // that sorts terms by the modified date of their associated posts.
+            // For now, this gets the most recently created terms.
+            'orderby'    => 'id',
+            'order'      => 'DESC',
         ];
         $compounds = get_terms( $compounds_args );
         ?>
@@ -57,57 +56,58 @@ $compound_cover_image_meta_key = '_compound_cover_image_id';
             <div class="swiper swiper2"> <?php // Ensure Swiper JS is initialized for this class ?>
                 <div class="swiper-wrapper">
                     <?php foreach ( $compounds as $compound ) : ?>
-                        <div class="swiper-slide">
-                            <a href="<?php echo esc_url( get_term_link( $compound ) ); ?>" class="projects-card">
-                                <div class="top-card-proj">
-                                    <?php
-                                    // Developer Logo - kept as is from your original template
-                                    // This assumes 'dev_logo' meta field on the compound term stores a direct URL to the developer's logo.
-                                    // Your importer script currently links a compound to a 'developer' taxonomy term.
-                                    // That developer term itself could have a logo meta field.
-                                    $dev_logo_url = get_term_meta( $compound->term_id, 'dev_logo', true );
-                                    $dev_image_display_url = $dev_logo_url ? $dev_logo_url : $theme_dir . '/assets/imgs/developer-default.png';
+                        <?php
+                        // MODIFICATION: First, check if the main cover image exists.
+                        $main_image_attachment_id = get_term_meta( $compound->term_id, $compound_cover_image_meta_key, true );
 
-                                    // Get developer name if linked
-                                    $developer_term_id = get_term_meta( $compound->term_id, '_compound_developer', true ); // From importer
-                                    $developer_name_alt = $compound->name; // Fallback alt
-                                    if ($developer_term_id) {
-                                        $developer_term = get_term($developer_term_id, 'developer'); // Assuming 'developer' taxonomy
-                                        if ($developer_term && !is_wp_error($developer_term)) {
-                                            $developer_name_alt = $developer_term->name;
+                        // Only render the slide if the attachment ID is found.
+                        if ( $main_image_attachment_id ) :
+                            // Since the ID exists, get the URL.
+                            $image_data = wp_get_attachment_image_src( $main_image_attachment_id, 'medium_large' );
+                            // If the image data is invalid (e.g., image deleted), skip this compound.
+                            if ( !$image_data || !isset($image_data[0]) ) {
+                                continue;
+                            }
+                            $main_image_display_url = $image_data[0];
+                            ?>
+                            <div class="swiper-slide">
+                                <a href="<?php echo esc_url( get_term_link( $compound ) ); ?>" class="projects-card">
+                                    <div class="top-card-proj">
+                                        <?php
+                                        // Developer Logo logic remains the same.
+                                        $dev_logo_url = get_term_meta( $compound->term_id, 'dev_logo', true );
+                                        $dev_image_display_url = $dev_logo_url ? $dev_logo_url : $theme_dir . '/assets/imgs/developer-default.png';
+
+                                        $developer_term_id = get_term_meta( $compound->term_id, '_compound_developer', true );
+                                        $developer_name_alt = $compound->name; // Fallback
+                                        if ($developer_term_id) {
+                                            $developer_term = get_term($developer_term_id, 'developer');
+                                            if ($developer_term && !is_wp_error($developer_term)) {
+                                                $developer_name_alt = $developer_term->name;
+                                            }
                                         }
-                                    }
-                                    ?>
-                                    <img data-src="<?php echo esc_url( $dev_image_display_url ); ?>" alt="<?php echo esc_attr( $developer_name_alt ); ?> Logo" class="lazyload">
-                                </div>
+                                        ?>
+                                        <img data-src="<?php echo esc_url( $dev_image_display_url ); ?>" alt="<?php echo esc_attr( $developer_name_alt ); ?> Logo" class="lazyload">
+                                    </div>
 
-                                <?php
-                                // Main Compound Image - Updated to use attachment ID
-                                $main_image_attachment_id = get_term_meta( $compound->term_id, $compound_cover_image_meta_key, true );
-                                $main_image_display_url = $theme_dir . '/assets/imgs/default.jpg'; // Default image
+                                    <?php // Image is fetched above, just display it here. ?>
+                                    <img class="main-img lazyload" data-src="<?php echo esc_url( $main_image_display_url ); ?>" alt="<?php echo esc_attr( $compound->name ); ?>" >
 
-                                if ( $main_image_attachment_id ) {
-                                    // Get image URL by desired size. 'medium', 'large', 'thumbnail', or a custom registered size.
-                                    $image_data = wp_get_attachment_image_src( $main_image_attachment_id, 'medium_large' ); // Example size
-                                    if ( $image_data && isset($image_data[0]) ) {
-                                        $main_image_display_url = $image_data[0];
-                                    }
-                                }
-                                ?>
-                                <img class="main-img lazyload" data-src="<?php echo esc_url( $main_image_display_url ); ?>" alt="<?php echo esc_attr( $compound->name ); ?>" >
-
-                                <div class="bottom-card-proj">
-                                    <button> <?php // This button currently doesn't do anything, consider adding functionality or making it a div ?>
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M14.5 9C14.5 10.3807 13.3807 11.5 12 11.5C10.6193 11.5 9.5 10.3807 9.5 9C9.5 7.61929 10.6193 6.5 12 6.5C13.3807 6.5 14.5 7.61929 14.5 9Z" stroke="#E92028" stroke-width="1.5"/>
-                                            <path d="M13.2574 17.4936C12.9201 17.8184 12.4693 18 12.0002 18C11.531 18 11.0802 17.8184 10.7429 17.4936C7.6543 14.5008 3.51519 11.1575 5.53371 6.30373C6.6251 3.67932 9.24494 2 12.0002 2C14.7554 2 17.3752 3.67933 18.4666 6.30373C20.4826 11.1514 16.3536 14.5111 13.2574 17.4936Z" stroke="#E92028" stroke-width="1.5"/>
-                                            <path d="M18 20C18 21.1046 15.3137 22 12 22C8.68629 22 6 21.1046 6 20" stroke="#E92028" stroke-width="1.5" stroke-linecap="round"/>
-                                        </svg>
-                                        <?php echo esc_html( $compound->name ); ?>
-                                    </button>
-                                </div>
-                            </a>
-                        </div>
+                                    <div class="bottom-card-proj">
+                                        <button>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14.5 9C14.5 10.3807 13.3807 11.5 12 11.5C10.6193 11.5 9.5 10.3807 9.5 9C9.5 7.61929 10.6193 6.5 12 6.5C13.3807 6.5 14.5 7.61929 14.5 9Z" stroke="#E92028" stroke-width="1.5"/>
+                                                <path d="M13.2574 17.4936C12.9201 17.8184 12.4693 18 12.0002 18C11.531 18 11.0802 17.8184 10.7429 17.4936C7.6543 14.5008 3.51519 11.1575 5.53371 6.30373C6.6251 3.67932 9.24494 2 12.0002 2C14.7554 2 17.3752 3.67933 18.4666 6.30373C20.4826 11.1514 16.3536 14.5111 13.2574 17.4936Z" stroke="#E92028" stroke-width="1.5"/>
+                                                <path d="M18 20C18 21.1046 15.3137 22 12 22C8.68629 22 6 21.1046 6 20" stroke="#E92028" stroke-width="1.5" stroke-linecap="round"/>
+                                            </svg>
+                                            <?php echo esc_html( $compound->name ); ?>
+                                        </button>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php
+                        endif; // End the check for the main image attachment ID.
+                        ?>
                     <?php endforeach; ?>
                 </div>
                 <!-- Navigation Buttons -->
@@ -124,7 +124,7 @@ $compound_cover_image_meta_key = '_compound_cover_image_id';
                 <div class="swiper-pagination"></div>
             </div><!-- .swiper -->
         <?php else : ?>
-            <div class="no-projects-found"> <?php // Added a class for easier styling ?>
+            <div class="no-projects-found">
                 <p><?php esc_html_e( 'No projects available at the moment.', 'cob_theme' ); ?></p>
             </div>
         <?php endif; ?>
