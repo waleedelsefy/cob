@@ -1,8 +1,8 @@
 <?php
 /**
  * AJAX WordPress Importer for 'compound' taxonomy from a CSV file.
- * Includes linking to 'developer' and 'city' taxonomies, image downloads.
- * This version includes a crucial fix to ensure developer/city languages match the compound's language.
+ * Includes linking to 'developer' and 'city' taxonomies, image downloads,
+ * and automatic translation linking for Polylang.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,27 +18,37 @@ $cob_compound_importer_config = [
     'city_meta_key' => 'compound_city',
     'cover_image_meta_key' => '_compound_cover_image_id',
     'gallery_images_meta_key' => '_compound_gallery_ids',
-    'developer_taxonomy_slug' => 'developer', // CHANGE IF YOUR DEVELOPER TAXONOMY SLUG IS DIFFERENT
-    'city_taxonomy_slug' => 'city',           // CHANGE IF YOUR CITY/AREA TAXONOMY SLUG IS DIFFERENT
-    // ** CRITICAL **: For servers with low execution time limits, this MUST be 1.
-    // ** هام جداً **: للخوادم ذات حدود وقت تنفيذ منخفضة، يجب أن تكون هذه القيمة 1.
-    'batch_size' => 1, // Process 1 row per AJAX request to minimize timeout risk.
-    'ajax_timeout_seconds' => 300, // Attempt to set script execution time per batch (seconds). Server may override. (5 minutes)
+    'source_id_meta_key' => '_source_id', // NEW: Meta key to store the original ID from CSV for linking translations.
+    'developer_taxonomy_slug' => 'developer',
+    'city_taxonomy_slug' => 'city',
+    'batch_size' => 1,
+    'ajax_timeout_seconds' => 300,
     'status_option_name' => 'cob_compound_taxonomy_importer_status',
 
+    // MODIFIED: Column mapping updated based on your CSV sample.
     'csv_column_map_en' => [
-        'id' => 'id', 'name' => 'name', 'slug' => 'slug', 'description' => 'description',
+        'id' => 'id',
+        'name' => 'meta_title_en', // English name from meta_title_en
+        'slug' => 'all_slugs_en', // English slug from all_slugs_en
+        'description' => 'meta_description_en', // English description
         'parent_compound_id' => 'parent_compound_id',
-        'developer_name_csv_col' => 'developer_name', 'city_name_csv_col' => 'area_name',
+        'developer_name_csv_col' => 'developer_name',
+        'city_name_csv_col' => 'area_name',
         'cover_image_url_csv_col' => 'cover_image_url',
-        'gallery_img_base_col' => 'compounds_img', 'gallery_img_count' => 8, // Checks for compounds_img[0] to compounds_img[7]
+        'gallery_img_base_col' => 'compounds_img',
+        'gallery_img_count' => 8,
     ],
     'csv_column_map_ar' => [
-        'id' => 'id', 'name' => 'name_ar', 'slug' => 'slug_ar', 'description' => 'meta_description_ar',
+        'id' => 'id',
+        'name' => 'name', // Arabic name from 'name' column
+        'slug' => 'all_slugs_ar', // Arabic slug from all_slugs_ar
+        'description' => 'meta_description_ar', // Arabic description
         'parent_compound_id' => 'parent_compound_id',
-        'developer_name_csv_col' => 'developer_name', 'city_name_csv_col' => 'area_name',
+        'developer_name_csv_col' => 'developer_name',
+        'city_name_csv_col' => 'area_name',
         'cover_image_url_csv_col' => 'cover_image_url',
-        'gallery_img_base_col' => 'compounds_img', 'gallery_img_count' => 8,
+        'gallery_img_base_col' => 'compounds_img',
+        'gallery_img_count' => 8,
     ],
 ];
 
@@ -64,7 +74,7 @@ function cob_cti_enqueue_assets() {
         'cob-cti-js',
         $js_path,
         ['jquery'],
-        '1.0.5', // Incremented version for clarity
+        '1.1.0', // Incremented version
         true
     );
     wp_localize_script('cob-cti-js', 'cobCTIAjax', [
@@ -78,18 +88,7 @@ function cob_cti_enqueue_assets() {
             'error_selecting_file' => 'يرجى اختيار ملف CSV لرفعه أو من القائمة.',
             'preparing_import' => 'يتم تحضير العملية...',
             'import_complete' => '🎉 اكتملت عملية الاستيراد بنجاح! 🎉',
-            'error_unknown_prepare' => 'حدث خطأ غير معروف أثناء التحضير.',
-            'error_unknown_processing' => 'حدث خطأ غير معروف أثناء المعالجة.',
             'connection_error' => '❌ فشل في الاتصال بالخادم',
-            'resuming_import' => 'جاري متابعة عملية الاستيراد السابقة...',
-            'processed_of' => 'تم معالجة',
-            'from' => 'من',
-            'skipped' => 'فشل/تخطي',
-            'for_language' => 'للغة:',
-            'processed_rows_error' => 'تحذير: تم الوصول لنهاية الملف قبل إكمال كل الصفوف المتوقعة.',
-            'import_cancelled_successfully' => 'تم إلغاء العملية ومسح الملف المؤقت بنجاح.',
-            'error_cancelling' => 'حدث خطأ أثناء الإلغاء.',
-            'error_connecting_cancel' => 'خطأ في الاتصال أثناء محاولة الإلغاء.',
         ]
     ]);
     wp_add_inline_style('wp-admin', "
@@ -108,12 +107,12 @@ function cob_cti_render_page() {
         <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
         <p>استيراد وتحديث تصنيفات "الكمبوندات" مع ربط المطورين، المدن، وتنزيل الصور.</p>
         <div class="notice notice-warning">
-            <p><strong>مهم جداً لتجنب أخطاء انتهاء المهلة (Timeout):</strong> تم ضبط حجم الدفعة (<code>batch_size</code>) في إعدادات هذا السكريبت إلى <strong><?php echo esc_html($cob_compound_importer_config['batch_size']); ?></strong>. هذا يعني معالجة صف واحد فقط لكل طلب AJAX، مما يقلل الضغط على الخادم بشكل كبير. إذا استمرت المشكلة، قد تحتاج لمراجعة إعدادات <code>max_execution_time</code> على الخادم.</p>
+            <p><strong>مهم جداً لتجنب أخطاء انتهاء المهلة (Timeout):</strong> تم ضبط حجم الدفعة (<code>batch_size</code>) إلى <strong><?php echo esc_html($cob_compound_importer_config['batch_size']); ?></strong> لمعالجة صف واحد فقط لكل طلب.</p>
         </div>
 
-        <?php if ($import_status && isset($import_status['progress']) && $import_status['progress'] < 100 && $import_status['progress'] >= 0 && !empty($import_status['original_filename'])) : ?>
+        <?php if ($import_status && isset($import_status['progress']) && $import_status['progress'] < 100 && !empty($import_status['original_filename'])) : ?>
             <div id="cob-cti-resume-notice" class="notice notice-warning is-dismissible">
-                <p>يوجد عملية استيراد سابقة للملف (<code><?php echo esc_html($import_status['original_filename']); ?></code>) لم تكتمل (<?php echo esc_html($import_status['progress']); ?>%). يمكنك متابعتها أو إلغائها لبدء عملية جديدة.</p>
+                <p>يوجد عملية استيراد سابقة للملف (<code><?php echo esc_html($import_status['original_filename']); ?></code>) لم تكتمل (<?php echo esc_html($import_status['progress']); ?>%). يمكنك متابعتها أو إلغائها.</p>
             </div>
         <?php endif; ?>
 
@@ -134,7 +133,7 @@ function cob_cti_render_page() {
                 </tr>
             </table>
             <button type="submit" id="cob-cti-start-new" class="button button-primary">بدء استيراد جديد</button>
-            <button type="button" id="cob-cti-resume" class="button" style="<?php echo ($import_status && isset($import_status['progress']) && $import_status['progress'] < 100 && isset($import_status['total_rows']) && $import_status['total_rows'] > 0) ? '' : 'display:none;'; ?>">متابعة الاستيراد</button>
+            <button type="button" id="cob-cti-resume" class="button" style="<?php echo ($import_status && $import_status['progress'] < 100) ? '' : 'display:none;'; ?>">متابعة الاستيراد</button>
             <button type="button" id="cob-cti-cancel" class="button button-secondary" style="<?php echo $import_status ? '' : 'display:none;'; ?>">إلغاء وإعادة تعيين</button>
         </form>
 
@@ -158,8 +157,7 @@ function cob_cti_ajax_handler_callback() {
         wp_send_json_error(['message' => 'صلاحية غير كافية.']);
     }
 
-    $execution_time = isset($cob_compound_importer_config['ajax_timeout_seconds']) ? (int) $cob_compound_importer_config['ajax_timeout_seconds'] : 300; // Default to 5 minutes
-    @set_time_limit( $execution_time );
+    @set_time_limit($cob_compound_importer_config['ajax_timeout_seconds']);
     @ini_set('memory_limit', '512M');
     wp_raise_memory_limit('admin');
 
@@ -221,7 +219,7 @@ function cob_cti_ajax_handler_callback() {
             $current_csv_column_map = $cob_compound_importer_config[$current_column_map_key] ?? $cob_compound_importer_config['csv_column_map_en'];
 
             // Validate headers
-            $required_cols_for_functionality = ['id', 'name']; // Absolutely essential
+            $required_cols_for_functionality = ['id', 'name'];
             foreach ($required_cols_for_functionality as $req_key) {
                 $mapped_col_name = $current_csv_column_map[$req_key] ?? $req_key;
                 if (!in_array($mapped_col_name, $headers)) {
@@ -229,14 +227,6 @@ function cob_cti_ajax_handler_callback() {
                     wp_send_json_error(['message' => "خطأ فادح: عمود CSV الإلزامي '{$mapped_col_name}' (المستخدم لـ '{$req_key}') غير موجود في رأس الملف. لا يمكن المتابعة.", 'log' => $log_messages]);
                 }
             }
-            // Check other mapped columns and log warnings if missing
-            foreach ($current_csv_column_map as $internal_key => $csv_col_name_mapped) {
-                if (empty($csv_col_name_mapped) || in_array($internal_key, $required_cols_for_functionality)) continue;
-                if (!in_array($csv_col_name_mapped, $headers)) {
-                    $log_messages[] = "<span style='color:orange;'>تحذير: عمود CSV المتوقع '{$csv_col_name_mapped}' (لـ {$internal_key}) غير موجود في رأس الملف. قد لا يتم استيراد هذه البيانات أو قد تحدث أخطاء.</span>";
-                }
-            }
-
 
             $status = [
                 'temp_file_path' => $file_path,
@@ -280,7 +270,7 @@ function cob_cti_ajax_handler_callback() {
             $current_config_for_import_func = [
                 'taxonomy_slug'           => $cob_compound_importer_config['taxonomy_slug'],
                 'target_language'         => $status['language'],
-                'csv_delimiter'           => $cob_compound_importer_config['csv_delimiter'],
+                'source_id_meta_key'      => $cob_compound_importer_config['source_id_meta_key'],
                 'developer_meta_key'      => $cob_compound_importer_config['developer_meta_key'],
                 'city_meta_key'           => $cob_compound_importer_config['city_meta_key'],
                 'cover_image_meta_key'    => $cob_compound_importer_config['cover_image_meta_key'],
@@ -288,67 +278,45 @@ function cob_cti_ajax_handler_callback() {
                 'developer_taxonomy_slug' => $cob_compound_importer_config['developer_taxonomy_slug'],
                 'city_taxonomy_slug'      => $cob_compound_importer_config['city_taxonomy_slug'],
                 'csv_column_map'          => $cob_compound_importer_config['csv_column_map_' . $status['language']] ?? $cob_compound_importer_config['csv_column_map_en'],
-                'source_to_wp_term_id_map_global' => &$status['source_to_wp_term_id_map'],
-                'processed_source_ids_recursion_check_global' => &$status['processed_source_ids_recursion_check'],
             ];
 
             if (($handle = fopen($file_path, "r")) !== FALSE) {
-                fgetcsv($handle, 0, $cob_compound_importer_config['csv_delimiter']);
+                fgetcsv($handle);
                 for ($i = 0; $i < $status['processed_rows']; $i++) {
-                    if (fgetcsv($handle, 0, $cob_compound_importer_config['csv_delimiter']) === FALSE) {
-                        $log_messages[] = "({$status['processed_rows']}) تحذير: تم الوصول لنهاية الملف قبل إكمال كل الصفوف المتوقعة.";
-                        $status['processed_rows'] = $status['total_rows'];
-                        break;
-                    }
+                    if (fgetcsv($handle) === FALSE) break;
                 }
 
                 while ($processed_in_this_batch < $cob_compound_importer_config['batch_size'] && $status['processed_rows'] < $status['total_rows']) {
                     $raw_row_data = fgetcsv($handle, 0, $cob_compound_importer_config['csv_delimiter']);
                     if ($raw_row_data === FALSE) {
-                        $log_messages[] = "تم الوصول إلى نهاية الملف.";
                         $status['processed_rows'] = $status['total_rows'];
                         break;
                     }
                     $status['processed_rows']++;
-                    $current_row_number_for_log = $status['processed_rows'];
 
                     if (count($csv_headers) !== count($raw_row_data)) {
-                        $log_messages[] = "({$current_row_number_for_log}) خطأ: عدد الأعمدة (" . count($raw_row_data) . ") لا يطابق الرأس (" . count($csv_headers) . "). تخطي الصف.";
+                        $log_messages[] = "({$status['processed_rows']}) خطأ: عدد الأعمدة لا يطابق الرأس. تخطي الصف.";
                         $status['failed_count']++;
-                        $processed_in_this_batch++;
                         continue;
                     }
                     $row_data_assoc = @array_combine($csv_headers, $raw_row_data);
-                    if ($row_data_assoc === false) {
-                        $log_messages[] = "({$current_row_number_for_log}) خطأ: فشل في دمج العناوين مع البيانات. تخطي الصف.";
-                        $status['failed_count']++;
-                        $processed_in_this_batch++;
-                        continue;
-                    }
 
-                    $import_result = cob_import_single_compound_ajax($row_data_assoc, $current_config_for_import_func, $current_row_number_for_log);
+                    $import_result = cob_import_single_compound_ajax($row_data_assoc, $current_config_for_import_func, $status['processed_rows']);
 
                     if (isset($import_result['log'])) $log_messages = array_merge($log_messages, $import_result['log']);
-
                     if ($import_result['status'] === 'imported') $status['imported_count']++;
                     elseif ($import_result['status'] === 'updated') $status['updated_count']++;
                     elseif ($import_result['status'] === 'failed') $status['failed_count']++;
-
                     $processed_in_this_batch++;
                 }
                 fclose($handle);
-            } else {
-                wp_send_json_error(['message' => 'فشل في إعادة فتح الملف المؤقت للمعالجة.']);
             }
 
             $status['progress'] = ($status['total_rows'] > 0) ? round(($status['processed_rows'] / $status['total_rows']) * 100) : 100;
-
             $done = ($status['processed_rows'] >= $status['total_rows']);
             if ($done) {
-                if (isset($status['temp_file_path']) && file_exists($status['temp_file_path'])) {
-                    wp_delete_file($status['temp_file_path']);
-                    $status['temp_file_path'] = null;
-                }
+                wp_delete_file($status['temp_file_path']);
+                $status['temp_file_path'] = null;
                 $log_messages[] = "اكتمل الاستيراد. تم حذف الملف المؤقت.";
             }
             update_option($cob_compound_importer_config['status_option_name'], $status, 'no');
@@ -357,7 +325,7 @@ function cob_cti_ajax_handler_callback() {
 
         case 'cancel':
             $status = get_option($cob_compound_importer_config['status_option_name']);
-            if ($status && isset($status['temp_file_path']) && file_exists($status['temp_file_path'])) {
+            if ($status && !empty($status['temp_file_path']) && file_exists($status['temp_file_path'])) {
                 wp_delete_file($status['temp_file_path']);
             }
             delete_option($cob_compound_importer_config['status_option_name']);
@@ -366,8 +334,8 @@ function cob_cti_ajax_handler_callback() {
 
         case 'get_status':
             $status = get_option($cob_compound_importer_config['status_option_name']);
-            if ($status && isset($status['progress']) && $status['progress'] < 100 && !empty($status['original_filename']) && isset($status['total_rows']) && $status['total_rows'] > 0) {
-                wp_send_json_success(['status' => $status, 'log' => ["تم استرجاع الحالة السابقة للملف: " . $status['original_filename']]]);
+            if ($status && isset($status['progress']) && $status['progress'] < 100 && !empty($status['original_filename'])) {
+                wp_send_json_success(['status' => $status]);
             } else {
                 delete_option($cob_compound_importer_config['status_option_name']);
                 wp_send_json_error(['message' => 'لا توجد عملية استيراد سابقة قابلة للاستئناف.']);
@@ -381,284 +349,165 @@ function cob_cti_ajax_handler_callback() {
 
 // 4. Import Single Compound (adapted for AJAX context)
 function cob_import_single_compound_ajax($csv_row_data_assoc, &$config, $current_row_number_for_log) {
-    $taxonomy_slug = $config['taxonomy_slug'];
-    $developer_meta_key = $config['developer_meta_key'];
-    $city_meta_key = $config['city_meta_key'];
-    $cover_image_meta_key = $config['cover_image_meta_key'];
-    $gallery_images_meta_key = $config['gallery_images_meta_key'];
-    $developer_taxonomy_slug = $config['developer_taxonomy_slug'];
-    $city_taxonomy_slug = $config['city_taxonomy_slug'];
-    $current_import_language = $config['target_language'];
-    $csv_column_map = $config['csv_column_map'];
-
-    $source_to_wp_term_id_map = &$config['source_to_wp_term_id_map_global'];
-    $processed_source_ids_recursion_check = &$config['processed_source_ids_recursion_check_global'];
-
     $log = [];
     $return_status_details = ['status' => 'failed', 'term_id' => null, 'log' => []];
 
-    $source_id_col_name = $csv_column_map['id'] ?? 'id';
-    $source_id = $csv_row_data_assoc[$source_id_col_name] ?? null;
+    // Extract variables from config
+    $taxonomy_slug = $config['taxonomy_slug'];
+    $current_import_language = $config['target_language'];
+    $csv_column_map = $config['csv_column_map'];
+    $source_id_meta_key = $config['source_id_meta_key'];
 
+    // Extract data from CSV row using the map
+    $source_id = trim($csv_row_data_assoc[$csv_column_map['id']] ?? '');
     if (empty($source_id)) {
-        $log[] = "({$current_row_number_for_log}) خطأ: معرف المصدر ('{$source_id_col_name}') فارغ. تخطي الصف.";
+        $log[] = "({$current_row_number_for_log}) <span style='color:red;'>خطأ: معرف المصدر فارغ. تخطي الصف.</span>";
         $return_status_details['log'] = $log;
         return $return_status_details;
     }
 
-    if (isset($processed_source_ids_recursion_check[$source_id]) && $processed_source_ids_recursion_check[$source_id] === 'processing_now') {
-        $log[] = "({$current_row_number_for_log}) تحذير: تبعية دائرية للمصدر ID {$source_id}. تخطي.";
+    $term_name = sanitize_text_field(trim($csv_row_data_assoc[$csv_column_map['name']] ?? ''));
+    if (empty($term_name)) {
+        $log[] = "({$current_row_number_for_log}) <span style='color:red;'>خطأ: اسم الكمبوند فارغ. تخطي الصف.</span>";
         $return_status_details['log'] = $log;
         return $return_status_details;
     }
-    $processed_source_ids_recursion_check[$source_id] = 'processing_now';
 
-    $name_col = $csv_column_map['name'] ?? 'name';
-    $slug_col = $csv_column_map['slug'] ?? 'slug';
-    $desc_col = $csv_column_map['description'] ?? 'description';
-    $parent_id_col = $csv_column_map['parent_compound_id'] ?? 'parent_compound_id';
-    $dev_name_col = $csv_column_map['developer_name_csv_col'] ?? 'developer_name';
-    $city_name_col = $csv_column_map['city_name_csv_col'] ?? 'area_name';
-    $cover_img_col = $csv_column_map['cover_image_url_csv_col'] ?? 'cover_image_url';
-    $gallery_base_col = $csv_column_map['gallery_img_base_col'] ?? 'compounds_img';
-    $gallery_count = isset($csv_column_map['gallery_img_count']) ? (int)$csv_column_map['gallery_img_count'] : 0;
+    $term_slug = sanitize_title(trim($csv_row_data_assoc[$csv_column_map['slug']] ?? ''));
+    if(empty($term_slug)) $term_slug = sanitize_title($term_name);
 
+    $term_description = wp_kses_post($csv_row_data_assoc[$csv_column_map['description']] ?? '');
 
-    $term_name        = sanitize_text_field(trim($csv_row_data_assoc[$name_col] ?? 'Unnamed Compound'));
-    $term_slug        = !empty($csv_row_data_assoc[$slug_col] ?? '') ? sanitize_title(trim($csv_row_data_assoc[$slug_col])) : sanitize_title($term_name);
-    $term_description = wp_kses_post($csv_row_data_assoc[$desc_col] ?? '');
-    $parent_source_id = !empty($csv_row_data_assoc[$parent_id_col] ?? '') ? trim($csv_row_data_assoc[$parent_id_col]) : null;
-
-    $developer_name_val = !empty($csv_row_data_assoc[$dev_name_col] ?? '') ? sanitize_text_field(trim($csv_row_data_assoc[$dev_name_col])) : null;
-    $city_name_val      = !empty($csv_row_data_assoc[$city_name_col] ?? '') ? sanitize_text_field(trim($csv_row_data_assoc[$city_name_col])) : null;
-    $cover_image_url    = !empty($csv_row_data_assoc[$cover_img_col] ?? '') ? esc_url_raw(trim($csv_row_data_assoc[$cover_img_col])) : null;
-
-    $gallery_images_urls = [];
-    if ($gallery_base_col && $gallery_count > 0) {
-        for ($i = 0; $i < $gallery_count; $i++) {
-            $gallery_col_name = $gallery_base_col . '[' . $i . ']';
-            if (isset($csv_row_data_assoc[$gallery_col_name]) && !empty(trim($csv_row_data_assoc[$gallery_col_name]))) {
-                $gallery_images_urls[] = trim($csv_row_data_assoc[$gallery_col_name]);
-            }
-        }
-    }
-
-    $parent_wp_term_id = 0;
-    if ($parent_source_id && $parent_source_id != $source_id) {
-        if (isset($source_to_wp_term_id_map[$parent_source_id]) && $source_to_wp_term_id_map[$parent_source_id]) {
-            $parent_wp_term_id = $source_to_wp_term_id_map[$parent_source_id];
-        } else {
-            $log[] = "({$current_row_number_for_log}) ملاحظة: الأصل مصدر ID {$parent_source_id} لـ '{$term_name}' لم تتم معالجته/ربطه بعد. سيتم محاولة ربطه إذا كان موجوداً في قاعدة البيانات.";
-        }
-    }
-
+    // --- Logic to find or create the term ---
     $wp_term_id = null;
-    $term_args = ['name' => $term_name, 'slug' => $term_slug, 'description' => $term_description, 'parent' => (int)$parent_wp_term_id];
+    $existing_term = get_terms([
+        'taxonomy' => $taxonomy_slug,
+        'meta_key' => $source_id_meta_key,
+        'meta_value' => $source_id,
+        'hide_empty' => false,
+        'number' => 1,
+    ]);
 
-    $existing_term = term_exists($term_slug, $taxonomy_slug, (int)$parent_wp_term_id);
-    if (empty($term_slug) && !empty($term_name)) {
-        $existing_term_by_name = term_exists($term_name, $taxonomy_slug, (int)$parent_wp_term_id);
-        if ($existing_term_by_name) $existing_term = $existing_term_by_name;
-    }
+    if (!is_wp_error($existing_term) && !empty($existing_term)) {
+        $term_to_update = array_shift($existing_term);
+        $wp_term_id = $term_to_update->term_id;
 
-    if ($existing_term && is_array($existing_term) && isset($existing_term['term_id'])) {
-        $wp_term_id = $existing_term['term_id'];
-        $current_term_obj = get_term($wp_term_id, $taxonomy_slug);
-        $needs_update = false;
-        if ($current_term_obj && !is_wp_error($current_term_obj)) {
-            if ($current_term_obj->name !== $term_name) $needs_update = true;
-            if ($current_term_obj->description !== $term_description) $needs_update = true;
-            if ($current_term_obj->slug !== $term_slug && !empty($term_slug)) $needs_update = true; // only update slug if provided
-            if ($current_term_obj->parent !== (int)$parent_wp_term_id) $needs_update = true;
-        } else { $needs_update = true; } // If can't get term, assume update needed
+        wp_update_term($wp_term_id, $taxonomy_slug, ['name' => $term_name, 'slug' => $term_slug, 'description' => $term_description]);
+        $log[] = "({$current_row_number_for_log}) <span style='color:#00A86B;'>تم تحديث '{$term_name}' (ID: {$wp_term_id}).</span>";
+        $return_status_details['status'] = 'updated';
 
-        if ($needs_update) {
-            $update_result = wp_update_term($wp_term_id, $taxonomy_slug, $term_args);
-            if (is_wp_error($update_result)) {
-                $log[] = "({$current_row_number_for_log}) تنبيه: '{$term_name}' (ID: {$wp_term_id}) موجود، فشل تحديثه: " . esc_html($update_result->get_error_message());
-            } else {
-                $log[] = "({$current_row_number_for_log}) <span style='color:#00A86B;'>تم تحديث '{$term_name}' (ID: {$wp_term_id}).</span>";
-                $return_status_details['status'] = 'updated';
-            }
-        } else {
-            $log[] = "({$current_row_number_for_log}) <span style='color:lightblue;'>'{$term_name}' (ID: {$wp_term_id}) موجود ولم يتغير. تحديث الميتا فقط.</span>";
-            $return_status_details['status'] = 'updated';
-        }
     } else {
-        $insert_result = wp_insert_term($term_name, $taxonomy_slug, $term_args);
+        $insert_result = wp_insert_term($term_name, $taxonomy_slug, ['slug' => $term_slug, 'description' => $term_description]);
         if (is_wp_error($insert_result)) {
             $log[] = "({$current_row_number_for_log}) <span style='color:red;'>خطأ استيراد '{$term_name}': " . esc_html($insert_result->get_error_message()) . "</span>";
-            $processed_source_ids_recursion_check[$source_id] = 'failed_insert';
             $return_status_details['log'] = $log;
             return $return_status_details;
-        } else {
-            $wp_term_id = $insert_result['term_id'];
-            $log[] = "({$current_row_number_for_log}) <span style='color:lightgreen;'>تم استيراد '{$term_name}' (Slug: {$term_slug}) كـ ID: {$wp_term_id}.</span>";
-            $return_status_details['status'] = 'imported';
         }
+        $wp_term_id = $insert_result['term_id'];
+        $log[] = "({$current_row_number_for_log}) <span style='color:lightgreen;'>تم استيراد '{$term_name}' كـ ID: {$wp_term_id}.</span>";
+        $return_status_details['status'] = 'imported';
     }
+
     $return_status_details['term_id'] = $wp_term_id;
-    $source_to_wp_term_id_map[$source_id] = $wp_term_id;
 
     if ($wp_term_id) {
-        if (function_exists('pll_set_term_language') && $current_import_language && $current_import_language !== 'default') {
+        // Save source ID for linking
+        update_term_meta($wp_term_id, $source_id_meta_key, $source_id);
+
+        // Set term language
+        if (function_exists('pll_set_term_language')) {
             pll_set_term_language($wp_term_id, $current_import_language);
         }
 
+        // Link translations
+        if (function_exists('pll_save_term_translations') && function_exists('pll_get_term_language')) {
+            $translations_to_save = [];
+            $all_terms_with_source_id = get_terms([
+                'taxonomy' => $taxonomy_slug,
+                'meta_key' => $source_id_meta_key,
+                'meta_value' => $source_id,
+                'hide_empty' => false,
+            ]);
+
+            if(!is_wp_error($all_terms_with_source_id) && count($all_terms_with_source_id) > 1) {
+                foreach($all_terms_with_source_id as $term_object) {
+                    $lang = pll_get_term_language($term_object->term_id);
+                    if ($lang) {
+                        $translations_to_save[$lang] = $term_object->term_id;
+                    }
+                }
+                pll_save_term_translations($translations_to_save);
+                $log[] = "({$current_row_number_for_log}) &nbsp;&nbsp;&hookrightarrow; <span style='color:cyan;'>تم ربط الترجمات.</span>";
+            }
+        }
+
+        // Link Developer and City (using the language-aware helper function)
+        $developer_name_val = trim($csv_row_data_assoc[$csv_column_map['developer_name_csv_col']] ?? '');
         if ($developer_name_val) {
-            $dev_term_id = cob_get_or_create_term_for_linking($developer_name_val, $developer_taxonomy_slug, $current_import_language);
-            if ($dev_term_id) {
-                update_term_meta($wp_term_id, $developer_meta_key, $dev_term_id);
-            } else {
-                $log[] = "({$current_row_number_for_log}) <span style='color:orange;'>&nbsp;&nbsp;&hookrightarrow; لم يتم ربط المطور '{$developer_name_val}'.</span>";
-            }
+            $dev_term_id = cob_get_or_create_term_for_linking($developer_name_val, $config['developer_taxonomy_slug'], $current_import_language);
+            if ($dev_term_id) update_term_meta($wp_term_id, $config['developer_meta_key'], $dev_term_id);
         }
+
+        $city_name_val = trim($csv_row_data_assoc[$csv_column_map['city_name_csv_col']] ?? '');
         if ($city_name_val) {
-            $city_term_id = cob_get_or_create_term_for_linking($city_name_val, $city_taxonomy_slug, $current_import_language);
-            if ($city_term_id) {
-                update_term_meta($wp_term_id, $city_meta_key, $city_term_id);
-            } else {
-                $log[] = "({$current_row_number_for_log}) <span style='color:orange;'>&nbsp;&nbsp;&hookrightarrow; لم يتم ربط المدينة '{$city_name_val}'.</span>";
-            }
+            $city_term_id = cob_get_or_create_term_for_linking($city_name_val, $config['city_taxonomy_slug'], $current_import_language);
+            if ($city_term_id) update_term_meta($wp_term_id, $config['city_meta_key'], $city_term_id);
         }
 
+        // Handle Cover Image
+        $cover_image_url = trim($csv_row_data_assoc[$csv_column_map['cover_image_url_csv_col']] ?? '');
         if ($cover_image_url && filter_var($cover_image_url, FILTER_VALIDATE_URL)) {
-            $existing_cover_id = get_term_meta($wp_term_id, $cover_image_meta_key, true);
-            $attachment_id = null;
-            if ($existing_cover_id) { // Check if existing attachment URL matches new URL
-                $existing_url = wp_get_attachment_url($existing_cover_id);
-                if ($existing_url !== $cover_image_url) { // If URL changed, download new
-                    $attachment_id = media_sideload_image($cover_image_url, 0, $term_name . ' Cover', 'id');
-                } else {
-                    $attachment_id = $existing_cover_id; // Use existing
-                }
-            } else { // No existing cover, download
-                $attachment_id = media_sideload_image($cover_image_url, 0, $term_name . ' Cover', 'id');
-            }
-
-            if ($attachment_id && !is_wp_error($attachment_id)) {
-                if ($attachment_id != $existing_cover_id) { // Only update meta if ID changed
-                    update_term_meta($wp_term_id, $cover_image_meta_key, $attachment_id);
-                    $log[] = "({$current_row_number_for_log}) &nbsp;&nbsp;&hookrightarrow; تنزيل/تحديث وربط صورة غلاف لـ '{$term_name}' (Att ID: {$attachment_id}).";
-                    if (function_exists('pll_set_post_language') && $current_import_language && $current_import_language !== 'default') {
-                        pll_set_post_language($attachment_id, $current_import_language);
-                    }
-                }
-            } elseif (is_wp_error($attachment_id)) {
-                $log[] = "({$current_row_number_for_log}) <span style='color:orange;'>&nbsp;&nbsp;&hookrightarrow; فشل تنزيل صورة غلاف '{$term_name}' من {$cover_image_url}. الخطأ: " . esc_html($attachment_id->get_error_message()) . "</span>";
-            }
-        }
-
-
-        if (!empty($gallery_images_urls)) {
-            $gallery_attachment_ids = get_term_meta($wp_term_id, $gallery_images_meta_key, true);
-            if(!is_array($gallery_attachment_ids)) $gallery_attachment_ids = [];
-
-            $newly_downloaded_gallery_ids = [];
-            $final_gallery_ids = $gallery_attachment_ids; // Start with existing ones
-
-            foreach ($gallery_images_urls as $index => $gallery_url) {
-                if ($gallery_url && filter_var($gallery_url, FILTER_VALIDATE_URL)) {
-                    // More robust check: try to see if an image with this source URL already exists for this term's gallery
-                    $already_exists_in_gallery = false;
-                    foreach($final_gallery_ids as $existing_att_id){
-                        if(get_post_meta($existing_att_id, '_wp_attached_file', true)){ // Check if it's a valid attachment
-                            $source_url_meta = get_post_meta($existing_att_id, '_source_url', true); // If we stored source URL during sideload
-                            if($source_url_meta === $gallery_url) {
-                                $already_exists_in_gallery = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if(!$already_exists_in_gallery){
-                        $gallery_attachment_id = media_sideload_image($gallery_url, 0, $term_name . ' Gallery ' . ($index + 1), 'id');
-                        if (!is_wp_error($gallery_attachment_id)) {
-                            if(!in_array($gallery_attachment_id, $final_gallery_ids)){
-                                $final_gallery_ids[] = $gallery_attachment_id;
-                                $newly_downloaded_gallery_ids[] = $gallery_attachment_id;
-                                // Optionally store the source URL as post meta for the attachment for future checks
-                                // update_post_meta($gallery_attachment_id, '_source_url', $gallery_url);
-                            }
-                            if (function_exists('pll_set_post_language') && $current_import_language && $current_import_language !== 'default') {
-                                pll_set_post_language($gallery_attachment_id, $current_import_language);
-                            }
-                        } else {
-                            $log[] = "({$current_row_number_for_log}) <span style='color:orange;'>&nbsp;&nbsp;&nbsp;&nbsp;&hookrightarrow; فشل تنزيل صورة إضافية من {$gallery_url}. الخطأ: " . esc_html($gallery_attachment_id->get_error_message()) . "</span>";
-                        }
-                    }
-                } else {
-                    $log[] = "({$current_row_number_for_log}) <span style='color:orange;'>&nbsp;&nbsp;&nbsp;&nbsp;&hookrightarrow; رابط صورة إضافية غير صالح: " . esc_html($gallery_url) . "</span>";
-                }
-            }
-            if (count($newly_downloaded_gallery_ids) > 0 || count($final_gallery_ids) !== count(get_term_meta($wp_term_id, $gallery_images_meta_key, true) ?: [])) {
-                update_term_meta($wp_term_id, $gallery_images_meta_key, array_unique($final_gallery_ids));
-                if(count($newly_downloaded_gallery_ids) > 0){
-                    $log[] = "({$current_row_number_for_log}) &nbsp;&nbsp;&hookrightarrow; تم تحديث/حفظ " . count($final_gallery_ids) . " صورة إضافية لـ '{$term_name}'. (جديد: " . count($newly_downloaded_gallery_ids) . ")";
-                }
+            $attachment_id = media_sideload_image($cover_image_url, 0, $term_name . ' Cover', 'id');
+            if (!is_wp_error($attachment_id)) {
+                update_term_meta($wp_term_id, $config['cover_image_meta_key'], $attachment_id);
+                if(function_exists('pll_set_post_language')) pll_set_post_language($attachment_id, $current_import_language);
             }
         }
     }
 
-    $processed_source_ids_recursion_check[$source_id] = 'completed_batch_item';
     $return_status_details['log'] = $log;
     return $return_status_details;
 }
 
-/**
- * MODIFIED: Get or Create Term for Linking with Language Consistency.
- * This function now finds a term with the exact name AND language.
- * If not found, it creates a new term in the specified language,
- * preventing the language of existing terms from being changed.
- *
- * @param string $term_name The name of the term to find or create.
- * @param string $taxonomy_slug The slug of the taxonomy.
- * @param string|null $language_code The target language code (e.g., 'en', 'ar').
- * @return int|null The term ID on success, or null on failure.
- */
+// 5. Helper function for linking, with language consistency fix.
 if (!function_exists('cob_get_or_create_term_for_linking')) {
     function cob_get_or_create_term_for_linking($term_name, $taxonomy_slug, $language_code = null) {
         if (empty($term_name) || empty($taxonomy_slug)) {
             return null;
         }
 
-        // Check if Polylang is active to perform language-specific search
+        // If Polylang is active, find a term with the exact name AND language.
         if ($language_code && function_exists('pll_get_term_language')) {
-            // This query is less efficient on very large sites, but crucial for language accuracy.
             $all_terms = get_terms([
                 'taxonomy' => $taxonomy_slug,
                 'hide_empty' => false,
-                'name' => $term_name // Pre-filter by name for better performance
+                'name' => $term_name,
             ]);
 
             if (!is_wp_error($all_terms)) {
                 foreach ($all_terms as $term) {
-                    // Find a term with the same name and the correct language
                     if (strcasecmp($term->name, $term_name) == 0 && pll_get_term_language($term->term_id) === $language_code) {
-                        return $term->term_id; // Found exact match in the right language
+                        return $term->term_id; // Found exact match in the right language.
                     }
                 }
             }
         } else {
-            // Fallback for when Polylang is not active or no language is specified
+            // Fallback for when Polylang is not active.
             $existing_term = term_exists($term_name, $taxonomy_slug);
             if ($existing_term) {
                 return is_array($existing_term) ? $existing_term['term_id'] : $existing_term;
             }
         }
 
-        // If we've reached this point, no term with this name and language exists.
-        // Create a new one.
-        $new_term_args = [];
-        $new_term = wp_insert_term($term_name, $taxonomy_slug, $new_term_args);
-
+        // If no term was found with the correct language, create a new one.
+        $new_term = wp_insert_term($term_name, $taxonomy_slug, []);
         if (is_wp_error($new_term) || !isset($new_term['term_id'])) {
-            return null; // Failed to create the term
+            return null; // Failed to create.
         }
 
         $term_id = $new_term['term_id'];
 
-        // Set the language for the newly created term
+        // Set the language for the newly created term.
         if ($term_id && $language_code && function_exists('pll_set_term_language')) {
             pll_set_term_language($term_id, $language_code);
         }
