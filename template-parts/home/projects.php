@@ -1,7 +1,8 @@
 <?php
 /**
  * Template Name: Latest Projects
- * This template has been modified to only display compounds that have a cover image.
+ * This template has been modified to only display compounds that have a cover image
+ * and sorts them by the most recently updated associated property.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -38,18 +39,49 @@ $compound_cover_image_meta_key = '_compound_cover_image_id';
         </div>
 
         <?php
-        // Retrieve up to 9 compound terms.
-        $compounds_args = [
+        // MODIFICATION: Using an advanced query to get compounds sorted by the last modified property within them.
+        $all_compounds = get_terms([
             'taxonomy'   => 'compound',
             'hide_empty' => false,
-            'number'     => 9,
-            // To show the absolute latest projects, you would need a more complex query
-            // that sorts terms by the modified date of their associated posts.
-            // For now, this gets the most recently created terms.
-            'orderby'    => 'id',
-            'order'      => 'DESC',
-        ];
-        $compounds = get_terms( $compounds_args );
+        ]);
+
+        $compound_modified = [];
+        $compounds = []; // Initialize as empty array
+
+        if ( ! empty( $all_compounds ) && ! is_wp_error( $all_compounds ) ) {
+            foreach ( $all_compounds as $compound ) {
+                $property_query = new WP_Query([
+                    'post_type'      => 'properties', // Ensure this is your correct property post type
+                    'posts_per_page' => 1,
+                    'orderby'        => 'modified',
+                    'order'          => 'DESC',
+                    'tax_query'      => [
+                        [
+                            'taxonomy' => 'compound',
+                            'field'    => 'term_id',
+                            'terms'    => $compound->term_id,
+                        ],
+                    ],
+                    'fields'         => 'ids',
+                ]);
+
+                if ( $property_query->have_posts() ) {
+                    $compound_modified[$compound->term_id] = get_post_modified_time('U', false, $property_query->posts[0]);
+                } else {
+                    $compound_modified[$compound->term_id] = 0; // Push compounds with no properties to the end
+                }
+            }
+
+            // Sort all compounds by the collected last modified date
+            usort($all_compounds, function($a, $b) use ($compound_modified) {
+                $modified_a = $compound_modified[$a->term_id] ?? 0;
+                $modified_b = $compound_modified[$b->term_id] ?? 0;
+                return $modified_b - $modified_a; // Sort descending (most recent first)
+            });
+
+            // After sorting, assign the top 9 to the $compounds variable for the loop.
+            $compounds = array_slice($all_compounds, 0, 9);
+        }
         ?>
 
         <?php if ( ! empty( $compounds ) && ! is_wp_error( $compounds ) ) : ?>
@@ -57,7 +89,7 @@ $compound_cover_image_meta_key = '_compound_cover_image_id';
                 <div class="swiper-wrapper">
                     <?php foreach ( $compounds as $compound ) : ?>
                         <?php
-                        // MODIFICATION: First, check if the main cover image exists.
+                        // Main filter: First, check if the main cover image exists.
                         $main_image_attachment_id = get_term_meta( $compound->term_id, $compound_cover_image_meta_key, true );
 
                         // Only render the slide if the attachment ID is found.
@@ -125,7 +157,7 @@ $compound_cover_image_meta_key = '_compound_cover_image_id';
             </div><!-- .swiper -->
         <?php else : ?>
             <div class="no-projects-found">
-                <p><?php esc_html_e( 'No projects available at the moment.', 'cob_theme' ); ?></p>
+                <p><?php esc_html_e( 'No projects available at the moment that match the criteria.', 'cob_theme' ); ?></p>
             </div>
         <?php endif; ?>
     </div><!-- .container -->
