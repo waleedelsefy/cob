@@ -1,14 +1,16 @@
 /**
  * JavaScript for the AJAX Property Importer.
  * Handles the frontend logic for the property importer page, including
- * file selection, AJAX communication, and updating the UI with progress.
+ * file source selection (upload vs. server), AJAX communication, and updating the UI.
  */
 jQuery(document).ready(function($) {
 
     // --- Element Selectors ---
     const form = $('#cob-importer-form');
     const fileInput = $('#property_csv');
+    const serverFileInput = $('#server_csv_file');
     const languageSelector = $('#import_language');
+    const sourceRadio = $('input[name="import_source"]');
     const startButton = form.find('button[type="submit"]');
     const resumeButton = $('#resume-import');
     const cancelButton = $('#cancel-import');
@@ -18,6 +20,21 @@ jQuery(document).ready(function($) {
     const logContainer = $('#importer-log');
 
     let isImporting = false;
+
+    // --- UI Functions ---
+
+    /**
+     * Toggles visibility of file source inputs based on radio button selection.
+     */
+    sourceRadio.on('change', function() {
+        if (this.value === 'upload') {
+            $('#source-upload-container').show();
+            $('#source-server-container').hide();
+        } else {
+            $('#source-upload-container').hide();
+            $('#source-server-container').show();
+        }
+    }).trigger('change'); // Trigger on page load to set initial state
 
     /**
      * Appends a message to the log container.
@@ -35,10 +52,7 @@ jQuery(document).ready(function($) {
      * @param {object} status The status object.
      */
     function updateUI(status) {
-        if (!status) {
-            resetUI();
-            return;
-        }
+        if (!status) return;
 
         const i18n = cobPropImporter.i18n;
         const progress = status.progress || 0;
@@ -67,6 +81,8 @@ jQuery(document).ready(function($) {
         $('#resume-notice').hide();
     }
 
+    // --- AJAX Functions ---
+
     /**
      * Processes a single batch of the import via an AJAX call.
      * It calls itself recursively upon success until the import is complete.
@@ -94,12 +110,13 @@ jQuery(document).ready(function($) {
                         isImporting = false;
                         addToLog('<strong>' + cobPropImporter.i18n.import_complete + '</strong>');
                         startButton.prop('disabled', false);
+                        cancelButton.text('Clear Status');
                     } else {
                         setTimeout(processBatch, 100); // Small delay to prevent server overload
                     }
                 } else {
                     isImporting = false;
-                    addToLog(response.data.message || 'An unknown error occurred during processing.', true);
+                    addToLog(response.data.message || 'An unknown error occurred.', true);
                     startButton.prop('disabled', false);
                 }
             },
@@ -111,16 +128,11 @@ jQuery(document).ready(function($) {
         });
     }
 
-    // --- Event Handlers ---
-    form.on('submit', function(e) {
-        e.preventDefault();
-        if (isImporting) return;
-
-        if (!fileInput[0].files.length) {
-            alert(cobPropImporter.i18n.error_selecting_file);
-            return;
-        }
-        if (!confirm(cobPropImporter.i18n.confirm_new_import)) return;
+    /**
+     * Prepares the import by sending the file to the backend.
+     */
+    function prepareImport() {
+        const source = $('input[name="import_source"]:checked').val();
 
         isImporting = true;
         logContainer.html('');
@@ -133,8 +145,14 @@ jQuery(document).ready(function($) {
         formData.append('action', 'cob_run_property_importer');
         formData.append('nonce', cobPropImporter.nonce);
         formData.append('importer_action', 'prepare');
-        formData.append('csv_file', fileInput[0].files[0]);
+        formData.append('source_type', source);
         formData.append('import_language', languageSelector.val());
+
+        if (source === 'upload') {
+            formData.append('csv_file', fileInput[0].files[0]);
+        } else {
+            formData.append('file_name', serverFileInput.val());
+        }
 
         $.ajax({
             url: cobPropImporter.ajax_url,
@@ -163,6 +181,25 @@ jQuery(document).ready(function($) {
                 startButton.prop('disabled', false);
             }
         });
+    }
+
+    // --- Event Handlers ---
+    form.on('submit', function(e) {
+        e.preventDefault();
+        if (isImporting) return;
+
+        const source = $('input[name="import_source"]:checked').val();
+        if (source === 'upload' && !fileInput[0].files.length) {
+            alert(cobPropImporter.i18n.error_selecting_file);
+            return;
+        }
+        if (source === 'server' && !serverFileInput.val()) {
+            alert(cobPropImporter.i18n.error_selecting_file);
+            return;
+        }
+        if (!confirm(cobPropImporter.i18n.confirm_new_import)) return;
+
+        prepareImport();
     });
 
     resumeButton.on('click', function() {
@@ -175,7 +212,25 @@ jQuery(document).ready(function($) {
         cancelButton.show();
         resumeButton.hide();
         addToLog('Attempting to resume previous import...');
-        processBatch();
+
+        // Directly get status and then process batch
+        $.ajax({
+            url: cobPropImporter.ajax_url,
+            type: 'POST',
+            data: { action: 'cob_run_property_importer', nonce: cobPropImporter.nonce, importer_action: 'get_status' },
+            dataType: 'json',
+            success: function(response) {
+                if(response.success) {
+                    updateUI(response.data.status);
+                    addToLog('Resumed successfully. Continuing import...');
+                    processBatch();
+                } else {
+                    isImporting = false;
+                    addToLog(response.data.message || 'Could not find a resumable import.', true);
+                    resetUI();
+                }
+            }
+        });
     });
 
     cancelButton.on('click', function() {
