@@ -2,65 +2,43 @@
 /**
  * Template for displaying a slider of Developers.
  * Assumes 'developer' taxonomy and a meta field for logo attachment ID.
+ * This version is modified to only display developers who have a logo image.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+    exit; // Exit if accessed directly.
 }
 
 $theme_dir = get_template_directory_uri();
-// This should match the meta key used by your manual field and importer for the developer's logo.
-// It's defined as COB_DEVELOPER_LOGO_META_KEY in the manual_developer_logo_field_updated artifact.
+// This should match the meta key used for the developer's logo.
 $developer_logo_meta_key = '_developer_logo_id';
 
 $developers_args = [
-    'taxonomy'   => 'developer', // Ensure this is your correct developer taxonomy slug
-    'hide_empty' => false,     // Set to true if you only want developers with associated posts/compounds
-    'number'     => 9,         // Limit to 9 developers for the slider
-    // Consider adding 'orderby' and 'order' if you need specific sorting
-    // e.g., 'orderby' => 'name', 'order' => 'ASC'
-    // or 'orderby' => 'count', 'order' => 'DESC' (by number of associated posts)
+    'taxonomy'   => 'developer', // The slug for your developer taxonomy.
+    'hide_empty' => false,     // Set to true if you only want developers with associated posts.
+    'number'     => 9,         // Limit to 9 developers.
+    // Consider adding 'orderby' => 'count', 'order' => 'DESC' to get the most popular developers.
 ];
 $developers = get_terms( $developers_args );
 
 ?>
 
-<div class="motaoron"> <?php // Consider renaming class to something like "developers-slider-section" for clarity ?>
+<div class="motaoron"> <?php // Consider a more descriptive class name like "developers-slider" ?>
     <div class="container">
-        <div class="top-motaoron"> <?php // Consider "top-developers-header" ?>
-            <div class="right-motaoron"> <?php // Consider "developers-header-title" ?>
+        <div class="top-motaoron">
+            <div class="right-motaoron">
                 <h3 class="head"><?php esc_html_e( 'Developers', 'cob_theme' ); ?></h3>
             </div>
             <?php
-            $all_developers_page_slug = 'developers'; // Slug of your "All Developers" page
-            $developer_taxonomy_name = 'developer';   // The slug of your 'developer' taxonomy
-
-            // Attempt 1: Link to a Custom Post Type archive if 'developer' is also a CPT
-            $all_developers_link = get_post_type_archive_link( $developer_taxonomy_name );
-
-            // Attempt 2: Link to Taxonomy archive if function exists (WP 4.5+)
-            if ( ! $all_developers_link || is_wp_error( $all_developers_link ) ) {
-                if ( function_exists( 'get_taxonomy_archive_link' ) ) {
-                    $all_developers_link = get_taxonomy_archive_link( $developer_taxonomy_name );
-                }
-                // If function doesn't exist, $all_developers_link remains as is (false or error from CPT check)
-                // The next block will handle further fallbacks.
-            }
-
-            // Attempt 3: Fallback to a specific page by slug if previous attempts failed
-            if ( ! $all_developers_link || is_wp_error( $all_developers_link ) ) {
-                $developers_page = get_page_by_path( $all_developers_page_slug );
+            // Logic to generate the "View all" link.
+            $all_developers_link = get_term_link( 'developers', 'category' ); // A simplified approach, adjust if needed.
+            // A more robust fallback could be to link to a page with the slug 'developers'.
+            if ( is_wp_error( $all_developers_link ) ) {
+                $developers_page = get_page_by_path( 'developers' );
                 if ( $developers_page ) {
                     $all_developers_link = get_permalink( $developers_page->ID );
                 } else {
-                    // Attempt 4: Construct a basic link if page not found (assumes pretty permalinks)
-                    // This is a more direct guess if get_taxonomy_archive_link was the one that failed or was missing.
-                    $all_developers_link = home_url( user_trailingslashit( $developer_taxonomy_name ) );
-
-                    // Final Fallback: If all else fails or constructed URL is still an error/empty
-                    if ( is_wp_error( $all_developers_link ) || ! $all_developers_link ) {
-                        $all_developers_link = '#'; // Ultimate fallback
-                    }
+                    $all_developers_link = '#'; // Fallback if no page or term archive exists.
                 }
             }
             ?>
@@ -75,42 +53,40 @@ $developers = get_terms( $developers_args );
         </div>
 
         <?php if ( ! empty( $developers ) && ! is_wp_error( $developers ) ) : ?>
-            <div class="swiper swiper4"> <?php // Ensure Swiper JS is initialized for this class ?>
+            <div class="swiper swiper4"> <?php // Ensure Swiper JS is initialized for this class. ?>
                 <div class="swiper-wrapper">
                     <?php foreach ( $developers as $developer ) : ?>
                         <?php
-                        // Initialize variables for each iteration
-                        $developer_link = '#';
-                        $image_url      = $theme_dir . '/assets/imgs/developer-default.png';
-                        $developer_name = __('Unnamed Developer', 'cob_theme');
+                        // MODIFICATION: Check for a logo before rendering the card.
+                        // First, get the logo attachment ID from the term's metadata.
+                        $attachment_id = get_term_meta( $developer->term_id, $developer_logo_meta_key, true );
 
-                        if ( ! empty( $developer ) && is_object( $developer ) && isset($developer->term_id) ) {
-                            $developer_name = $developer->name;
-                            $developer_link_candidate = get_term_link( $developer );
-
-                            if ( !is_wp_error( $developer_link_candidate ) ) {
-                                $developer_link = $developer_link_candidate;
+                        // Only proceed to render the HTML if a valid attachment ID was found.
+                        if ( $attachment_id ) :
+                            $developer_link = get_term_link( $developer );
+                            if ( is_wp_error( $developer_link ) ) {
+                                $developer_link = '#';
                             }
 
-                            $attachment_id = get_term_meta( $developer->term_id, $developer_logo_meta_key, true );
-
-                            if ( $attachment_id ) {
-                                $image_data = wp_get_attachment_image_src( $attachment_id, 'medium' );
-                                if ( $image_data && isset($image_data[0]) ) {
-                                    $image_url = $image_data[0];
-                                }
+                            // Get the image source URL from the attachment ID.
+                            $image_data = wp_get_attachment_image_src( $attachment_id, 'medium' ); // Can be 'thumbnail', 'large', etc.
+                            if ( ! $image_data || ! isset( $image_data[0] ) ) {
+                                continue; // Skip if ID is present but image data is not available.
                             }
-                        }
+                            $image_url = $image_data[0];
+                            ?>
+                            <div class="swiper-slide">
+                                <a href="<?php echo esc_url( $developer_link ); ?>" class="motaoron-img">
+                                    <img data-src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $developer->name ); ?>" class="lazyload">
+                                </a>
+                            </div>
+                        <?php
+                        endif; // End the conditional check for $attachment_id.
                         ?>
-
-                        <div class="swiper-slide">
-                            <a href="<?php echo esc_url( $developer_link ); ?>" class="motaoron-img">
-                                <img data-src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $developer_name ); ?>" class="lazyload">
-                            </a>
-                        </div>
                     <?php endforeach; ?>
                 </div>
 
+                <!-- Swiper Navigation Buttons -->
                 <div class="swiper-button-prev">
                     <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

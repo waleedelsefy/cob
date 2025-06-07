@@ -2,33 +2,39 @@
 /**
  * Most Searched Compounds Template
  *
+ * This template fetches compounds (a custom taxonomy), sorts them by the most
+ * recently updated property within them, and displays them in a Swiper slider.
+ * It includes a critical modification to only display compounds that have a cover image assigned.
+ *
  * @package Capital_of_Business
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+    exit; // Exit if accessed directly.
 }
 
 $theme_dir = get_template_directory_uri();
 
-// It's good practice to use the config from your importer if possible,
-// or ensure these keys match.
-// For this example, we'll hardcode the key used by the latest importer script.
-$cover_image_meta_key = '_compound_cover_image_id'; // As per your importer script config
+// Define the meta key for the compound's cover image.
+// This should match the key used in your backend (e.g., via ACF or your importer script).
+$cover_image_meta_key = '_compound_cover_image_id';
 
+// Retrieve all terms from the 'compound' taxonomy.
 $compounds = get_terms( [
     'taxonomy'   => 'compound',
     'hide_empty' => false,
-    // Consider adding 'number' => some_limit if you only need a certain amount before sorting,
-    // though sorting all then slicing is also fine for moderate numbers of terms.
+    // For better performance on sites with many terms, consider limiting the number here
+    // and adjusting the logic if needed, e.g., 'number' => 100.
 ] );
 
 $compound_modified = array();
 
+// Proceed only if terms were found.
 if ( ! empty( $compounds ) && ! is_wp_error( $compounds ) ) {
+    // Loop through each compound to find the last modification date of its properties.
     foreach ( $compounds as $compound ) {
         $args = [
-            'post_type'      => 'properties', // Make sure this is your correct property post type
+            'post_type'      => 'properties', // Ensure this is your correct property post type slug.
             'posts_per_page' => 1,
             'orderby'        => 'modified',
             'order'          => 'DESC',
@@ -39,33 +45,29 @@ if ( ! empty( $compounds ) && ! is_wp_error( $compounds ) ) {
                     'terms'    => $compound->term_id,
                 ],
             ],
-            'fields'         => 'ids', // More efficient as we only need the date from one post
+            'fields'         => 'ids', // More efficient query, as we only need the ID to get the modified time.
         ];
         $query = new WP_Query( $args );
 
         if ( $query->have_posts() ) {
-            // $query->the_post(); // Not needed if using 'fields' => 'ids'
-            // $last_modified = get_the_modified_date( 'U' );
+            // Store the last modified timestamp of the newest property in the compound.
             $last_modified = get_post_modified_time( 'U', false, $query->posts[0] );
             $compound_modified[ $compound->term_id ] = $last_modified;
         } else {
-            // If a compound has no properties, its last modified date for sorting purposes could be its term creation/modification date,
-            // or simply a very old date to push it to the bottom. Using 0 is fine for sorting.
-            // Alternatively, you could use $compound->term_id creation time if available or relevant.
-            // For now, 0 means it will be sorted as less recent.
+            // If a compound has no properties, assign 0 to sort it as the least recent.
             $compound_modified[ $compound->term_id ] = 0;
         }
-        // wp_reset_postdata(); // Not strictly necessary if 'fields' => 'ids' and not calling the_post()
     }
 
-    // Sort compounds by the last modified date of their properties
+    // Sort the $compounds array based on the collected modification dates.
     usort( $compounds, function( $a, $b ) use ( $compound_modified ) {
         $modified_a = $compound_modified[ $a->term_id ] ?? 0;
         $modified_b = $compound_modified[ $b->term_id ] ?? 0;
-        return $modified_b - $modified_a; // Sorts descending (most recent first)
+        return $modified_b - $modified_a; // Sorts in descending order (most recent first).
     } );
 
-    // Get the top 9 compounds
+    // After sorting, take the top 9 compounds.
+    // Note: The final display might be less than 9 if some of the top compounds lack an image.
     $compounds = array_slice( $compounds, 0, 9 );
 }
 ?>
@@ -79,45 +81,53 @@ if ( ! empty( $compounds ) && ! is_wp_error( $compounds ) ) {
         </div>
 
         <?php if ( ! empty( $compounds ) && ! is_wp_error( $compounds ) ) : ?>
-            <div class="swiper swiper1"> <?php // Ensure Swiper JS is initialized for this class ?>
+            <div class="swiper swiper1"> <?php // Ensure your Swiper JS is initialized on this class. ?>
                 <div class="swiper-wrapper">
                     <?php foreach ( $compounds as $compound ) : ?>
-                        <div class="swiper-slide">
-                            <a href="<?php echo esc_url( get_term_link( $compound ) ); ?>" class="compounds-card">
-                                <div class="top-card-comp">
-                                    <h6><?php echo esc_html( $compound->name ); ?></h6>
-                                    <span>
+                        <?php
+                        // MODIFICATION: Check for an image before rendering the card.
+                        // First, get the cover image attachment ID from the term's metadata.
+                        $attachment_id = get_term_meta( $compound->term_id, $cover_image_meta_key, true );
+
+                        // Only proceed to render the HTML if a valid attachment ID was found.
+                        if ( $attachment_id ) :
+                            $image_url = '';
+                            // Get the image source URL from the attachment ID.
+                            // You can change 'medium' to other sizes like 'large', 'thumbnail', or a custom image size.
+                            $image_data = wp_get_attachment_image_src( $attachment_id, 'medium' );
+                            if ( $image_data && isset($image_data[0]) ) {
+                                $image_url = $image_data[0];
+                            } else {
+                                // Fallback for the rare case an ID exists but the image is gone. Skip this item.
+                                continue;
+                            }
+                            ?>
+                            <div class="swiper-slide">
+                                <a href="<?php echo esc_url( get_term_link( $compound ) ); ?>" class="compounds-card">
+                                    <div class="top-card-comp">
+                                        <h6><?php echo esc_html( $compound->name ); ?></h6>
+                                        <span>
                                         <?php
-                                        // Attempt to get a specific property count meta, otherwise use default term count
-                                        // Note: 'propertie_count' has a typo, usually it's 'properties_count'
-                                        $prop_count = get_term_meta( $compound->term_id, 'properties_count', true ); // Corrected typo
-                                        if ( ! $prop_count || !is_numeric($prop_count) ) { // Check if it's not set or not a number
-                                            $prop_count = $compound->count; // Fallback to the number of posts associated with the term
+                                        // Attempt to get a specific property count from meta, otherwise use the default term count.
+                                        $prop_count = get_term_meta( $compound->term_id, 'properties_count', true );
+                                        if ( ! $prop_count || !is_numeric($prop_count) ) {
+                                            $prop_count = $compound->count; // Fallback to WP's default post count for the term.
                                         }
                                         echo esc_html( number_format_i18n( (int) $prop_count ) ) . ' ' . esc_html__( 'Properties', 'cob_theme' );
                                         ?>
                                     </span>
-                                </div>
+                                    </div>
 
-                                <?php
-                                // Get the cover image using the attachment ID stored in term meta
-                                $attachment_id = get_term_meta( $compound->term_id, $cover_image_meta_key, true );
-                                $image_url = $theme_dir . '/assets/imgs/default.jpg'; // Default image
-
-                                if ( $attachment_id ) {
-                                    // Get image URL by desired size. 'medium', 'large', 'thumbnail', or a custom registered size.
-                                    $image_data = wp_get_attachment_image_src( $attachment_id, 'medium' ); // Or 'large', 'medium_large' etc.
-                                    if ( $image_data && isset($image_data[0]) ) {
-                                        $image_url = $image_data[0];
-                                    }
-                                }
-                                ?>
-                                <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $compound->name ); ?>" class="lazyload"> <?php // Ensure lazyload is initialized ?>
-                            </a>
-                        </div>
+                                    <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $compound->name ); ?>" class="lazyload"> <?php // Ensure your lazyload script is initialized. ?>
+                                </a>
+                            </div>
+                        <?php
+                        endif; // End the conditional check for $attachment_id.
+                        ?>
                     <?php endforeach; ?>
                 </div>
 
+                <!-- Swiper Navigation Buttons -->
                 <div class="swiper-button-prev">
                     <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1.66602 6.00033H18.3327M1.66602 6.00033C1.66602 4.54158 5.82081 1.81601 6.87435 0.791992M1.66602 6.00033C1.66602 7.45908 5.82081 10.1847 6.87435 11.2087"
@@ -130,6 +140,7 @@ if ( ! empty( $compounds ) && ! is_wp_error( $compounds ) ) {
                               stroke="#fff" stroke-width="1.5625" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
+                <!-- Swiper Pagination -->
                 <div class="swiper-pagination"></div>
             </div>
         <?php else : ?>
