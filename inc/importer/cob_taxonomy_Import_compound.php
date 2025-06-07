@@ -2,16 +2,7 @@
 /**
  * AJAX WordPress Importer for 'compound' taxonomy from a CSV file.
  * Includes linking to 'developer' and 'city' taxonomies, image downloads.
- *
- * Instructions:
- * 1. Place this code in your theme's functions.php or a custom plugin.
- * 2. Create a JS file (e.g., your-theme/js/cob-compound-taxonomy-importer.js) with the provided JS code.
- * 3. Update JS_PATH in cob_cti_enqueue_assets() to the correct path of your JS file.
- * 4. Ensure 'developer' and 'city' taxonomies are registered.
- * 5. Access via "Tools" > "استيراد تصنيفات الكمبوندات (AJAX)".
- * 6. Verify CSV column names and taxonomy slugs in $cob_compound_importer_config.
- * 7. Backup your database before any import.
- * 8. **CRITICAL FOR PERFORMANCE/TIMEOUTS: 'batch_size' is set to 1. This is highly recommended.**
+ * This version includes a crucial fix to ensure developer/city languages match the compound's language.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -73,7 +64,7 @@ function cob_cti_enqueue_assets() {
         'cob-cti-js',
         $js_path,
         ['jquery'],
-        '1.0.3', // Incremented version for clarity
+        '1.0.5', // Incremented version for clarity
         true
     );
     wp_localize_script('cob-cti-js', 'cobCTIAjax', [
@@ -614,32 +605,64 @@ function cob_import_single_compound_ajax($csv_row_data_assoc, &$config, $current
     return $return_status_details;
 }
 
+/**
+ * MODIFIED: Get or Create Term for Linking with Language Consistency.
+ * This function now finds a term with the exact name AND language.
+ * If not found, it creates a new term in the specified language,
+ * preventing the language of existing terms from being changed.
+ *
+ * @param string $term_name The name of the term to find or create.
+ * @param string $taxonomy_slug The slug of the taxonomy.
+ * @param string|null $language_code The target language code (e.g., 'en', 'ar').
+ * @return int|null The term ID on success, or null on failure.
+ */
 if (!function_exists('cob_get_or_create_term_for_linking')) {
     function cob_get_or_create_term_for_linking($term_name, $taxonomy_slug, $language_code = null) {
         if (empty($term_name) || empty($taxonomy_slug)) {
             return null;
         }
-        $term_id = null;
-        $existing_term = term_exists($term_name, $taxonomy_slug);
 
-        if ($existing_term) {
-            $term_id = is_array($existing_term) ? $existing_term['term_id'] : $existing_term;
+        // Check if Polylang is active to perform language-specific search
+        if ($language_code && function_exists('pll_get_term_language')) {
+            // This query is less efficient on very large sites, but crucial for language accuracy.
+            $all_terms = get_terms([
+                'taxonomy' => $taxonomy_slug,
+                'hide_empty' => false,
+                'name' => $term_name // Pre-filter by name for better performance
+            ]);
+
+            if (!is_wp_error($all_terms)) {
+                foreach ($all_terms as $term) {
+                    // Find a term with the same name and the correct language
+                    if (strcasecmp($term->name, $term_name) == 0 && pll_get_term_language($term->term_id) === $language_code) {
+                        return $term->term_id; // Found exact match in the right language
+                    }
+                }
+            }
         } else {
-            $new_term_args = [];
-            $new_term = wp_insert_term($term_name, $taxonomy_slug, $new_term_args);
-            if (!is_wp_error($new_term) && isset($new_term['term_id'])) {
-                $term_id = $new_term['term_id'];
-            } else {
-                return null;
+            // Fallback for when Polylang is not active or no language is specified
+            $existing_term = term_exists($term_name, $taxonomy_slug);
+            if ($existing_term) {
+                return is_array($existing_term) ? $existing_term['term_id'] : $existing_term;
             }
         }
-        if ($term_id && $language_code && $language_code !== 'default' && function_exists('pll_set_term_language')) {
-            $current_term_lang = pll_get_term_language($term_id, 'slug');
-            if ($current_term_lang !== $language_code) {
-                pll_set_term_language($term_id, $language_code);
-            }
+
+        // If we've reached this point, no term with this name and language exists.
+        // Create a new one.
+        $new_term_args = [];
+        $new_term = wp_insert_term($term_name, $taxonomy_slug, $new_term_args);
+
+        if (is_wp_error($new_term) || !isset($new_term['term_id'])) {
+            return null; // Failed to create the term
         }
+
+        $term_id = $new_term['term_id'];
+
+        // Set the language for the newly created term
+        if ($term_id && $language_code && function_exists('pll_set_term_language')) {
+            pll_set_term_language($term_id, $language_code);
+        }
+
         return $term_id;
     }
 }
-?>
